@@ -6,7 +6,7 @@
 #    By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/22 16:45:39 by brivera           #+#    #+#              #
-#    Updated: 2025/09/22 19:01:44 by brivera          ###   ########.fr        #
+#    Updated: 2025/09/22 19:39:29 by brivera          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ HEADERS := Contact.hpp PhoneBook.hpp PhoneBookInterface.hpp
 OBJS_DIR := objs
 OBJS := $(addprefix $(OBJS_DIR)/, $(SRCS:.cpp=.o))
 
-RM := rm -f
+RM := rm -rf
 
 GREEN := \033[0;32m
 RED := \033[0;31m
@@ -38,7 +38,7 @@ $(OBJS_DIR)/%.o: %.cpp $(HEADERS)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@$(RM) $(OBJS_DIR)/*.o
+	@$(RM) $(OBJS_DIR)/*.o $(OBJS_DIR)
 	@echo "$(RED)Object files removed.$(CLEAR_COLOR)"
 
 fclean: clean
