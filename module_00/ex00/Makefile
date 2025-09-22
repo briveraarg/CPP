@@ -6,7 +6,7 @@
 #    By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/22 15:55:51 by brivera           #+#    #+#              #
-#    Updated: 2025/09/22 16:50:44 by brivera          ###   ########.fr        #
+#    Updated: 2025/09/22 19:38:30 by brivera          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRCS := megaphone.cpp
 OBJS_DIR := objs
 OBJS := $(addprefix $(OBJS_DIR)/, $(SRCS:.cpp=.o))
 
-RM := rm -f
+RM := rm -rf
 	
 GREEN := \033[0;32m
 RED := \033[0;31m
@@ -36,7 +36,7 @@ $(OBJS_DIR)/%.o: %.cpp
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@$(RM) $(OBJS_DIR)/*.o
+	@$(RM) $(OBJS_DIR)/*.o $(OBJS_DIR)
 	@echo "$(RED)Object files removed.$(CLEAR_COLOR)"
 
 fclean: clean
