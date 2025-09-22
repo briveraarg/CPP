@@ -1,0 +1,4 @@
+*.o
+megaphone
+.DS_Store
+*.swp
