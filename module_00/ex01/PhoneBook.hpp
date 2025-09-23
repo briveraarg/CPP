@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 16:57:21 by brivera           #+#    #+#             */
-/*   Updated: 2025/09/23 12:22:45 by brivera          ###   ########.fr       */
+/*   Updated: 2025/09/23 15:53:09 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ private:
 	std::string	formatColumn(const std::string& text) const;
 public:
 	PhoneBook();
-	~PhoneBook();
+	~PhoneBook(void);
 
 	void		addContact(const Contact& contact);
 	void		displayAllContacts() const;

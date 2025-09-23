@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 17:45:00 by brivera           #+#    #+#             */
-/*   Updated: 2025/09/23 12:25:31 by brivera          ###   ########.fr       */
+/*   Updated: 2025/09/23 15:53:16 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ PhoneBook::PhoneBook()
 	totalContacts = 0;
 }
 
-PhoneBook::~PhoneBook()
+PhoneBook::~PhoneBook(void)
 {   }
 
 /* 

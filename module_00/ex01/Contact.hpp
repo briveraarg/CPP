@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 16:55:16 by brivera           #+#    #+#             */
-/*   Updated: 2025/09/23 12:03:05 by brivera          ###   ########.fr       */
+/*   Updated: 2025/09/23 17:06:41 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ private:
 
 public:
 	Contact();
-	~Contact();
+	~Contact(void);
 	
 	// Métodos para establecer datos (setters)
 	void	setFirstName(const std::string& name);
