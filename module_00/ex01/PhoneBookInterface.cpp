@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 18:50:00 by brivera           #+#    #+#             */
-/*   Updated: 2025/09/22 19:27:28 by brivera          ###   ########.fr       */
+/*   Updated: 2025/09/23 12:34:39 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 #include <iostream>
 #include <string>
 
-// Función para validar nombres (solo letras, espacios y algunos caracteres especiales)
-// Permitir letras (mayúsculas y minúsculas), espacios, guiones y apostrofes
-bool	isValidName(const std::string& name)
+/* 
+ * Permitir letras (mayúsculas y minúsculas),
+ * espacios, guiones y apostrofes.
+ * */
+
+bool	isValidName(const std::string &name)
 {
 	size_t	i;
 	char	c;
@@ -36,8 +39,7 @@ bool	isValidName(const std::string& name)
 	return (true);
 }
 
-// Función para validar números de teléfono
-bool	isValidPhoneNumber(const std::string& phone)
+bool	isValidPhoneNumber(const std::string &phone)
 {
 	size_t	start;
 	size_t	i;
@@ -60,8 +62,8 @@ bool	isValidPhoneNumber(const std::string& phone)
 	return (true);
 }
 
-// Función para obtener entrada validada del usuario
-bool	getValidatedInput(const std::string& prompt, std::string& result, const std::string& type)
+bool	getValidatedInput(const std::string &prompt, 
+		std::string &result, const std::string	&type)
 {
 	std::string	input;
 	
@@ -69,11 +71,7 @@ bool	getValidatedInput(const std::string& prompt, std::string& result, const std
 	{
 		std::cout << prompt;
 		if (!std::getline(std::cin, input))
-		{
-			std::cerr << "\nEOF detected. Exiting..." << std::endl;
-			return (false);
-		}
-		
+			return (std::cerr << "\nEOF detected. Exiting..." << std::endl, false);
 		if (input.empty())
 		{
 			std::cerr << "Field cannot be empty. Please try again." << std::endl;
@@ -89,16 +87,17 @@ bool	getValidatedInput(const std::string& prompt, std::string& result, const std
 			std::cerr << "Invalid phone number. Use only numbers, spaces, hyphens and + at the beginning." << std::endl;
 			continue ;
 		}
-		
 		result = input;
 		return (true);
 	}
 }
 
-// Función para obtener entrada del usuario (no puede estar vacía)
-// Retorna true si éxito, false si EOF
+/* 
+ * Función para obtener entrada del usuario (no puede estar vacía)
+ * Retorna true si éxito, false si EOF 
+*/
 
-bool	getInput(const std::string& prompt, std::string& result)
+bool	getInput(const std::string& prompt, std::string	&result)
 {
 	std::string	input;
 	
@@ -119,13 +118,12 @@ bool	getInput(const std::string& prompt, std::string& result)
 	}
 }
 
-// Función para añadir un nuevo contacto interactivamente
 void	addContactInteractive(PhoneBook& phoneBook)
 {
 	Contact		newContact;
 	std::string	input;
 	
-	std::cout << "Adding new contact...\n";
+	std::cout << "Adding new contact..." << std::endl;
 	if (!getValidatedInput("First Name: ", input, "name")) 
 		return ;
 	newContact.setFirstName(input);
@@ -145,7 +143,6 @@ void	addContactInteractive(PhoneBook& phoneBook)
 	std::cout << "Contact added successfully!" << std::endl;
 }
 
-// Función para buscar y mostrar contactos interactivamente
 void	searchContactInteractive(const PhoneBook& phoneBook)
 {
 	int	index;
@@ -172,13 +169,11 @@ void	searchContactInteractive(const PhoneBook& phoneBook)
 		std::cerr << "Invalid index!" << std::endl;
 }
 
-// Bucle principal del programa de interfaz
 void runPhoneBookInterface(PhoneBook& phoneBook)
 {
 	std::string command;
 	
-	std::cout << "Welcome to the 80s PhoneBook!\n";
-	
+	std::cout << "\nWelcome to the 80s PhoneBook!" << std::endl;
 	while (true)
 	{
 		std::cout << "\nEnter command (ADD, SEARCH, EXIT): ";
@@ -193,10 +188,11 @@ void runPhoneBookInterface(PhoneBook& phoneBook)
 			searchContactInteractive(phoneBook);
 		else if (command == "EXIT")
 		{
-			std::cout << "Goodbye!\n";
+			std::cout << "Goodbye!" << std::endl;
 			break ;
 		}
 		else
-			std::cerr << "Invalid command. Use ADD, SEARCH, or EXIT." << std::endl;
+			std::cerr << "Invalid command. Use ADD, SEARCH, or EXIT."
+			<< std::endl;
 	}
 }

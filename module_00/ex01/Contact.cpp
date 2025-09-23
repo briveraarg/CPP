@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 16:55:08 by brivera           #+#    #+#             */
-/*   Updated: 2025/09/22 19:02:43 by brivera          ###   ########.fr       */
+/*   Updated: 2025/09/23 12:31:10 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,18 @@
 #include <string>
 #include <iostream>
 
-// Constructor: las strings se inicializan vacías automáticamente
+/* 
+ * Constructor: las strings se inicializan vacías automáticamente
+ * Destructor: las strings se destruyen automáticamente 
+ * De momento estan por buenas prácticas
+*/
+
 Contact::Contact()
 {   }
 
-// Destructor: las strings se destruyen automáticamente
 Contact::~Contact()
 {   }
 
-// ======== SETTERS (para poner valores) ========
 void	Contact::setFirstName(const std::string &name)
 {
 	firstName = name;
@@ -48,7 +51,6 @@ void	Contact::setDarkestSecret(const std::string &secret)
 	darkestSecret = secret;
 }
 
-// ======== GETTERS (para obtener valores) ========
 std::string	Contact::getFirstName() const
 {
 	return (firstName);
@@ -74,7 +76,6 @@ std::string Contact::getDarkestSecret() const
 	return (darkestSecret);
 }
 
-// ======== MÉTODOS DE UTILIDAD ========
 bool Contact::isEmpty() const
 {
 	return (firstName.empty() && lastName.empty() && 

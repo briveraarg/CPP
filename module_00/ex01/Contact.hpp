@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 16:55:16 by brivera           #+#    #+#             */
-/*   Updated: 2025/09/22 17:56:48 by brivera          ###   ########.fr       */
+/*   Updated: 2025/09/23 12:03:05 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ public:
 	std::string	getDarkestSecret() const;
 	
 	// Métodos de utilidad
-	bool		isEmpty() const;			// Verificar si está vacío
-	void		displayFull() const;		// Mostrar toda la información
+	bool		isEmpty() const;
+	void		displayFull() const;
 };
 
 #endif

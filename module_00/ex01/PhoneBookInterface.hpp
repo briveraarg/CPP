@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 18:50:00 by brivera           #+#    #+#             */
-/*   Updated: 2025/09/22 19:21:09 by brivera          ###   ########.fr       */
+/*   Updated: 2025/09/23 12:34:15 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "PhoneBook.hpp"
 #include <string>
 
-// Funciones de interfaz de usuario
+//Funciones de interfaz de usuario
 void	runPhoneBookInterface(PhoneBook& phoneBook);
 void    addContactInteractive(PhoneBook& phoneBook);
 void	searchContactInteractive(const PhoneBook& phoneBook);
