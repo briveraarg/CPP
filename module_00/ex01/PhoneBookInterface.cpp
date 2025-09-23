@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 18:50:00 by brivera           #+#    #+#             */
-/*   Updated: 2025/09/23 12:34:39 by brivera          ###   ########.fr       */
+/*   Updated: 2025/09/23 14:21:12 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ bool	getInput(const std::string& prompt, std::string	&result)
 	}
 }
 
-void	addContactInteractive(PhoneBook& phoneBook)
+void	addContactInteractive(PhoneBook &phoneBook)
 {
 	Contact		newContact;
 	std::string	input;
@@ -169,7 +169,7 @@ void	searchContactInteractive(const PhoneBook& phoneBook)
 		std::cerr << "Invalid index!" << std::endl;
 }
 
-void runPhoneBookInterface(PhoneBook& phoneBook)
+void runPhoneBookInterface(PhoneBook &phoneBook)
 {
 	std::string command;
 	

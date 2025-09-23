@@ -6,7 +6,7 @@
 #    By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/22 16:45:39 by brivera           #+#    #+#              #
-#    Updated: 2025/09/22 19:39:29 by brivera          ###   ########.fr        #
+#    Updated: 2025/09/23 15:29:10 by brivera          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,10 @@ fclean: clean
 re: fclean all
 	@echo "$(GREEN)Recompiled $(NAME).$(CLEAR_COLOR)"
 
-.PHONY: all clean fclean re
+test: fclean 
+	$(CXX) $(CXXFLAGS) -DTEST=1 -o $(NAME) *.cpp
+	@echo "✅$(GREEN)Compilado en modo TEST $(CLEAR_COLOR)"
+
+.PHONY: all clean fclean re test
 
 .GOAL: all
