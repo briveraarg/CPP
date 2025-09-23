@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 16:55:08 by brivera           #+#    #+#             */
-/*   Updated: 2025/09/23 12:31:10 by brivera          ###   ########.fr       */
+/*   Updated: 2025/09/23 20:16:18 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 #include <string>
 #include <iostream>
 
-/* 
- * Constructor: las strings se inicializan vacías automáticamente
- * Destructor: las strings se destruyen automáticamente 
- * De momento estan por buenas prácticas
+/*
+** Constructor: los miembros std::string se inicializan automáticamente como vacíos
+** Destructor: los miembros std::string se destruyen automáticamente
+** Ambos incluidos por buenas prácticas de C++
 */
 
 Contact::Contact()
@@ -25,6 +25,10 @@ Contact::Contact()
 
 Contact::~Contact()
 {   }
+
+/* ************************************************************************** */
+/*                                SETTERS                                    */
+/* ************************************************************************** */
 
 void	Contact::setFirstName(const std::string &name)
 {
@@ -51,6 +55,10 @@ void	Contact::setDarkestSecret(const std::string &secret)
 	darkestSecret = secret;
 }
 
+/* ************************************************************************** */
+/*                                GETTERS                                    */
+/* ************************************************************************** */
+
 std::string	Contact::getFirstName() const
 {
 	return (firstName);
@@ -75,6 +83,10 @@ std::string Contact::getDarkestSecret() const
 {
 	return (darkestSecret);
 }
+
+/* ************************************************************************** */
+/*                            UTILITY METHODS                                */
+/* ************************************************************************** */
 
 bool Contact::isEmpty() const
 {

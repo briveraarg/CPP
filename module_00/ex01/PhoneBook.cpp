@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 17:45:00 by brivera           #+#    #+#             */
-/*   Updated: 2025/09/23 15:53:16 by brivera          ###   ########.fr       */
+/*   Updated: 2025/09/23 20:14:56 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 #include <iomanip>
 #include <string>
 
-/* 
- * Constructor: las strings se inicializan vacías automáticamente
- * Destructor: las strings se destruyen automáticamente 
- * De momento estan por buenas prácticas
+/*
+** Constructor: inicializa índices y contadores
+** Destructor: no necesita limpieza especial (arrays estáticos)
+** Ambos incluidos por buenas prácticas de C++
 */
 
 PhoneBook::PhoneBook()
@@ -30,10 +30,11 @@ PhoneBook::PhoneBook()
 PhoneBook::~PhoneBook(void)
 {   }
 
-/* 
- * Añadir contacto con lógica circular (máximo 8)
- * currentIndex = (currentIndex + 1) % MAX_CONTACT;
- */
+/*
+** Añade un contacto usando lógica circular
+** Cuando se alcanza el máximo, sobrescribe el contacto más antiguo
+*/
+
 void	PhoneBook::addContact(const Contact &contact)
 {
 	contacts[currentIndex] = contact;               

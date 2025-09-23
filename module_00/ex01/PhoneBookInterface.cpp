@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 18:50:00 by brivera           #+#    #+#             */
-/*   Updated: 2025/09/23 14:21:12 by brivera          ###   ########.fr       */
+/*   Updated: 2025/09/23 20:14:54 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 #include <iostream>
 #include <string>
 
-/* 
- * Permitir letras (mayúsculas y minúsculas),
- * espacios, guiones y apostrofes.
- * */
+/*
+** Valida nombres permitiendo solo letras, espacios, guiones y apostrofes
+** Rechaza números y símbolos especiales
+*/
 
 bool	isValidName(const std::string &name)
 {
@@ -38,6 +38,11 @@ bool	isValidName(const std::string &name)
 	}
 	return (true);
 }
+
+/*
+** Valida números de teléfono permitiendo números, espacios, guiones
+** y el símbolo + solo al principio para códigos de país
+*/
 
 bool	isValidPhoneNumber(const std::string &phone)
 {
@@ -61,6 +66,11 @@ bool	isValidPhoneNumber(const std::string &phone)
 	
 	return (true);
 }
+
+/*
+** Obtiene entrada validada del usuario según el tipo especificado
+** Repite la solicitud hasta obtener entrada válida o EOF
+*/
 
 bool	getValidatedInput(const std::string &prompt, 
 		std::string &result, const std::string	&type)
@@ -92,9 +102,9 @@ bool	getValidatedInput(const std::string &prompt,
 	}
 }
 
-/* 
- * Función para obtener entrada del usuario (no puede estar vacía)
- * Retorna true si éxito, false si EOF 
+/*
+** Obtiene entrada del usuario que no puede estar vacía
+** Retorna true si éxito, false si EOF
 */
 
 bool	getInput(const std::string& prompt, std::string	&result)

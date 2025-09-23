@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 18:50:00 by brivera           #+#    #+#             */
-/*   Updated: 2025/09/23 14:50:07 by brivera          ###   ########.fr       */
+/*   Updated: 2025/09/23 20:14:52 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,21 @@
 #	define TEST 0
 # endif
 
+/*
+** Funciones de interfaz de usuario para interactuar con PhoneBook
+** Incluye validación de entrada y manejo de comandos
+*/
 
-//Funciones de interfaz de usuario
 void	runPhoneBookInterface(PhoneBook& phoneBook);
 void	addContactInteractive(PhoneBook& phoneBook);
 void	searchContactInteractive(const PhoneBook& phoneBook);
 bool	getInput(const std::string& prompt, std::string& result);
 
-// Funciones de validación
+/*
+** Funciones de validación para entrada de datos
+** Aseguran que los nombres y números de teléfono tengan formato correcto
+*/
+
 bool	isValidName(const std::string& name);
 bool	isValidPhoneNumber(const std::string& phone);
 bool	getValidatedInput(const std::string& prompt, std::string& result, const std::string& type);
