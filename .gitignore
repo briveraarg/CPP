@@ -1,4 +1,6 @@
 *.o
 megaphone
+account
+PhoneBook
 .DS_Store
 *.swp
