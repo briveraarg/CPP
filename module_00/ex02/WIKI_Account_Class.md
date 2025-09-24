@@ -1,11 +1,11 @@
-# 📚 WIKI - CPP Module 00 Ex02: Account Class
+# WIKI - CPP Module 00 Ex02: Account Class
 
-## 🎯 **Objetivo del Ejercicio**
+## **Objetivo del Ejercicio**
 Implementar una clase `Account` que simule cuentas bancarias usando **variables y métodos estáticos** para mantener información global compartida entre todas las instancias.
 
 ---
 
-## 🧠 **Conceptos Clave**
+## **Conceptos Clave**
 
 ### 1. **Variables Estáticas (Static Variables)**
 
@@ -14,7 +14,8 @@ Variables que pertenecen a la **clase**, no a las instancias individuales. Son *
 
 #### **Declaración en .hpp:**
 ```cpp
-class Account {
+class Account
+{
 private:
     static int _nbAccounts;          // Número total de cuentas
     static int _totalAmount;         // Dinero total en todas las cuentas
@@ -25,7 +26,7 @@ private:
 
 #### **Inicialización en .cpp:**
 ```cpp
-// ⚠️ IMPORTANTE: Las variables estáticas DEBEN inicializarse fuera de la clase
+// IMPORTANTE: Las variables estáticas DEBEN inicializarse fuera de la clase
 int Account::_nbAccounts = 0;
 int Account::_totalAmount = 0;
 int Account::_totalNbDeposits = 0;
@@ -33,9 +34,9 @@ int Account::_totalNbWithdrawals = 0;
 ```
 
 #### **¿Por qué estáticas?**
-- 📊 **Datos globales**: Necesitamos saber cuántas cuentas existen en total
-- 💰 **Total de dinero**: Suma de todas las cuentas
-- 📈 **Estadísticas**: Operaciones realizadas por todos los usuarios
+- **Datos globales**: Necesitamos saber cuántas cuentas existen en total
+- **Total de dinero**: Suma de todas las cuentas
+- **Estadísticas**: Operaciones realizadas por todos los usuarios
 
 ---
 
@@ -209,7 +210,7 @@ Account acc3(200);  // 3º creado
 
 ---
 
-## 🔧 **Patrones de Diseño Aplicados**
+## **Patrones de Diseño Aplicados**
 
 ### 1. **Singleton-like Pattern**
 Las variables estáticas actúan como un "singleton" para datos globales.
@@ -222,9 +223,9 @@ Cada operación "notifica" al sistema global actualizando contadores.
 
 ---
 
-## 🚨 **Errores Comunes y Soluciones**
+## **Errores Comunes y Soluciones**
 
-### ❌ **Error 1: No inicializar variables estáticas**
+### **Error 1: No inicializar variables estáticas**
 ```cpp
 // MAL - Variables estáticas sin inicializar
 class Account {
@@ -235,7 +236,7 @@ class Account {
 int Account::_nbAccounts = 0;  // ✅ Inicializada
 ```
 
-### ❌ **Error 2: Acceder a variables de instancia desde método estático**
+### **Error 2: Acceder a variables de instancia desde método estático**
 ```cpp
 static int getAmount(void)
 {
@@ -243,7 +244,7 @@ static int getAmount(void)
 }
 ```
 
-### ❌ **Error 3: Olvidar actualizar totales globales**
+### **Error 3: Olvidar actualizar totales globales**
 ```cpp
 void makeDeposit(int deposit)
 {
