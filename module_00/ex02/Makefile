@@ -6,7 +6,7 @@
 #    By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/23 20:45:00 by brivera           #+#    #+#              #
-#    Updated: 2025/09/23 20:30:13 by brivera          ###   ########.fr        #
+#    Updated: 2025/09/24 12:44:28 by brivera          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,16 @@ fclean: clean
 re: fclean all
 	@echo "$(GREEN)Recompiled $(NAME).$(CLEAR_COLOR)"
 
-.PHONY: all clean fclean re test
+diff_ignore:
+	./$(NAME) > myfile
+	@if diff --ignore-matching-lines='^\[[0-9]\{8\}_[0-9]\{6\}\]' 19920104_091532.log myfile > /dev/null; then \
+		echo "✅ Files match (ignoring timestamp)"; \
+	else \
+		echo "❌ Differences found:"; \
+		diff --ignore-matching-lines='^\[[0-9]\{8\}_[0-9]\{6\}\]' 19920104_091532.log myfile; \
+	fi
+	@$(RM) myfile
+
+.PHONY: all clean fclean re test diff_ignore
 
 .GOAL: all
