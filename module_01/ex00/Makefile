@@ -6,11 +6,11 @@
 #    By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/26 15:37:41 by brivera           #+#    #+#              #
-#    Updated: 2025/09/26 15:42:51 by brivera          ###   ########.fr        #
+#    Updated: 2025/09/26 17:15:25 by brivera          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME := BraiiiiiiinnnzzzZ
+NAME 	:= BraiiiiiiinnnzzzZ
 
 CC		:= cc++
 FLAGS	:= -Wall -Wextra -Werror -std=c++98
