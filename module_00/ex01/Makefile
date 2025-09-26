@@ -6,7 +6,7 @@
 #    By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/22 16:45:39 by brivera           #+#    #+#              #
-#    Updated: 2025/09/23 15:29:10 by brivera          ###   ########.fr        #
+#    Updated: 2025/09/26 17:14:08 by brivera          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CFLAGS	:= -Wall -Wextra -Werror -std=c++98
 
 SRCS	:= main.cpp Contact.cpp PhoneBook.cpp PhoneBookInterface.cpp
 
-HEADERS := Contact.hpp PhoneBook.hpp PhoneBookInterface.hpp
+HEADERS := Contact.hpp PhoneBook.hpp phoneBookInterface.hpp
 
 OBJS_DIR := objs
 OBJS := $(addprefix $(OBJS_DIR)/, $(SRCS:.cpp=.o))
