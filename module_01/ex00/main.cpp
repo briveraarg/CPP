@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 12:00:00 by brivera           #+#    #+#             */
-/*   Updated: 2025/10/06 15:32:49 by brivera          ###   ########.fr       */
+/*   Updated: 2025/10/06 15:49:13 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ int main()
 	else
 		std::cerr << RED << "Error: No se pudo crear el zombie en HEAP" << RESET << std::endl;
 	std::cout << BOLD << BRIGHT_GREEN << "\n2. Zombie en STACK:" << RESET << std::endl;
-	randomChump("Stack");
+	randomChump("StackJorge");
 	return (0);
 }
