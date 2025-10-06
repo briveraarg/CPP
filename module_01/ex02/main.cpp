@@ -15,44 +15,56 @@
 #include "colors.hpp"
 
 /*
- * 
- * Ejercicio 02: "HI THIS IS BRAIN" + Pruebas con nullptr
- * 
- * Objetivo: Entender que las referencias son como tener otro nombre
- * para la misma cosa (como decir "mate" o "matecito" - es lo mismo)
- * 
- * PERO también ver qué pasa cuando intentamos hacer travesuras con nullptr
- * 
- * Analogía:
- * - Variable 'brain' = El mate original
- * - Puntero 'stringPTR' = La bombilla (necesitás usarla para acceder al mate)
- * - Referencia 'stringREF' = "El matecito" (otro nombre para el mismo mate)
- * 
- * Conceptos técnicos:
- * - Variable: acceso directo al valor
- * - Puntero: variable que guarda la dirección de otra variable
- * - Referencia: alias/sobrenombre para una variable existente
- * 
- * DIFERENCIA CLAVE con nullptr:
- * - Puntero: PUEDE ser nullptr (no apunta a nada)
- * - Referencia: NO PUEDE ser nullptr (siempre debe referenciar algo)
- * 
+** Ejercicio 02: "HI THIS IS BRAIN" - Guía Completa de Punteros vs Referencias
+** 
+** Objetivo: Entender todas las diferencias entre punteros y referencias
+** con ejemplos prácticos y analogías argentinas
+**
+** Analogía del Mate:
+** - Variable = El mate original
+** - Puntero = La bombilla (necesitás usarla para acceder al mate)
+** - Referencia = "El matecito" (otro nombre para el mismo mate)
+**
+** Regla de Oro:
+** - USA REFERENCIAS cuando sea posible (90% de los casos)
+** - USA PUNTEROS solo cuando necesites nullptr, reasignación o memoria dinámica
 */
-
 int main()
 {
-	std::string brain = "HI IS THIS BRAIN";
+	std::string brain = "HI THIS IS BRAIN";
 	std::string* stringPTR = &brain;
 	std::string& stringREF = brain;
 	
-	std::cout << BOLD << BRIGHT_CYAN << "\n=== DIRECCIONES DE MEMORIA ===" << RESET << std::endl;
-	std::cout << "Dirección de la variable brain:       " << &brain << std::endl;
-	std::cout << "Dirección almacenada en stringPTR:    " << stringPTR << std::endl;
-	std::cout << "Dirección de la referencia stringREF: " << &stringREF << std::endl;
+	std::cout << BOLD << BRIGHT_CYAN << "\n=== EJEMPLO BÁSICO ===" << RESET << std::endl;
+	std::cout << "Dirección de brain:     " << &brain << std::endl;
+	std::cout << "Dirección en stringPTR: " << stringPTR << std::endl;
+	std::cout << "Dirección de stringREF: " << &stringREF << std::endl;
 	
-	std::cout << BOLD << BRIGHT_GREEN << "\n=== VALORES ===" << RESET << std::endl;
-	std::cout << "Valor de la variable brain:        " << brain << std::endl;
-	std::cout << "Valor apuntado por stringPTR:      " << *stringPTR << std::endl;
-	std::cout << "Valor de la referencia stringREF:  " << stringREF << std::endl;
+	std::cout << BOLD << BRIGHT_YELLOW << "\n=== NULLPTR: SOLO PUNTEROS ===" << RESET << std::endl;
+	std::string* nullPTR = nullptr;
+	std::cout << "Puntero: " << nullPTR << std::endl;
+	
+	std::cout << BOLD << BRIGHT_BLUE << "\n=== REASIGNACIÓN: SOLO PUNTEROS ===" << RESET << std::endl;
+	std::string otro = "OTRA STRING";
+	stringPTR = &otro;
+	std::cout << "Puntero reasignado: " << *stringPTR << std::endl;
+	std::cout << "Referencia sigue igual: " << stringREF << std::endl;
+	
+	std::cout << BOLD << BRIGHT_MAGENTA << "\n=== MODIFICACIÓN DE VALORES ===" << RESET << std::endl;
+	brain = "OTRO BRAIN";
+	std::cout << "brain cambiado a: " << brain << std::endl;
+	std::cout << "stringREF refleja: " << stringREF << std::endl;
+	
+	std::cout << BOLD << BRIGHT_GREEN << "\n=== MEMORIA DINÁMICA ===" << RESET << std::endl;
+	std::string *heapString = new std::string("HEAP BRAIN");
+	std::string& heapREF = *heapString;
+
+	std::cout << "Heap string: " << *heapString << std::endl;
+	std::cout << "Heap ref: " << heapREF << std::endl;
+	std::cout << "Direccion de memoria REF:" << &heapREF << std::endl;
+	std::cout << "Direccion de memoria PTR:" << &heapString << std::endl;
+
+	delete heapString;
+
 	return (0);
 }
