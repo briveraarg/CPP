@@ -1,10 +1,8 @@
-¡Perfecto! Ahora con el contexto completo del ejercicio, el resumen es mucho más claro. El punto clave es entender **por qué** te piden esas dos funciones específicas.
-
 ### Resumen Ejecutivo (Basado en el Ejercicio)
 
-El ejercicio te fuerza a crear dos escenarios distintos:
+El ejercicio busca a crear dos escenarios distintos:
 
-1.  **`newZombie(std::string name)` -> Usa el MONTÍCULO (Heap)**
+1.  **`newZombie(std::string name)` -> Usa el Heap (Heap)**
 2.  **`randomChump(std::string name)` -> Usa la PILA (Stack)**
 
 La razón es demostrar la diferencia fundamental en la **vida útil** del objeto.
@@ -35,14 +33,14 @@ void randomChump(std::string name)
 
 ---
 
-### ¿Cuándo es Mejor el Montículo (Heap)? -> Caso de `newZombie`
+### ¿Cuándo es Mejor el Heap? -> Caso de `newZombie`
 
 ```cpp
 // newZombie.cpp
 #include "Zombie.hpp"
 
 Zombie* newZombie(std::string name) {
-    Zombie* zombie = new Zombie(name); // Creación en el MONTÍCULO
+    Zombie* zombie = new Zombie(name); // Creación en el Heap
     return zombie; // Devuelve el puntero al zombi que sigue VIVO en el heap
 }
 ```
@@ -62,12 +60,12 @@ int main() {
 }
 ```
 
-*   **¿Por qué el montículo?** Porque la función `newZombie` debe **devolver el zombi** para que se pueda usar **fuera del ámbito de la función**. Un objeto en la pila sería destruido al terminar `newZombie`, haciendo que el puntero devuelto apunte a memoria inválida (comportamiento indefinido).
+*   **¿Por qué el Heap?** Porque la función `newZombie` debe **devolver el zombi** para que se pueda usar **fuera del ámbito de la función**. Un objeto en la pila sería destruido al terminar `newZombie`, haciendo que el puntero devuelto apunte a memoria inválida (comportamiento indefinido).
 *   **Ventaja:** Te da **control sobre la vida útil** del objeto. El zombi puede "sobrevivir" a la función que lo creó y ser usado en otra parte del programa.
 *   **Desventaja:** La gestión de memoria es **manual**. Tú eres responsable de llamar a `delete` para evitar fugas de memoria.
 *   **Caso de uso ideal:** Para objetos que deben persistir después de que la función que los crea haya terminado, o cuando necesitas crear muchos objetos cuyo número no conoces hasta el tiempo de ejecución (como una horda de zombis).
 
-**En resumen: Usa el MONTÍCULO cuando el objeto deba seguir existiendo después de que la función que lo crea haya finalizado.**
+**En resumen: Usa el Heap cuando el objeto deba seguir existiendo después de que la función que lo crea haya finalizado.**
 
 ---
 
@@ -76,15 +74,15 @@ int main() {
 | Función | Memoria | ¿Por qué? | Responsabilidad de Destrucción |
 | :--- | :--- | :--- | :--- |
 | **`randomChump`** | **Pila (Stack)** | El zombi es temporal, solo anuncia y muere. Su vida termina con la función. | **Automática**. El destructor se llama solo. |
-| **`newZombie`** | **Montículo (Heap)** | El zombi debe ser devuelto y usado **fuera** de la función donde se crea. | **Manual**. Tú debes llamar a `delete` cuando ya no lo necesites. |
+| **`newZombie`** | **Heap** | El zombi debe ser devuelto y usado **fuera** de la función donde se crea. | **Manual**. Tú debes llamar a `delete` cuando ya no lo necesites. |
 
 ### Conclusión Final del Ejercicio
 
-El **"punto real del ejercicio"** es demostrar de manera práctica la diferencia crítica entre el *tiempo de vida* de un objeto en la pila vs. en el montículo.
+El **"punto real del ejercicio"** es demostrar de manera práctica la diferencia crítica entre el *tiempo de vida* de un objeto en la pila vs. en el Heap.
 
 *   **`randomChump`** te muestra la **conveniencia y seguridad** de la pila para objetos temporales.
-*   **`newZombie`** te muestra la **flexibilidad y control** del montículo para objetos de larga duración, junto con la **responsabilidad** que esto conlleva (el `delete`).
+*   **`newZombie`** te muestra la **flexibilidad y control** del Heap para objetos de larga duración, junto con la **responsabilidad** que esto conlleva (el `delete`).
 
 **La elección correcta depende de una sola pregunta: ¿Necesito que este zombi siga vivo después de que termine la función en la que lo creo?**
 *   **No ->** Pila (`randomChump`).
-*   **Sí ->** Montículo (`newZombie`).
+*   **Sí ->** Heap (`newZombie`).
