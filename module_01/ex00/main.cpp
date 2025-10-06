@@ -6,12 +6,12 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 12:00:00 by brivera           #+#    #+#             */
-/*   Updated: 2025/10/06 12:06:48 by brivera          ###   ########.fr       */
+/*   Updated: 2025/10/06 15:32:49 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Zombie.hpp"
-#include "Colors.hpp"
+#include "colors.hpp"
 
 /*
 ** Main para probar las diferencias entre STACK y HEAP:
@@ -28,7 +28,7 @@ int main()
 	std::cout << BOLD << BRIGHT_CYAN << "=== Prueba de HEAP vs STACK ===" << RESET << std::endl;
 	
 	std::cout << BOLD << BRIGHT_BLUE << "\n1. Zombie en HEAP:" << RESET << std::endl;
-	Zombie* heapZombie = newZombie("HeapWalker");
+	Zombie* heapZombie = newZombie("HeapIria");
 	
 	if (heapZombie != nullptr)
 	{
@@ -40,6 +40,6 @@ int main()
 	else
 		std::cerr << RED << "Error: No se pudo crear el zombie en HEAP" << RESET << std::endl;
 	std::cout << BOLD << BRIGHT_GREEN << "\n2. Zombie en STACK:" << RESET << std::endl;
-	randomChump("StackCrawler");
+	randomChump("Stack");
 	return (0);
 }

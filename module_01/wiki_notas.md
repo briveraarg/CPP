@@ -86,3 +86,131 @@ El **"punto real del ejercicio"** es demostrar de manera práctica la diferencia
 **La elección correcta depende de una sola pregunta: ¿Necesito que este zombi siga vivo después de que termine la función en la que lo creo?**
 *   **No ->** STACK (`randomChump`).
 *   **Sí ->** Heap (`newZombie`).
+
+---
+
+## Ejercicio 01: "Moar brainz!" - Arrays de Zombies
+
+### Objetivo
+Crear una **horda completa de zombies** usando una **sola asignación de memoria** en el heap.
+
+### Función Principal: `zombieHorde`
+```cpp
+Zombie* zombieHorde(int N, std::string name);
+```
+
+### ¿Qué hace?
+1. **Asigna memoria para N zombies de una vez:** `new Zombie[N]`
+2. **Inicializa cada zombie** con el mismo nombre usando `setName()`
+3. **Retorna puntero al primer zombie** del array
+
+### Diferencias Clave con el Ejercicio 00
+
+| Aspecto | Ejercicio 00 | Ejercicio 01 |
+|---------|--------------|--------------|
+| **Memoria** | `new Zombie(name)` - UN zombie | `new Zombie[N]` - N zombies |
+| **Liberación** | `delete zombie` | `delete[] horde` |
+| **Asignaciones** | Una por zombie | UNA para todos |
+| **Constructor** | `Zombie(name)` - con parámetro | `Zombie()` - por defecto |
+| **Inicialización** | Automática en constructor | Manual con `setName()` |
+
+### Proceso Paso a Paso
+
+#### 1. Creación del Array
+```cpp
+Zombie* horde = new Zombie[5];  // Crea 5 zombies
+```
+- C++ llama automáticamente al **constructor por defecto** 5 veces
+- Cada zombie se crea con `name = ""` (vacío)
+
+#### 2. Asignación de Nombres
+```cpp
+while (i < N)
+{
+    horde[i].setName(name);  // Asigna "Jorge" a cada zombie
+    i++;
+}
+```
+- **¿Por qué `setName()`?** Porque no podemos pasar parámetros a `new Zombie[N]`
+- Todos los zombies terminan con el mismo nombre
+
+#### 3. Uso del Array
+```cpp
+horde[0].announce();  // Jorge: BraiiiiiiinnnzzzZ...
+horde[1].announce();  // Jorge: BraiiiiiiinnnzzzZ...
+// etc.
+```
+
+#### 4. Liberación de Memoria
+```cpp
+delete[] horde;  // ¡IMPORTANTE! Los [] son obligatorios para arrays
+horde = nullptr; // Buena práctica
+```
+
+### Conceptos Importantes
+
+#### ¿Por qué Constructor por Defecto?
+```cpp
+class Zombie {
+public:
+    Zombie();              // ¡NECESARIO para arrays!
+    Zombie(std::string);   // Para objetos individuales
+    void setName(std::string name);  // Para arrays
+};
+```
+- **Arrays necesitan constructor sin parámetros**
+- **`new Zombie[N](param)` NO existe en C++**
+
+#### Una Sola Asignación vs Múltiples
+```cpp
+// ❌ Múltiples asignaciones (ineficiente)
+Zombie* z1 = new Zombie("name");
+Zombie* z2 = new Zombie("name");
+Zombie* z3 = new Zombie("name");
+// ... delete z1; delete z2; delete z3;
+
+// ✅ Una sola asignación (eficiente)
+Zombie* horde = new Zombie[3];
+// ... setName() para cada uno
+// ... delete[] horde;
+```
+
+#### Ventajas de Una Sola Asignación
+1. **Más eficiente** - Una llamada al sistema operativo
+2. **Memoria contigua** - Mejor rendimiento de caché
+3. **Más fácil de gestionar** - Un solo `delete[]`
+4. **Menos fragmentación** de memoria
+
+### Flujo de Ejecución Típico
+```
+1. new Zombie[5] se ejecuta
+   ↓
+2. C++ llama constructor por defecto 5 veces:
+   "Zombie sin nombre creado" x5
+   ↓
+3. zombieHorde() asigna nombres:
+   horde[0].setName("Jorge") → nombre cambia de "" a "Jorge"
+   horde[1].setName("Jorge") → nombre cambia de "" a "Jorge"
+   (etc.)
+   ↓
+4. Uso del array:
+   "Jorge: BraiiiiiiinnnzzzZ..." x5
+   ↓
+5. delete[] horde ejecuta destructores:
+   "Zombie Jorge destruido" x5
+```
+
+### Cuándo Usar Arrays de Objetos
+- **Cuando necesitas múltiples objetos idénticos**
+- **Cuando el número se conoce en runtime**
+- **Cuando quieres eficiencia de memoria**
+- **Para estructuras de datos homogéneas**
+
+### Resumen del Ejercicio 01
+El ejercicio demuestra cómo **gestionar múltiples objetos de forma eficiente** usando:
+- **Una sola asignación** para todo el array
+- **Constructor por defecto** + **setName()** para inicialización
+- **delete[]** para liberación correcta
+- **Memoria contigua** para mejor rendimiento
+
+**Lección clave:** Arrays de objetos requieren un enfoque diferente a objetos individuales, pero ofrecen ventajas significativas en eficiencia y gestión de memoria.
