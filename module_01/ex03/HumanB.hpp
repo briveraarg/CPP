@@ -1,0 +1,40 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   HumanB.hpp                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/06 17:27:00 by brivera           #+#    #+#             */
+/*   Updated: 2025/10/06 17:31:21 by brivera          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef HUMANB_HPP
+#define HUMANB_HPP
+
+#include "Weapon.hpp"
+#include <string>
+#include <iostream>
+
+class HumanB
+{
+	private:
+		std::string name;
+		Weapon* weapon;  // PUNTERO: puede no tener arma (nullptr)
+
+	public:
+		// Constructor: solo recibe nombre, sin arma inicial
+		HumanB(const std::string& humanName);
+		
+		// Destructor
+		~HumanB();
+		
+		// Asigna un arma
+		void setWeapon(Weapon& newWeapon);
+		
+		// Ataca con su arma (si la tiene)
+		void attack() const;
+};
+
+#endif
