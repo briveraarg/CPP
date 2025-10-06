@@ -6,17 +6,17 @@
 #    By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/26 15:37:41 by brivera           #+#    #+#              #
-#    Updated: 2025/09/26 17:15:25 by brivera          ###   ########.fr        #
+#    Updated: 2025/10/06 12:03:43 by brivera          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 	:= BraiiiiiiinnnzzzZ
 
-CC		:= cc++
+CC		:= c++
 FLAGS	:= -Wall -Wextra -Werror -std=c++98
 
-SRCS 	:= 
-HEADERS :=
+SRCS 	:= main.cpp Zombie.cpp newZombie.cpp randomChump.cpp
+HEADERS := Zombie.hpp Colors.hpp
 
 OBJS_DIR 	:= objs
 OBJS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.cpp=.o))
@@ -30,12 +30,12 @@ CLEAR_COLOR	:=	\033[0m
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	@$(CC) $(FLAGS) $(OBJS) -o $(NAME)
 	@echo "$(GREEN)$(NAME) compiled successfully!$(CLEAR_COLOR)"
 
 $(OBJS_DIR)/%.o: %.cpp $(HEADERS)
 	@mkdir -p $(OBJS_DIR)
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(FLAGS) -c $< -o $@
 
 clean:
 	@$(RM) $(OBJS_DIR)/*.o $(OBJS_DIR)
