@@ -6,7 +6,7 @@
 #    By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/06 15:41:44 by brivera           #+#    #+#              #
-#    Updated: 2025/10/06 15:57:15 by brivera          ###   ########.fr        #
+#    Updated: 2025/10/07 13:06:23 by brivera          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,6 @@ CC		:= c++
 FLAGS	:= -Wall -Wextra -Werror -std=c++98
 
 SRCS 	:= main.cpp
-HEADERS := colors.hpp
 
 OBJS_DIR 	:= objs
 OBJS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.cpp=.o))
@@ -33,7 +32,7 @@ $(NAME): $(OBJS)
 	@$(CC) $(FLAGS) $(OBJS) -o $(NAME)
 	@echo "$(GREEN)$(NAME) compiled successfully!$(CLEAR_COLOR)"
 
-$(OBJS_DIR)/%.o: %.cpp $(HEADERS)
+$(OBJS_DIR)/%.o: %.cpp
 	@mkdir -p $(OBJS_DIR)
 	@$(CC) $(FLAGS) -c $< -o $@
 

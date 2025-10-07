@@ -10,9 +10,23 @@
 /*                                                                            */
 /* **************************************************************************/
 
+
+/***************************************/
+/*                COLOR                */
+/***************************************/
+
+#define RESET			"\033[0m"
+#define BRIGHT_RED		"\033[91m"
+#define BRIGHT_GREEN	"\033[92m"
+#define BRIGHT_BLUE		"\033[94m"
+#define BRIGHT_MAGENTA	"\033[95m"
+#define BRIGHT_CYAN		"\033[96m"
+
+#define BOLD			"\033[1m"
+
 #include <iostream>
 #include <string>
-#include "colors.hpp"
+
 
 /*
 ** Ejercicio 02: "HI THIS IS BRAIN" - Guía Completa de Punteros vs Referencias
@@ -27,7 +41,7 @@
 **
 ** Regla de Oro:
 ** - USA REFERENCIAS cuando sea posible (90% de los casos)
-** - USA PUNTEROS solo cuando necesites nullptr, reasignación o memoria dinámica
+** - USA PUNTEROS solo cuando necesites NULL, reasignación o memoria dinámica
 */
 int main()
 {
@@ -37,12 +51,15 @@ int main()
 	
 	std::cout << BOLD << BRIGHT_CYAN << "\n=== EJEMPLO BÁSICO ===" << RESET << std::endl;
 	std::cout << "Dirección de brain:     " << &brain << std::endl;
+	std::cout << "Contenido de brain:     " << brain << std::endl;
 	std::cout << "Dirección en stringPTR: " << stringPTR << std::endl;
+	std::cout << "Contenido en stringPTR: " << *stringPTR << std::endl;
 	std::cout << "Dirección de stringREF: " << &stringREF << std::endl;
+	std::cout << "Contenido de stringREF: " << stringREF << std::endl;
 	
-	std::cout << BOLD << BRIGHT_YELLOW << "\n=== NULLPTR: SOLO PUNTEROS ===" << RESET << std::endl;
-	std::string* nullPTR = nullptr;
-	std::cout << "Puntero: " << nullPTR << std::endl;
+	std::cout << BOLD << BRIGHT_BLUE << "\n=== NULL: SOLO PUNTEROS ===" << RESET << std::endl;
+	std::string* null = NULL;
+	std::cout << "Puntero: " << null << std::endl;
 	
 	std::cout << BOLD << BRIGHT_BLUE << "\n=== REASIGNACIÓN: SOLO PUNTEROS ===" << RESET << std::endl;
 	std::string otro = "OTRA STRING";
