@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 17:25:00 by brivera           #+#    #+#             */
-/*   Updated: 2025/10/06 17:30:39 by brivera          ###   ########.fr       */
+/*   Updated: 2025/10/07 13:22:19 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,22 @@
 #include <string>
 #include <iostream>
 
+/*
+ * getType: Devuelve referencia constante al tipo (no copia, no modificable)
+ * setType: Establece nuevo tipo de arma
+*/
+
 class Weapon
 {
-private:
-	std::string type;
+	private:
+		std::string type;
 
-public:
-	// Constructor que recibe el tipo de arma
-	Weapon(const std::string& weaponType);
-	
-	// Destructor
-	~Weapon();
-	
-	// Devuelve referencia constante al tipo (no copia, no modificable)
-	const std::string& getType() const;
-	
-	// Establece nuevo tipo de arma
-	void setType(const std::string& newType);
+	public:
+		Weapon(const std::string& weaponType);
+		~Weapon();
+
+		const std::string& getType() const;
+		void setType(const std::string& newType);
 };
 
 #endif
