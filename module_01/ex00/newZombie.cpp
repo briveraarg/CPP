@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 12:00:00 by brivera           #+#    #+#             */
-/*   Updated: 2025/10/06 12:06:29 by brivera          ###   ########.fr       */
+/*   Updated: 2025/10/07 12:03:16 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@
 Zombie*	newZombie(std::string name)
 {
 	Zombie* zombie = new(std::nothrow) Zombie(name);
-	
-	if (zombie == nullptr)
-		return (nullptr);
+	if (zombie == NULL)
+		return (NULL);
 	return (zombie);
 }

@@ -6,12 +6,11 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 12:00:00 by brivera           #+#    #+#             */
-/*   Updated: 2025/10/06 15:34:10 by brivera          ###   ########.fr       */
+/*   Updated: 2025/10/07 12:35:17 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Zombie.hpp"
-#include "colors.hpp"
 
 /*
  * Main para probar la función zombieHorde:
@@ -34,11 +33,9 @@ int main()
 	std::cout << BOLD << BRIGHT_CYAN << "\n=== Prueba de Horda de Zombies ===" << RESET << std::endl;
 	horde_size = 5;
 	std::string zombieName = "Jorges";
-	
 	std::cout << BOLD << BRIGHT_GREEN << "\n1. Creando horda de " << horde_size << " zombies:" << RESET << std::endl;
 	Zombie* horde = zombieHorde(horde_size, zombieName);
-	
-	if (horde != nullptr)
+	if (horde != NULL)
 	{
 		std::cout << BOLD << BRIGHT_BLUE << "\n2. Haciendo que cada zombie se anuncie:" << RESET << std::endl;
 		i = 0;
@@ -48,12 +45,11 @@ int main()
 			horde[i].announce();
 			i++;
 		}
-		
 		std::cout << BOLD << BRIGHT_RED << "\n3. Destruyendo toda la horda:" << RESET << std::endl;
 		delete[] horde;
-		horde = nullptr;
+		horde = NULL;
 	}
 	else
-		std::cerr << RED << "No se pudo crear la horda de zombies" << RESET << std::endl;
+		std::cerr << BRIGHT_RED << "No se pudo crear la horda de zombies" << RESET << std::endl;
 	return (0);
 }

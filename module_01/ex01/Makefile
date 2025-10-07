@@ -6,7 +6,7 @@
 #    By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/06 12:00:00 by brivera           #+#    #+#              #
-#    Updated: 2025/10/06 14:40:08 by brivera          ###   ########.fr        #
+#    Updated: 2025/10/07 12:28:41 by brivera          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC		:= c++
 FLAGS	:= -Wall -Wextra -Werror -std=c++98
 
 SRCS 	:= main.cpp Zombie.cpp zombieHorde.cpp
-HEADERS := Zombie.hpp colors.hpp
+HEADERS := Zombie.hpp
 
 OBJS_DIR 	:= objs
 OBJS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.cpp=.o))

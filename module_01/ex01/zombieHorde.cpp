@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 12:00:00 by brivera           #+#    #+#             */
-/*   Updated: 2025/10/06 15:28:08 by brivera          ###   ########.fr       */
+/*   Updated: 2025/10/07 12:14:11 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ Zombie*	zombieHorde(int N, std::string name)
 	if (N <= 0)
 	{
 		std::cerr << "Error: El número de zombies debe ser positivo!" << std::endl;
-		return (nullptr);
+		return (NULL);
 	}
 	Zombie* horde = new(std::nothrow) Zombie[N];
-	if (horde == nullptr)
-		return (nullptr);
+	if (horde == NULL)
+		return (NULL);
 	i = 0;
 	while (i < N)
 	{
