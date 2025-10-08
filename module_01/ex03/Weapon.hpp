@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 17:25:00 by brivera           #+#    #+#             */
-/*   Updated: 2025/10/07 13:22:19 by brivera          ###   ########.fr       */
+/*   Updated: 2025/10/08 12:23:19 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ class Weapon
 		Weapon(const std::string& weaponType);
 		~Weapon();
 
-		const std::string& getType() const;
-		void setType(const std::string& newType);
+		const 	std::string& getType() const;
+		void	setType(const std::string& newType);
 };
 
 #endif

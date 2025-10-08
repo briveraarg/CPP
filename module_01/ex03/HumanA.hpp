@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 17:26:00 by brivera           #+#    #+#             */
-/*   Updated: 2025/10/06 17:30:43 by brivera          ###   ########.fr       */
+/*   Updated: 2025/10/08 12:20:48 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,15 @@
 
 class HumanA
 {
-private:
-	std::string name;
-	Weapon& weapon;  // REFERENCIA: siempre tiene arma, no puede cambiar
+	private:
+		std::string name;
+		Weapon& weapon;
 
-public:
-	// Constructor: recibe nombre y referencia al arma
-	HumanA(const std::string& humanName, Weapon& humanWeapon);
-	
-	// Destructor
-	~HumanA();
-	
-	// Ataca con su arma
-	void attack() const;
+	public:
+		HumanA(const std::string& humanName, Weapon& humanWeapon);
+		~HumanA();
+
+		void	attack() const;
 };
 
 #endif

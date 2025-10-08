@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 17:11:20 by brivera           #+#    #+#             */
-/*   Updated: 2025/10/07 13:14:10 by brivera          ###   ########.fr       */
+/*   Updated: 2025/10/08 12:59:04 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 int main()
 {
 	{
+		
+		std::cout << "\n--- Ejemplo de SUBJECT ---\n" << std::endl;
 		Weapon club = Weapon("crude spiked club");
 		HumanA bob("Bob", club);
 		bob.attack();
@@ -24,6 +26,7 @@ int main()
 		bob.attack();
 	}
 	{
+		std:: cout << "" << std::endl;
 		Weapon club = Weapon("crude spiked club");
 		HumanB jim("Jim");
 		jim.setWeapon(club);
@@ -31,5 +34,22 @@ int main()
 		club.setType("some other type of club");
 		jim.attack();
 	}
-	return 0;
+	{
+		std::cout << "\n--- Ejemplo de Brendi ---" << std::endl;
+		Weapon sword = Weapon("legendary katana");
+		HumanA brendi("Brendi", sword);
+		brendi.attack();
+		sword.setType("flaming sword of doom");
+		brendi.attack();
+		
+		std::cout << "\n--- sin arma inicial ---" << std::endl;
+		HumanB brendiB("Brendi");
+		brendiB.attack();
+		Weapon bow = Weapon("enchanted bow");
+		brendiB.setWeapon(bow);
+		brendiB.attack();
+		bow.setType("crossbow of precision");
+		brendiB.attack();
+	}
+	return (0);
 }
