@@ -1,4 +1,4 @@
-### Resumen Ejecutivo (Basado en el Ejercicio)
+### Resumen (Basado en el Ejercicio)
 
 El ejercicio busca a crear dos escenarios distintos:
 
@@ -470,3 +470,226 @@ delete heap;               // ¡Liberamos la memoria!
 ```
 
 **Regla:** Si usás referencias a objetos en heap, asegurate de que el objeto exista mientras uses la referencia.
+
+---
+
+## Ejercicio 03: "Unnecessary Violence" - Referencias vs Punteros en la Práctica
+
+### Objetivo
+Implementar dos clases similares (`HumanA` y `HumanB`) que manejan armas de forma diferente para demostrar **cuándo usar referencias vs punteros** en casos reales.
+
+### Estructura del Proyecto
+```
+Weapon.hpp/cpp     → Clase base para armas
+HumanA.hpp/cpp     → Humano que SIEMPRE tiene arma (referencia)
+HumanB.hpp/cpp     → Humano que PUEDE tener arma (puntero)
+main.cpp           → Pruebas de ambos casos
+```
+
+### Clase Weapon (Base)
+```cpp
+class Weapon {
+private:
+    std::string type;
+public:
+    Weapon(const std::string& weaponType);
+    const std::string& getType() const;    // Método const!
+    void setType(const std::string& newType);
+};
+```
+
+### HumanA: Siempre Armado (Referencia)
+```cpp
+class HumanA {
+private:
+    std::string name;
+    Weapon& weapon;    // ¡REFERENCIA! - Siempre tiene arma
+public:
+    HumanA(const std::string& humanName, Weapon& humanWeapon);
+    void attack() const;    // Método const!
+};
+```
+
+#### Características de HumanA:
+- **Constructor requiere arma:** No puede existir sin arma
+- **Weapon& weapon:** Referencia = arma garantizada
+- **attack() const:** No modifica el estado del objeto
+- **Sintaxis simple:** `weapon.getType()` (acceso directo)
+
+#### Implementación Típica:
+```cpp
+// Constructor: inicialización obligatoria
+HumanA::HumanA(const std::string& humanName, Weapon& humanWeapon) 
+    : name(humanName), weapon(humanWeapon)  // Lista de inicialización
+{
+}
+
+// Método const: no modifica el estado del objeto HumanA
+// Solo lee atributos y llama a métodos const de Weapon
+void HumanA::attack() const
+{
+    std::cout << name << " attacks with their " << weapon.getType() << std::endl;
+    std::cout << "*BANG!* 💥" << std::endl;
+}
+```
+
+### HumanB: Opcionalmente Armado (Puntero)
+```cpp
+class HumanB {
+private:
+    std::string name;
+    Weapon* weapon;    // ¡PUNTERO! - Puede no tener arma
+public:
+    HumanB(const std::string& humanName);
+    void setWeapon(Weapon& newWeapon);
+    void attack() const;
+};
+```
+
+#### Características de HumanB:
+- **Constructor sin arma:** Puede existir desarmado
+- **Weapon* weapon:** Puntero = arma opcional (puede ser nullptr)
+- **setWeapon():** Asigna arma después de la creación
+- **Verificación de nullptr:** Obligatoria antes de usar
+
+#### Implementación Típica:
+```cpp
+// Constructor: solo nombre, sin arma
+HumanB::HumanB(const std::string& humanName) : name(humanName), weapon(nullptr)
+{
+}
+
+// Recibe por referencia (evita copias y garantiza objeto válido)
+// Guarda como puntero (permite flexibilidad y estados opcionales)
+void HumanB::setWeapon(Weapon& newWeapon)
+{
+    weapon = &newWeapon;  // Obtiene dirección del objeto
+}
+
+void HumanB::attack() const
+{
+    if (weapon != nullptr)
+    {
+        std::cout << name << " attacks with their " << weapon->getType() << std::endl;
+        std::cout << "*SLASH!* ⚔️" << std::endl;
+    }
+    else
+        std::cout << name << " has no weapon to attack with!" << std::endl;
+}
+```
+
+### Comparación Práctica
+
+| Aspecto | HumanA (Referencia) | HumanB (Puntero) |
+|---------|-------------------|------------------|
+| **Arma inicial** | ✅ Obligatoria en constructor | ❌ Opcional |
+| **Estado sin arma** | ❌ Imposible | ✅ Posible |
+| **Verificación null** | ❌ No necesaria | ✅ Obligatoria |
+| **Sintaxis acceso** | `weapon.getType()` | `weapon->getType()` |
+| **Flexibilidad** | 🔒 Menos flexible | 🔄 Más flexible |
+| **Seguridad** | 🛡️ Más segura | ⚠️ Requiere cuidado |
+
+### Conceptos Clave Demostrados
+
+#### 1. **Referencias para Dependencias Obligatorias**
+```cpp
+HumanA bob("Bob", sword);  // Bob SIEMPRE tiene sword
+// No hay forma de crear un HumanA sin arma
+```
+
+#### 2. **Punteros para Dependencias Opcionales**
+```cpp
+HumanB jim("Jim");         // Jim puede existir sin arma
+jim.setWeapon(bow);        // Asigna arma después
+// También podría no tener arma nunca
+```
+
+#### 3. **Métodos const**
+```cpp
+void attack() const {      // Promete no modificar el objeto
+    // Solo lee name y weapon, no los modifica
+    // Puede llamar a weapon.getType() porque es const
+}
+```
+
+#### 4. **¿Por qué setWeapon recibe referencia pero guarda puntero?**
+```cpp
+void setWeapon(Weapon& newWeapon) {  // Referencia: evita copias, garantiza validez
+    weapon = &newWeapon;             // Puntero: permite cambio posterior
+}
+```
+
+**Razones:**
+- **Referencia como parámetro:** Evita copias innecesarias, sintaxis más limpia
+- **Puntero como atributo:** Permite cambiar el arma, manejar estado "sin arma"
+
+### Señales de que weapon es un Puntero
+
+#### En el código .cpp:
+1. **Constructor:** `weapon(nullptr)` - Solo punteros pueden ser null
+2. **setWeapon:** `weapon = &newWeapon;` - Asigna dirección (solo a punteros)
+3. **attack:** `weapon != nullptr` - Solo se compara punteros con null
+4. **attack:** `weapon->getType()` - Operador `->` es solo para punteros
+
+#### En el archivo .hpp:
+```cpp
+Weapon* weapon;  // El asterisco declara que es puntero
+```
+
+### Flujo de Ejecución Típico
+
+#### Caso HumanA (Referencia):
+```cpp
+{
+    Weapon club = Weapon("crude spiked club");
+    HumanA bob("Bob", club);           // Bob vinculado a club
+    bob.attack();                      // "Bob attacks with their crude spiked club *BANG!* 💥"
+    club.setType("enhanced club");     // Cambia el arma
+    bob.attack();                      // "Bob attacks with their enhanced club *BANG!* 💥"
+}  // club y bob se destruyen automáticamente
+```
+
+#### Caso HumanB (Puntero):
+```cpp
+{
+    Weapon sword = Weapon("legendary katana");
+    HumanB brendi("Brendi");           // Brendi sin arma
+    brendi.attack();                   // "Brendi has no weapon to attack with!"
+    brendi.setWeapon(sword);           // Asigna arma
+    brendi.attack();                   // "Brendi attacks with their legendary katana *SLASH!* ⚔️"
+    sword.setType("flaming sword");    // Cambia el arma
+    brendi.attack();                   // "Brendi attacks with their flaming sword *SLASH!* ⚔️"
+}  // sword y brendi se destruyen automáticamente
+```
+
+### Lecciones del Ejercicio 03
+
+#### 🎯 **Cuándo usar Referencias:**
+- Dependencias **obligatorias** e **inmutables**
+- Cuando el objeto **siempre debe existir**
+- Para **parámetros de función** (evitar copias)
+- Cuando **no necesitás nullptr**
+
+#### 🎯 **Cuándo usar Punteros:**
+- Dependencias **opcionales**
+- Cuando el objeto **puede cambiar** o **no existir**
+- Para **estados variables** (con/sin objeto)
+- Cuando **necesitás flexibilidad**
+
+#### 🎯 **Diseño de Clases:**
+- **HumanA:** Modelo para objetos con **dependencias fijas**
+- **HumanB:** Modelo para objetos con **dependencias flexibles**
+- Elegir según los **requisitos del problema**
+
+### Resumen 
+
+El **Ejercicio 03** demuestra en la práctica la diferencia entre **referencias** y **punteros** aplicado a un problema de diseño real:
+
+- **Referencias = Garantía** (HumanA siempre armado)
+- **Punteros = Flexibilidad** (HumanB opcionalmente armado)
+- **Métodos const = Promesa de no modificación**
+- **Diseño coherente** según los requisitos del problema
+
+**Moraleja:** La elección entre referencia y puntero debe basarse en si la dependencia es **obligatoria** (referencia) u **opcional** (puntero).
+
+````
