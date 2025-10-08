@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/08 16:45:00 by brivera           #+#    #+#             */
-/*   Updated: 2025/10/08 16:58:30 by brivera          ###   ########.fr       */
+/*   Updated: 2025/10/08 17:05:28 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@
  * 3. Agregar resto del texto
  */
 
-std::string	replace_AllOccurrences(const std::string& text, const std::string& s1, const std::string& s2)
+std::string	replace_AllOccurrences(const std::string& text,
+            const std::string& s1, const std::string& s2)
 {
 	size_t		found;
 	size_t		pos;
