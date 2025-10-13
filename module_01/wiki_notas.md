@@ -692,4 +692,4 @@ El **Ejercicio 03** demuestra en la práctica la diferencia entre **referencias*
 
 **Moraleja:** La elección entre referencia y puntero debe basarse en si la dependencia es **obligatoria** (referencia) u **opcional** (puntero).
 
-````
+---

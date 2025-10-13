@@ -1,4 +1,195 @@
-# WIKI - CPP Module 00 Ex02: Account Class
+# WIKI NOTAS
+
+## IOManips (Input/Output Manipulators) - Formateo de Salida en C++
+
+### ¿Qué son los IOManips?
+
+Los **IOManips** son funciones especiales de C++ que permiten **formatear y controlar** cómo se muestran los datos en streams como `cout`, `cin`, `ofstream`, etc.
+
+```cpp
+#include <iomanip>  // ¡Librería necesaria!
+```
+
+Son **modificadores de formato** que cambian el comportamiento de los streams de entrada y salida.
+
+### 🎨 Principales IOManips
+
+#### 1. **Formateo de Números**
+
+```cpp
+#include <iostream>
+#include <iomanip>
+
+int main() {
+    double pi = 3.14159265359;
+    
+    std::cout << std::setprecision(3) << pi << std::endl;        // 3.14
+    std::cout << std::setprecision(6) << pi << std::endl;        // 3.14159
+    std::cout << std::fixed << std::setprecision(2) << pi << std::endl;  // 3.14
+    
+    return 0;
+}
+```
+
+#### 2. **Ancho y Alineación**
+
+```cpp
+std::cout << std::setw(10) << "Hola" << std::endl;              // "     Hola"
+std::cout << std::left << std::setw(10) << "Hola" << std::endl; // "Hola     "
+std::cout << std::right << std::setw(10) << "Hola" << std::endl;// "     Hola"
+```
+
+#### 3. **Relleno de Espacios**
+
+```cpp
+std::cout << std::setfill('*') << std::setw(10) << "42" << std::endl; // "********42"
+std::cout << std::setfill('0') << std::setw(5) << 42 << std::endl;    // "00042"
+```
+
+#### 4. **Bases Numéricas**
+
+```cpp
+int num = 255;
+std::cout << std::dec << num << std::endl;  // 255 (decimal)
+std::cout << std::hex << num << std::endl;  // ff (hexadecimal)
+std::cout << std::oct << num << std::endl;  // 377 (octal)
+```
+
+### 📊 Lista Completa de IOManips
+
+| Manipulador | Función | Ejemplo |
+|-------------|---------|---------|
+| **`std::setw(n)`** | Establece ancho mínimo | `setw(10)` |
+| **`std::setfill(c)`** | Carácter de relleno | `setfill('0')` |
+| **`std::left`** | Alineación izquierda | `left` |
+| **`std::right`** | Alineación derecha | `right` |
+| **`std::setprecision(n)`** | Decimales a mostrar | `setprecision(3)` |
+| **`std::fixed`** | Notación decimal fija | `fixed` |
+| **`std::scientific`** | Notación científica | `scientific` |
+| **`std::hex`** | Base hexadecimal | `hex` |
+| **`std::dec`** | Base decimal | `dec` |
+| **`std::oct`** | Base octal | `oct` |
+| **`std::uppercase`** | Mayúsculas en hex | `uppercase` |
+| **`std::nouppercase`** | Minúsculas en hex | `nouppercase` |
+| **`std::showbase`** | Mostrar prefijo (0x, 0) | `showbase` |
+| **`std::noshowbase`** | No mostrar prefijo | `noshowbase` |
+
+### 🧪 Ejemplo Práctico - Tabla Formateada
+
+```cpp
+#include <iostream>
+#include <iomanip>
+
+int main() {
+    // Línea separadora
+    std::cout << std::setfill('-') << std::setw(50) << "" << std::endl;
+    std::cout << std::setfill(' ');  // Restaurar relleno normal
+    
+    // Cabecera de tabla
+    std::cout << "| " << std::left << std::setw(12) << "Ejercicio" 
+              << "| " << std::right << std::setw(8) << "Nota" 
+              << "| " << std::right << std::setw(12) << "Tiempo" 
+              << " |" << std::endl;
+              
+    std::cout << std::setfill('-') << std::setw(50) << "" << std::endl;
+    std::cout << std::setfill(' ');
+    
+    // Datos formateados
+    std::cout << "| " << std::left << std::setw(12) << "ex00" 
+              << "| " << std::right << std::setw(8) << "100/100" 
+              << "| " << std::right << std::setw(12) << "15 min" 
+              << " |" << std::endl;
+              
+    std::cout << "| " << std::left << std::setw(12) << "ex01" 
+              << "| " << std::right << std::setw(8) << "95/100" 
+              << "| " << std::right << std::setw(12) << "20 min" 
+              << " |" << std::endl;
+              
+    return 0;
+}
+```
+
+**Salida:**
+```
+--------------------------------------------------
+| Ejercicio   |     Nota|      Tiempo |
+--------------------------------------------------
+| ex00        |  100/100|      15 min |
+| ex01        |   95/100|      20 min |
+```
+
+### 🎯 Casos de Uso Comunes
+
+#### **1. Formateo Monetario**
+```cpp
+double precio = 1234.567;
+std::cout << "Precio: $" << std::fixed << std::setprecision(2) << precio << std::endl;
+// Salida: Precio: $1234.57
+```
+
+#### **2. Tablas de Datos**
+```cpp
+std::cout << std::left << std::setw(15) << "Nombre" 
+          << std::right << std::setw(10) << "Edad" << std::endl;
+```
+
+#### **3. Números Hexadecimales**
+```cpp
+int valor = 255;
+std::cout << "0x" << std::hex << std::uppercase << valor << std::endl;  // 0xFF
+```
+
+#### **4. Padding con Ceros**
+```cpp
+int numero = 42;
+std::cout << std::setfill('0') << std::setw(6) << numero << std::endl;  // 000042
+```
+
+### 🧉 Analogía del Mate
+
+Los IOManips son como **las instrucciones para preparar mate**:
+
+```cpp
+std::cout << std::setfill('~')     // "Rellenemos con yerbita (~)"
+          << std::setw(10)         // "En un mate de 10cm de ancho"  
+          << std::right            // "Alineado a la derecha"
+          << "MATE"                // "Escribimos MATE"
+          << std::endl;            // Resultado: "~~~~~~MATE"
+```
+
+### 💡 Cuándo Usar IOManips
+
+- **Tablas de datos** (alinear columnas)
+- **Reportes financieros** (formato monetario)
+- **Logs de sistema** (formato consistente)
+- **Interfaces de usuario** en consola
+- **Archivos de configuración** formateados
+- **Output profesional** en ejercicios de 42
+
+### 🎯 Ejemplo para 42
+
+```cpp
+// Para mostrar resultados de ejercicios formateados
+std::cout << std::left << std::setw(15) << "Ejercicio" 
+          << std::right << std::setw(10) << "Nota" 
+          << std::right << std::setw(15) << "Tiempo" << std::endl;
+          
+std::cout << std::left << std::setw(15) << "ex00" 
+          << std::right << std::setw(10) << "100/100" 
+          << std::right << std::setw(15) << "15 min" << std::endl;
+```
+
+### Conceptos Clave
+
+1. **Persistencia**: Los manipuladores mantienen su estado hasta que se cambien
+2. **Concatenación**: Se pueden combinar múltiples manipuladores
+3. **Stream-específicos**: Afectan solo al stream donde se aplican
+4. **Reversibles**: Se pueden restaurar valores por defecto
+
+**Resumen:** Los IOManips son fundamentales para crear **output profesional y legible** en C++, especialmente útiles para interfaces de consola y reportes formateados.
+
+
+# CPP Module 00 Ex02: Account Class
 
 ## **Objetivo del Ejercicio**
 Implementar una clase `Account` que simule cuentas bancarias usando **variables y métodos estáticos** para mantener información global compartida entre todas las instancias.
@@ -280,7 +471,7 @@ Account::displayAccountsInfos();
 
 ---
 
-## 🏆 **Conceptos que dominas después de este ejercicio:**
+## 🏆 **Conceptos:**
 
 - ✅ Variables y métodos estáticos
 - ✅ Diferencia entre datos de instancia y clase
