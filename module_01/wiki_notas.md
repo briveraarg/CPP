@@ -693,3 +693,365 @@ El **Ejercicio 03** demuestra en la práctica la diferencia entre **referencias*
 **Moraleja:** La elección entre referencia y puntero debe basarse en si la dependencia es **obligatoria** (referencia) u **opcional** (puntero).
 
 ---
+
+## Ejercicio 06: "Harl Filter" - Switch Statement y Fall-through
+
+### Objetivo
+Implementar un sistema de filtrado de logs usando **switch statement** con **fall-through** para mostrar mensajes desde un nivel específico hacia niveles más severos.
+
+### ¿Qué es un Switch Statement?
+
+El `switch` es una estructura de control que evalúa una expresión y ejecuta código basado en el valor. Es como un `if-else if` múltiple pero más eficiente para comparar con valores constantes.
+
+#### Sintaxis Básica:
+```cpp
+switch (variable) {
+    case valor1:
+        // código a ejecutar si variable == valor1
+        break;
+    case valor2:
+        // código a ejecutar si variable == valor2
+        break;
+    default:
+        // código si no coincide con ningún case
+        break;
+}
+```
+
+### 🔥 Concepto Clave: Fall-through
+
+**Fall-through** es cuando **NO** pones `break` y el programa continúa ejecutando los siguientes `case`:
+
+```cpp
+int numero = 2;
+switch (numero) {
+    case 1:
+        std::cout << "Uno" << std::endl;
+        // SIN break - continúa al siguiente case
+    case 2:
+        std::cout << "Dos" << std::endl;
+        // SIN break - continúa al siguiente case  
+    case 3:
+        std::cout << "Tres" << std::endl;
+        break; // AQUÍ se detiene
+    default:
+        std::cout << "Otro número" << std::endl;
+}
+```
+
+**Resultado si numero = 2:**
+```
+Dos
+Tres
+```
+
+**Resultado si numero = 1:**
+```
+Uno
+Dos
+Tres
+```
+
+### 🎯 Aplicación en Harl Filter
+
+En nuestro filtro de logs, queremos mostrar **todos los niveles desde el seleccionado hacia los más severos**:
+
+```cpp
+void Harl::filter(std::string level)
+{
+    std::string levels[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+    int levelIndex = -1;
+    int i = 0;
+    
+    // Encontrar el índice del nivel usando while
+    while (i < 4)
+    {
+        if (levels[i] == level)
+        {
+            levelIndex = i;
+            break;
+        }
+        i++;
+    }
+    
+    // Switch con fall-through: DEBUG→INFO→WARNING→ERROR
+    switch (levelIndex)
+    {
+        case 0: // DEBUG
+            debug();
+            // fall through - NO hay break!
+        case 1: // INFO
+            info();
+            // fall through - NO hay break!
+        case 2: // WARNING
+            warning();
+            // fall through - NO hay break!
+        case 3: // ERROR
+            error();
+            break; // AQUÍ se detiene
+        default:
+            std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
+            break;
+    }
+}
+```
+
+### 📊 Jerarquía de Logs (Menos severo → Más severo)
+
+```
+DEBUG ──→ INFO ──→ WARNING ──→ ERROR
+  0        1         2          3
+```
+
+### 🚀 Ejemplos de Ejecución
+
+#### Ejemplo 1: `./harlFilter "WARNING"`
+```
+levelIndex = 2  →  Entra en case 2:
+┌──────────────────────────────────────┐
+│ case 2: warning();  ← EJECUTA        │
+│ case 3: error();    ← EJECUTA (fall) │
+│ break;              ← SE DETIENE     │
+└──────────────────────────────────────┘
+
+Salida:
+[ WARNING ]
+I think I deserve to have some extra bacon for free.
+I've been coming for years, whereas you started working here just last month.
+
+[ ERROR ]
+This is unacceptable! I want to speak to the manager now.
+```
+
+#### Ejemplo 2: `./harlFilter "DEBUG"`
+```
+levelIndex = 0  →  Entra en case 0:
+┌──────────────────────────────────────┐
+│ case 0: debug();    ← EJECUTA        │
+│ case 1: info();     ← EJECUTA (fall) │
+│ case 2: warning();  ← EJECUTA (fall) │
+│ case 3: error();    ← EJECUTA (fall) │
+│ break;              ← SE DETIENE     │
+└──────────────────────────────────────┘
+
+Salida: (Los 4 niveles)
+[ DEBUG ]
+I love having extra bacon for my 7XL-double-cheese-triple-pickle-special-ketchup burger.
+I really do!
+
+[ INFO ]
+I cannot believe adding extra bacon costs more money.
+You didn't put enough bacon in my burger!
+If you did, I wouldn't be asking for more!
+
+[ WARNING ]
+I think I deserve to have some extra bacon for free.
+I've been coming for years, whereas you started working here just last month.
+
+[ ERROR ]
+This is unacceptable! I want to speak to the manager now.
+```
+
+#### Ejemplo 3: `./harlFilter "INVALID"`
+```
+levelIndex = -1  →  No coincide con ningún case:
+┌──────────────────────────────────────┐
+│ default:                             │
+│ std::cout << "[ Probably complaining │
+│              about insignificant     │
+│              problems ]";            │
+└──────────────────────────────────────┘
+
+Salida:
+[ Probably complaining about insignificant problems ]
+```
+
+### 🧉 Analogía del Mate (Argentina)
+
+Imaginate que tenés **4 termos de agua** ordenados por temperatura:
+
+```
+Termo 1: Agua tibia (DEBUG)     🌡️ 50°C
+Termo 2: Agua caliente (INFO)   🌡️ 70°C  
+Termo 3: Agua muy caliente (WARNING) 🌡️ 85°C
+Termo 4: Agua hirviendo (ERROR) 🌡️ 100°C
+```
+
+**Switch con fall-through = "Desde este termo para arriba"**
+
+- Si pedís **"Termo 3"** → Te damos **Termo 3 + Termo 4**
+- Si pedís **"Termo 1"** → Te damos **todos los termos** (1, 2, 3, 4)
+- Si pedís **"Termo inexistente"** → Te decimos **"No tenemos mate para vos"**
+
+### ⚡ ¿Por qué Fall-through es Genial Aquí?
+
+Sin fall-through (más código):
+```cpp
+if (level == "DEBUG") {
+    debug(); info(); warning(); error();
+} else if (level == "INFO") {
+    info(); warning(); error();
+} else if (level == "WARNING") {
+    warning(); error();
+} else if (level == "ERROR") {
+    error();
+} else {
+    std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
+}
+```
+
+Con fall-through (menos código, más elegante):
+```cpp
+switch (levelIndex) {
+    case 0: debug();    // fall through
+    case 1: info();     // fall through  
+    case 2: warning();  // fall through
+    case 3: error(); break;
+    default: std::cout << "[ Probably complaining... ]"; break;
+}
+```
+
+### 🎯 Ventajas del Switch con Fall-through
+
+1. **Menos código:** No repetir llamadas a métodos
+2. **Más legible:** Secuencia clara de ejecución
+3. **Más eficiente:** Una sola evaluación
+4. **Escalable:** Fácil agregar nuevos niveles
+
+### ⚠️ Peligros del Fall-through
+
+```cpp
+// ❌ PELIGRO: Fall-through accidental
+switch (day) {
+    case 1:
+        std::cout << "Lunes" << std::endl;
+        // ¡Olvidé el break! → Ejecuta también Martes
+    case 2:
+        std::cout << "Martes" << std::endl;
+        break;
+}
+```
+
+**Resultado inesperado si day = 1:**
+```
+Lunes
+Martes  ← ¡No queríamos esto!
+```
+
+### 🛡️ Buenas Prácticas con Switch
+
+#### 1. **Comentarios para Fall-through Intencional:**
+```cpp
+case 0: 
+    debug();
+    // fall through  ← Comenta que es intencional
+case 1:
+    info();
+    break;
+```
+
+#### 2. **Siempre incluir default:**
+```cpp
+switch (value) {
+    case 1: /* ... */ break;
+    case 2: /* ... */ break;
+    default:  // ← Siempre manejar casos inesperados
+        std::cout << "Valor no reconocido" << std::endl;
+        break;
+}
+```
+
+#### 3. **Un case por línea (legibilidad):**
+```cpp
+// ✅ Legible
+switch (level) {
+    case 0: debug(); break;
+    case 1: info(); break;
+}
+
+// ❌ Menos legible  
+switch (level) { case 0: debug(); case 1: info(); break; }
+```
+
+### 🏆 Switch vs If-else: ¿Cuándo usar cada uno?
+
+#### ✅ **USA SWITCH cuando:**
+- Comparás una variable con **múltiples valores constantes**
+- Los valores son **enteros, chars, o enums**
+- Necesitás **fall-through**
+- Tenés **muchos casos** (3 o más)
+
+#### ✅ **USA IF-ELSE cuando:**
+- Comparás con **rangos** (`if (x > 10 && x < 20)`)
+- Usás **strings** complejos
+- Tenés **condiciones complejas** (`if (a > b && c != d)`)
+- Solo tenés **pocos casos** (1-2)
+
+### 🎮 Ejemplo Interactivo: Menu con Switch
+
+```cpp
+void showMenu() {
+    int choice;
+    std::cout << "1. Jugar\n2. Opciones\n3. Salir\n";
+    std::cin >> choice;
+    
+    switch (choice) {
+        case 1:
+            std::cout << "Iniciando juego..." << std::endl;
+            startGame();
+            break;
+        case 2:
+            std::cout << "Configurando opciones..." << std::endl;
+            showOptions();
+            break;
+        case 3:
+            std::cout << "¡Hasta luego!" << std::endl;
+            exit(0);
+            break;
+        default:
+            std::cout << "Opción inválida. Intentá de nuevo." << std::endl;
+            showMenu();  // Recursión para volver a mostrar
+            break;
+    }
+}
+```
+
+### 💡 Concepto Avanzado: Switch con Enum
+
+```cpp
+enum LogLevel { DEBUG = 0, INFO = 1, WARNING = 2, ERROR = 3 };
+
+void filterLogs(LogLevel level) {
+    switch (level) {
+        case DEBUG:   debug();   // fall through
+        case INFO:    info();    // fall through
+        case WARNING: warning(); // fall through
+        case ERROR:   error();   break;
+    }
+}
+
+// Uso: filterLogs(WARNING);
+```
+
+### 🚀 Resumen del Ejercicio 06
+
+#### **Conceptos Aprendidos:**
+1. **Switch statement:** Alternativa eficiente a if-else múltiple
+2. **Fall-through:** Ejecución continua sin break
+3. **Casos prácticos:** Filtrado de logs por severidad
+4. **Buenas prácticas:** Comentarios, default, legibilidad
+
+#### **Cuándo Usar Switch:**
+- **Múltiples valores constantes** para comparar
+- **Necesitás fall-through** (como nuestro filtro)
+- **Mejor rendimiento** que if-else múltiple
+- **Código más limpio** para casos específicos
+
+#### **Fall-through en la Vida Real:**
+- **Sistemas de permisos:** Usuario Admin → puede todo lo que puede Usuario Normal
+- **Configuraciones de calidad:** Ultra → incluye todo lo de Alto + Medio + Bajo
+- **Filtros progresivos:** Como nuestro Harl filter
+
+**Lección clave:** El `switch` con fall-through es perfecto cuando querés **"desde este nivel hacia arriba/abajo"** de forma elegante y eficiente.
+
+---
