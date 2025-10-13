@@ -6,9 +6,11 @@
 #    By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/08 13:03:34 by brivera           #+#    #+#              #
-#    Updated: 2025/10/08 16:57:11 by brivera          ###   ########.fr        #
+#    Updated: 2025/10/13 15:44:04 by brivera          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+
 
 NAME 	:= Sed_is_for_losers
 
@@ -51,3 +53,6 @@ re: fclean all
 .PHONY: all clean fclean re
 
 .GOAL: all
+
+
+

@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 18:24:49 by brivera           #+#    #+#             */
-/*   Updated: 2025/10/13 12:37:20 by brivera          ###   ########.fr       */
+/*   Updated: 2025/10/13 15:21:46 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@
 #include <iostream>
 #include <string>
 
+#define UNKNOWN "[ Probably complaining about insignificant problems ]"
+
 /*
  * Clase Harl - Sistema de logging con filtrado por niveles
  * 
- * Para ex06: Implementa un filtro que muestra mensajes desde un nivel específico
- * hacia arriba usando switch statement:
+ * Para ex06: Implementa un filtro que muestra mensajes
+ * desde un nivel específico
  * - DEBUG: Muestra DEBUG, INFO, WARNING, ERROR
  * - INFO: Muestra INFO, WARNING, ERROR  
  * - WARNING: Muestra WARNING, ERROR

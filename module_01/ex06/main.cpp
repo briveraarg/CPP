@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 12:18:13 by brivera           #+#    #+#             */
-/*   Updated: 2025/10/13 12:34:44 by brivera          ###   ########.fr       */
+/*   Updated: 2025/10/13 15:23:57 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ int main(int argc, char **argv)
 		std::cerr << "Niveles válidos: DEBUG, INFO, WARNING, ERROR" << std::endl;
 		return (1);
 	}
-
 	Harl harl;
 	harl.filter(argv[1]);
-	
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/09 18:24:30 by brivera           #+#    #+#             */
-/*   Updated: 2025/10/09 19:15:00 by brivera          ###   ########.fr       */
+/*   Updated: 2025/10/13 15:29:31 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ I've been coming for years, whereas you started working here just last month."
 
  void	Harl::error(void)
 {
-	std::cout << BOLD << BRIGHT_RED << "[ERROR]" << RESET << std::endl;
-	std::cout << "This is unacceptable! I want to speak to the manager now."
+	std::cerr << BOLD << BRIGHT_RED << "[ERROR]" << RESET << std::endl;
+	std::cerr << "This is unacceptable! I want to speak to the manager now."
 	<< std::endl;
 }
 
@@ -95,7 +95,6 @@ void	Harl::complain(std::string level)
 		&Harl::warning,
 		&Harl::error
 	};
-	
 	i = 0;
 	while (i < 4)
 	{
@@ -106,5 +105,5 @@ void	Harl::complain(std::string level)
 		}
 		i++;
 	}
-	std::cout << "[UNKNOWN]: Harl no sabe qué decir sobre '" << level << "'" << std::endl;
+	std::cerr << "[UNKNOWN]: Harl no sabe qué decir sobre '" << level << "'" << std::endl;
 }
