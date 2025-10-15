@@ -890,9 +890,8 @@ Salida:
 [ Probably complaining about insignificant problems ]
 ```
 
-### 🧉 Analogía del Mate (Argentina)
 
-Imaginate que tenés **4 termos de agua** ordenados por temperatura:
+Hay **4 termos de agua** ordenados por temperatura:
 
 ```
 Termo 1: Agua tibia (DEBUG)     🌡️ 50°C
