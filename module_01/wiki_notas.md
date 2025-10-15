@@ -116,12 +116,46 @@ Zombie* zombieHorde(int N, std::string name);
 
 ### Proceso Paso a Paso
 
+#### 0. Concepto de sobrecarga de constructores 
+
+```cpp
+Zombie();
+Zombie(std::string name);
+```
+
+Son **dos constructores distintos** —uno **por defecto** (sin parámetros) y otro **parametrizado** (con nombre). Esto se llama **sobrecarga de constructores**.
+En ese momento, el compilador **crea N objetos Zombie** **sin argumentos**, o sea que necesita llamar a `Zombie()` para cada uno.
+Si no existe ese constructor, **no puede crear el array** y da error.
+
+---
+
+### ✅ En resumen
+
+| Constructor                | Cuándo se usa      | Por qué es necesario                                  |
+| -------------------------- | ------------------ | ----------------------------------------------------- |
+| `Zombie()`                 | `new Zombie[N]`    | Se necesita un constructor sin argumentos para arrays |
+| `Zombie(std::string name)` | `Zombie("Brenda")` | Para inicializar zombies individuales con nombre      |
+
+---
+
+Así que sí:
+
+* tiene un fin técnico (el array necesita el constructor vacío),
+* **y también pedagógico** (entender la sobrecarga y la inicialización en C++).
+
+¿Querés que te muestre un ejemplo corto donde se usan los dos en la práctica (como en el módulo *Zombie horde*)?
+
 #### 1. Creación del Array
 ```cpp
 Zombie* horde = new Zombie[5];  // Crea 5 zombies
 ```
 - C++ llama automáticamente al **constructor por defecto** 5 veces
 - Cada zombie se crea con `name = ""` (vacío)
+
+```cpp
+Zombie* horde = new(std::nothrow) Zombie[N]; 
+// Crea 5 zombies. Si la reserva de memoria falla, normalmente el operador new lanza una excepción del tipo std::bad_alloc. 
+//std::nothrow Es un modificador que le dice a new: “Si no hay suficiente memoria, no lances una excepción. En su lugar, devolvé nullptr.”
 
 #### 2. Asignación de Nombres
 ```cpp
@@ -344,14 +378,14 @@ ref = "nuevo valor";             // ✅ Acceso directo, sin *
 **PREFERÍ REFERENCIAS** cuando sea posible (90% de los casos)
 
 #### 🥈 Excepciones para Punteros
-- Necesitás `nullptr`
-- Necesitás reasignación  
+- `nullptr` o `NULL`
+- reasignación  
 - Memoria dinámica
 - Estructuras de datos complejas
 
 #### 🧉 Regla del Mate
-- **Referencia = "Che, pasame el mate"** (directo, simple, siempre hay mate)
-- **Puntero = "Che, ¿tenés mate?"** (puede que no haya, más verificaciones)
+- **Referencia = "pasame el mate"** (directo, simple, siempre hay mate)
+- **Puntero = "¿tenés mate?"** (puede que no haya, más verificaciones)
 
 ### Conceptos Avanzados
 
@@ -364,7 +398,7 @@ std::string& ref = *heap;  // Referencia al objeto en heap
 std::cout << *heap << std::endl;  // HEAP BRAIN
 std::cout << ref << std::endl;    // HEAP BRAIN
 
-delete heap;  // ¡CUIDADO! ref ahora es peligroso
+delete heap; 
 ```
 
 #### Verificación de Seguridad
@@ -385,7 +419,7 @@ ref = "nuevo valor";  // Directo, sin verificaciones
 - **Punteros más flexibles** (nullptr, reasignación, memoria dinámica)
 - **Usar referencias por defecto**, punteros solo cuando sea necesario
 
-**Moraleja:** Las referencias hacen el código más limpio y seguro, pero los punteros siguen siendo necesarios para casos específicos.
+Las referencias hacen el código más limpio y seguro, pero los punteros siguen siendo necesarios para casos específicos.
 
 ### Caso Especial: Memoria Dinámica y Direcciones Diferentes
 
@@ -398,7 +432,7 @@ std::cout << "Direccion de memoria REF:" << &heapREF << std::endl;     // 3
 std::cout << "Direccion de memoria PTR:" << &heapString << std::endl;  // 4
 ```
 
-#### Resultado Típico
+#### Resultado
 ```
 Direccion de memoria REF: 0x7fad5f004080
 Direccion de memoria PTR: 0x7ff7b0aef500
@@ -431,16 +465,6 @@ HEAP (memoria dinámica):
 3. **`heapREF`** = referencia (alias) al objeto en el heap
 4. **Resultado:** `heapREF` ES el objeto del heap, NO el puntero
 
-#### Analogía del Papel con Dirección
-
-```cpp
-std::string* heapString = new std::string("HEAP BRAIN");  
-// heapString = "papel con dirección: Av. Corrientes 1234"
-
-std::string& heapREF = *heapString;
-// *heapString = "ve a Corrientes 1234 y traeme el mate"
-// heapREF = "ahora ese mate tiene otro nombre: 'matecito'"
-```
 
 #### Verificación de Conceptos
 
