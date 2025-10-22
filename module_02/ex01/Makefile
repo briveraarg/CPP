@@ -6,11 +6,11 @@
 #    By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/22 17:54:01 by brivera           #+#    #+#              #
-#    Updated: 2025/10/22 18:02:39 by brivera          ###   ########.fr        #
+#    Updated: 2025/10/22 20:16:55 by brivera          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 	:= ex00
+NAME 	:= ex01
 
 CC		:= c++
 FLAGS	:= -Wall -Wextra -Werror -std=c++98
