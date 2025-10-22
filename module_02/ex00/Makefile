@@ -6,7 +6,7 @@
 #    By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/22 17:54:01 by brivera           #+#    #+#              #
-#    Updated: 2025/10/22 18:02:39 by brivera          ###   ########.fr        #
+#    Updated: 2025/10/22 18:19:01 by brivera          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,9 @@ NAME 	:= ex00
 CC		:= c++
 FLAGS	:= -Wall -Wextra -Werror -std=c++98
 
-SRCS 	:= main.cpp Fixed.cpp
-HEADERS := Fixed.hpp
+SRCS 	:= main.cpp \
+		   Fixed.cpp
+HEADERS := Fixed.hpp 
 
 OBJS_DIR 	:= objs
 OBJS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.cpp=.o))
