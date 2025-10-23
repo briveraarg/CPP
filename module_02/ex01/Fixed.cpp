@@ -6,48 +6,58 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 13:40:44 by brivera           #+#    #+#             */
-/*   Updated: 2025/10/23 14:42:48 by brivera          ###   ########.fr       */
+/*   Updated: 2025/10/23 17:18:14 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FIXED_HPP
-#define FIXED_HPP
 
-#include <iostream>
+#include "Fixed.hpp"
 
-/***************************************/
-/*                COLOR                */
-/***************************************/
+const int Fixed::_fractionalBits = 8;
 
-#define RESET			"\033[0m"
-#define BRIGHT_RED		"\033[91m"
-#define BRIGHT_GREEN	"\033[92m"
-#define BRIGHT_BLUE		"\033[94m"
-#define BRIGHT_MAGENTA	"\033[95m"
-#define BRIGHT_CYAN		"\033[96m"
-
-#define BOLD			"\033[1m"
-
-class Fixed
+Fixed::Fixed(void) : _value(0)
 {
-	private:
-		int					_value;
-		static const int	_fractionalBits;
+	std::cout << "Default constructor called" << std::endl;
+}
 
-	public:
-		Fixed(void);
-		Fixed(const int	nbr);
-		Fixed(const float nbr);
-		Fixed(const Fixed& other);
-		
-		Fixed& operator=(const Fixed& other);
-		~Fixed();
-		
-		int		getRawBits(void) const;
-		void	setRawBits(int const raw);
-		
-		float	toFloat( void ) const;
-		int		toInt( void ) const;
-};
+Fixed::Fixed(const Fixed& other) : _value(other._value)
+{
+	std::cout << "Copy constructor called" << std::endl;
+}
 
-#endif
+Fixed& Fixed::operator=(const Fixed& other)
+{
+	std::cout << "Copy assignment operator called" << std::endl;
+	if (this != &other)
+	{
+		this->_value = other._value;
+	}
+	return (*this);
+}
+
+Fixed::~Fixed()
+{
+	std::cout << "Destructor called" << std::endl;
+}
+
+int	Fixed::getRawBits(void) const
+{
+	std::cout << "getRawBits member function called" << std::endl;
+	return (this->_value);
+}
+
+void	Fixed::setRawBits(int const raw)
+{
+	this->_value = raw;
+}
+
+int	Fixed::toInt(void) const 
+{
+	return(static_cast<int>(this->toFloat()));
+}
+
+float Fixed::toFloat(void) const
+{
+	
+	return(static_cast<float>(_value)/ static_cast<float>(1 << _fractionalBits));
+}
