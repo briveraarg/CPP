@@ -274,6 +274,113 @@ obase=10
 (1408 * 768) / 2^8  # (5.5 * 3.0) = 16.5
 ```
 
+1.
+//fixed 256 -> se escribre 1 << _fractionalBits 4 * 256 = 100(en bits)
+
+Exacto, exactamente eso. Vamos a desglosarlo.
+
+---
+
+### 1️⃣ Punto fijo vs float
+
+#### Float (`float` en C++)
+
+* Es un número **de punto flotante**, con **mantisa de 23 bits** (para `float`) y **exponente**.
+* Puede representar **muchos más decimales** y rangos grandes, pero sigue siendo aproximado en ciertos valores.
+* Ejemplo: `1234.4321f` → almacenado como algo cercano a `1234.43212890625`.
+
+#### Punto fijo (`Fixed` con `_fractionalBits = 8`)
+
+* `_value` es un entero que representa:
+
+[
+\text{valor real} = \frac{\text{_value}}{2^{_fractionalBits}}
+]
+
+* Con `_fractionalBits = 8` → pasos de `1/256 ≈ 0.00390625`.
+* Entonces **solo puedes representar números con incrementos de 0.00390625**.
+
+---
+
+### 2️⃣ Precisión y exactitud
+
+* `float` tiene **aproximadamente 7 decimales significativos**.
+* Tu `Fixed` con 8 bits fraccionarios tiene:
+
+```
+1/256 ≈ 0.00390625 → solo unos 3 decimales aproximados
+```
+
+* Ejemplo real:
+
+```cpp
+Fixed a(1234.4321f);
+std::cout << a.toFloat(); // 1234.4296875
+```
+
+* La diferencia con el float original:
+
+```
+1234.4321 - 1234.4296875 ≈ 0.0024125
+```
+
+---
+
+### 3️⃣ Conclusión
+
+* Sí, **punto fijo es menos preciso** que un float con pocos bits fraccionarios.
+* Pero **es más predecible**: cada incremento es exacto (`1 << _fractionalBits`), mientras que el float depende de la mantisa y el exponente.
+* Para **controlar precisión**, podés aumentar `_fractionalBits`:
+
+```cpp
+static const int _fractionalBits = 16; // pasos de 1/65536 ≈ 0.00001526
+```
+
+→ mucho más exacto, pero `_value` sigue siendo un `int` (o necesitás `long` si se pasa de rango).
+
+---
+
+Si querés, puedo hacerte un **mini cuadro comparando Fixed y float** con rangos, pasos y precisión para que lo veas clarito.
+¿Querés que lo haga?
 
 
+¡Perfecto! Vamos paso a paso.
+
+---
+
+## 1️⃣ Comparación Fixed vs Float
+
+| Característica         | Float (`float`)                                                 | Fixed (`_fractionalBits=8`)                                  |
+| ---------------------- | --------------------------------------------------------------- | ------------------------------------------------------------ |
+| Representación interna | Mantisa + exponente                                             | Entero, escalado por 2^bits fraccionarios                    |
+| Precisión              | ~7 decimales significativos                                     | Paso = 1/256 ≈ 0.00390625                                    |
+| Rango                  | Muy amplio                                                      | Limitado al tipo entero (`int`)                              |
+| Exactitud              | Aproximada                                                      | Exacta para los pasos que permite                            |
+| Operaciones            | Suma/resta/multi/división pueden perder precisión por redondeos | Suma/resta exacta, multiplicación/división requiere cuidado  |
+| Uso típico             | Cálculos científicos, gráficos                                  | Juegos, control, DSP, cuando querés exactitud en incrementos |
+
+---
+
+## 2️⃣ ¿Qué significa “más predecible”?
+
+Cuando digo que **Fixed es más predecible**:
+
+* Cada incremento es **exacto y constante**:
+
+```cpp
+_value += 1; // siempre aumenta 1/256
+```
+
+* No dependés de los bits de mantisa ni del exponente como en float.
+* Con float, sumar 0.0001 puede **no cambiar nada** si el número es muy grande, porque el float solo puede representar ciertos valores “discretos” dependiendo de la magnitud.
+
+💡 En otras palabras:
+
+> Con Fixed, sabés **exactamente** qué números son representables y cuáles no.
+> Con Float, la representación depende de la magnitud del número y de la mantisa → el error relativo cambia según el valor.
+
+---
+
+Si querés, puedo hacer un **mini esquema visual** mostrando cómo un float y un Fixed representan los mismos números y cómo la “discretización” es más clara en Fixed.
+¿Querés que lo haga?
 
