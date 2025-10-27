@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 18:00:07 by brivera           #+#    #+#             */
-/*   Updated: 2025/10/23 14:10:05 by brivera          ###   ########.fr       */
+/*   Updated: 2025/10/27 19:06:20 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int main(void)
 	
 	std::cout << BRIGHT_CYAN << "Modificamos el valor de c = b" << RESET << std::endl;
 	c = b;
+	b.setRawBits(25);
 	std::cout << "a: " << a.getRawBits() << std::endl;
 	std::cout << "b: " << b.getRawBits() << std::endl;
 	std::cout << "c: " << c.getRawBits() << std::endl;
