@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 17:20:40 by brivera           #+#    #+#             */
-/*   Updated: 2025/10/30 13:06:45 by brivera          ###   ########.fr       */
+/*   Updated: 2025/10/30 17:41:46 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ class Fixed
 		Fixed operator/(const Fixed& other) const;
 
 		/* Incremento / decremento */
-		Fixed& operator++();    // pre-increment
-		Fixed operator++(int);  // post-increment
-		Fixed& operator--();    // pre-decrement
-		Fixed operator--(int);  // post-decrement
+		Fixed& operator++();
+		Fixed operator++(int);
+		Fixed& operator--();
+		Fixed operator--(int);
 
 		/* Funciones estáticas min/max */
 		static Fixed& min(Fixed& a, Fixed& b);
