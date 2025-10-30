@@ -6,13 +6,16 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 18:20:00 by brivera           #+#    #+#             */
-/*   Updated: 2025/10/22 19:16:38 by brivera          ###   ########.fr       */
+/*   Updated: 2025/10/30 16:20:10 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 
-// Definición del miembro estático (C++98): cantidad de bits fraccionales
+/* 
+ * Definición del miembro estático (C++98): cantidad de bits fraccionales
+*/
+
 const int Fixed::_fractionalBits = 8;
 
 /*

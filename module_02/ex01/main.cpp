@@ -6,12 +6,36 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 17:27:04 by brivera           #+#    #+#             */
-/*   Updated: 2025/10/30 12:44:17 by brivera          ###   ########.fr       */
+/*   Updated: 2025/10/30 16:27:51 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 #include <cmath>
+
+
+
+/*
+ * main subjet
+*/
+
+/* int main( void ) 
+{
+	Fixed a;
+	Fixed const b( 10 );
+	Fixed const c( 42.42f );
+	Fixed const d( b );
+	a = Fixed( 1234.4321f );
+	std::cout << "a is " << a << std::endl;
+	std::cout << "b is " << b << std::endl;
+	std::cout << "c is " << c << std::endl;
+	std::cout << "d is " << d << std::endl;
+	std::cout << "a is " << a.toInt() << " as integer" << std::endl;
+	std::cout << "b is " << b.toInt() << " as integer" << std::endl;
+	std::cout << "c is " << c.toInt() << " as integer" << std::endl;
+	std::cout << "d is " << d.toInt() << " as integer" << std::endl;
+	return 0;
+} */
 
 int main( void )
 {
@@ -20,7 +44,6 @@ int main( void )
 	Fixed const c( 42.42f );
 	Fixed d( b );
 	a = Fixed( 1234.4321f );
-	d.setRawBits(256);
 	std::cout << "a is " << a << std::endl;
 	std::cout << "b is " << b << std::endl;
 	std::cout << "c is " << c << std::endl;
@@ -39,10 +62,13 @@ int main( void )
 	int rounded = static_cast<int>(roundf(nbr * (1 << 8)));
 
 	Fixed fromFloat(nbr);               // usa roundf dentro del constructor
-	Fixed truncFixed; truncFixed.setRawBits(scaled); // simulamos conversión por truncamiento
-	Fixed roundFixed; roundFixed.setRawBits(rounded); // simulamos conversión por roundf
+	Fixed truncFixed;
+	truncFixed.setRawBits(scaled); // simulamos conversión por truncamiento
+	
+	Fixed roundFixed;
+	roundFixed.setRawBits(rounded); // simulamos conversión por roundf
 
-	std::cout << std::endl << "--- Comparación (positivo) ---" << std::endl;
+	std::cout << std::endl << BRIGHT_CYAN << "--- Comparación (positivo) ---" << RESET << std::endl;
 	std::cout << "valor original float: " << nbr << std::endl;
 	std::cout << "scaled (nbr * 256) truncated raw: " << scaled << std::endl;
 	std::cout << "scaled (nbr * 256) rounded raw:   " << rounded << std::endl;
@@ -59,12 +85,12 @@ int main( void )
 	Fixed truncFixedN; truncFixedN.setRawBits(scaledN);
 	Fixed roundFixedN; roundFixedN.setRawBits(roundedN);
 
-	std::cout << std::endl << "--- Comparación (negativo) ---" << std::endl;
+	std::cout << std::endl << BRIGHT_MAGENTA << "--- Comparación (negativo) ---" << RESET << std::endl;
 	std::cout << "valor original float: " << nbrN << std::endl;
 	std::cout << "scaled (nbr * 256) truncated raw: " << scaledN << std::endl;
 	std::cout << "scaled (nbr * 256) rounded raw:   " << roundedN << std::endl;
 	std::cout << "fromFloat (constructor): " << fromFloatN << "  toInt()=" << fromFloatN.toInt() << "  (int)toFloat=" << static_cast<int>(fromFloatN.toFloat()) << std::endl;
 	std::cout << "truncFixed (setRawBits trunc): " << truncFixedN << "  toInt()=" << truncFixedN.toInt() << "  (int)toFloat=" << static_cast<int>(truncFixedN.toFloat()) << std::endl;
 	std::cout << "roundFixed (setRawBits round):  " << roundFixedN << "  toInt()=" << roundFixedN.toInt() << "  (int)toFloat=" << static_cast<int>(roundFixedN.toFloat()) << std::endl;
-	return 0;
+	return (0);
 }
