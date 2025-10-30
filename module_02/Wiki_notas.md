@@ -76,69 +76,44 @@ Fixed::~Fixed() {
    ```
 
 2. **Devolución de referencia**: El operador de asignación debe devolver una referencia para permitir encadenamientos:
-   ```cpp
-   Fixed& operator=(const Fixed& other);  // No: Fixed operator=(...
    ```
 
 3. **Parámetro por referencia constante**: Tanto el constructor de copia como el operador de asignación deben recibir una referencia constante:
-   ```cpp
-   Fixed(const Fixed& other);  // No: Fixed(Fixed other);
-   ```
-
 4. **Recursos dinámicos**: Si tu clase tiene punteros a memoria dinámica, debes implementar "deep copy" (copia profunda):
    ```cpp
    // Si tuvieras un puntero:
    this->ptr = new TipoDeRecurso(*other.ptr);  // Copia el contenido, no el puntero
    ```
 
-### La Regla de 5 (C++11 en adelante)
-
-En C++ moderno, existe la "regla de 5" que añade:
-- Constructor de movimiento
 - Operador de asignación de movimiento
-
-Pero en C++98, la regla de 3 es suficiente.
 
 ### Constructor de copia vs. Sobrecarga de constructores
 
 Una duda común: **El constructor de copia NO es una sobrecarga del constructor común** en el sentido tradicional.
 
 #### Constructor de copia
-```cpp
-Fixed(const Fixed& other);  // Constructor de copia
-```
-
 #### Constructor sobrecargado (ejemplo)
 ```cpp
-Fixed();           // Constructor por defecto
 Fixed(int value);  // Constructor sobrecargado con parámetro int
 ```
-
 #### La diferencia clave
 
 - **Constructores sobrecargados**: Tienen **diferentes parámetros** entre sí (ninguno, `int`, `float`, etc.)
   * Permiten crear objetos de diferentes maneras
-  * Ejemplo: `Fixed a;`, `Fixed b(42);`, `Fixed c(3.14f);`
 
 - **Constructor de copia**: Tiene un parámetro muy específico: **una referencia constante al mismo tipo de objeto**
-  * Su propósito es crear un nuevo objeto como copia de uno existente
   * Ejemplo: `Fixed b(a);` o `Fixed b = a;` (inicialización por copia)
 
 #### ¿Por qué es especial el constructor de copia?
 
 1. Tiene una **firma específica** que el compilador reconoce
 2. El compilador lo **llama automáticamente** en ciertas situaciones:
-   - Cuando inicializas un objeto con otro: `Fixed b = a;`
    - Cuando pasas un objeto por valor: `void func(Fixed obj) { ... }`
    - Cuando retornas un objeto por valor: `Fixed func() { return myFixed; }`
-
 3. Si no lo defines, el compilador **genera uno por defecto** que hace copia miembro a miembro (shallow copy)
 
 ### Casos donde se llama a cada constructor/operador
 
-```cpp
-// Constructor por defecto
-Fixed a;
 
 // Constructor de copia
 Fixed b(a);    // Forma explícita
@@ -173,6 +148,57 @@ int main(void) {
     return 0;
 }
 ```
+
+## Ejercicio 01: Conversión y representación más útil
+
+### Objetivo
+
+Mejorar la clase `Fixed` para que pueda construirse a partir de `int` y `float`, convertir entre representaciones y poder imprimir el valor en formato decimal.
+
+### Cambios principales
+- Constructor `Fixed(const int nbr)`: convierte el entero a la representación fixed multiplicando por `(1 << _fractionalBits)`.
+- Constructor `Fixed(const float nbr)`: convierte el float a fixed usando `roundf(nbr * (1 << _fractionalBits))` para minimizar sesgo.
+- `float toFloat(void) const`: reconstruye el `float` a partir del raw dividiendo por `(1 << _fractionalBits)`.
+- `int toInt(void) const`: convierte a entero. En esta implementación se decidió usar `static_cast<int>(toFloat())` para que la semántica coincida con un cast a `int` (truncamiento hacia 0).
+- Sobrecarga de `operator<<` para imprimir la representación en punto flotante (usa `toFloat()` internamente).
+
+### Notas sobre `roundf` y truncamiento
+- Se permite el uso de `roundf` (de `<cmath>`) en el enunciado. Usarlo evita el truncamiento y produce la representación fija más cercana al float original.
+- Ejemplo: `42.42 * 256 = 10859.52` → `roundf` produce `10860` (toFloat ≈ 42.4219). Un cast directo a `int` produciría `10859` (toFloat ≈ 42.41797).
+
+### Firma de funciones añadidas
+```cpp
+Fixed(const int nbr);
+Fixed(const float nbr);
+float toFloat(void) const;
+int toInt(void) const;
+std::ostream& operator<<(std::ostream& os, const Fixed& f);
+```
+
+### Ejemplo en `main` y salida esperada
+Código de ejemplo (simplificado):
+```cpp
+Fixed a;
+Fixed const b(10);
+Fixed const c(42.42f);
+Fixed const d(b);
+a = Fixed(1234.4321f);
+std::cout << "a is " << a << std::endl;
+std::cout << "b is " << b << std::endl;
+std::cout << "c is " << c << std::endl;
+std::cout << "d is " << d << std::endl;
+```
+Salida esperada (valores aproximados):
+```
+a is 1234.43
+b is 10
+c is 42.4219
+d is 10
+```
+
+### Recomendaciones
+- Usar `roundf` en el constructor desde float para precisión visual y menor sesgo.
+- Documentar en `Fixed.hpp` la semántica de `toInt()` y `toFloat()` para evitar confusiones con negativos.
 
 ## Fixed Point: Conceptos Básicos
 
