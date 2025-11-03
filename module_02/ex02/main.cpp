@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 17:19:25 by brivera           #+#    #+#             */
-/*   Updated: 2025/10/30 16:51:30 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/03 20:14:19 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int main( void )
 	std::cout << "c raw: " << c.getRawBits() << " -> c: " << c << std::endl;
 
 	Fixed	d = Fixed(5.05f) * Fixed(2);
+	
 	std::cout << std::endl << "Ejemplo adicional: d = Fixed(5.05f) * Fixed(2)" << std::endl;
 	std::cout << "d raw: " << d.getRawBits() << " -> d: " << d << std::endl;
 

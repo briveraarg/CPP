@@ -166,6 +166,41 @@ Mejorar la clase `Fixed` para que pueda construirse a partir de `int` y `float`,
 - Se permite el uso de `roundf` (de `<cmath>`) en el enunciado. Usarlo evita el truncamiento y produce la representación fija más cercana al float original.
 - Ejemplo: `42.42 * 256 = 10859.52` → `roundf` produce `10860` (toFloat ≈ 42.4219). Un cast directo a `int` produciría `10859` (toFloat ≈ 42.41797).
 
+### Truncamiento: qué es y por qué importa
+
+El truncamiento consiste en eliminar la parte fraccionaria de un número y quedarse solo con la parte entera. En C++ se obtiene con un cast a entero (`static_cast<int>(x)`) o con `std::trunc(x)`. El truncamiento se realiza hacia cero, es decir:
+
+-  3.9  -> 3
+- -3.9  -> -3
+
+Diferencias con otras operaciones comunes:
+- Floor (piso): `std::floor(x)` devuelve el mayor entero menor o igual que `x`.
+    -  3.9 -> 3
+    - -3.9 -> -4
+- Ceil (techo): `std::ceil(x)` devuelve el menor entero mayor o igual que `x`.
+    -  3.1 -> 4
+    - -3.1 -> -3
+- Round (redondeo): `std::round(x)` redondea al entero más cercano (los .5 se redondean al entero más alejado de cero por defecto en `round`).
+    -  3.4 -> 3
+    -  3.6 -> 4
+    - -3.6 -> -4
+
+Por qué importa en la clase `Fixed`:
+- `Fixed::toInt()` en esta implementación usa `static_cast<int>(toFloat())`, por lo que devuelve la parte entera por truncamiento hacia cero. Esto es coherente con el comportamiento de `(int)someFloat`.
+- En el constructor `Fixed(const float nbr)` usamos `roundf(nbr * (1 << _fractionalBits))` para convertir el float escalado al entero más cercano **antes** de almacenar el `raw`. Esto reduce el sesgo al convertir float → fixed. Si en lugar de `roundf` hubiéramos hecho un simple cast a `int`, estaríamos truncando y perdiendo precisión sistemáticamente hacia abajo (para valores positivos) o hacia arriba (para negativos).
+
+Ejemplos prácticos:
+- Conversión a fixed con `roundf`:
+    - `42.42 * 256 = 10859.52` → `roundf` -> `10860` → `toFloat()` ≈ `42.421875`
+- Conversión truncando (cast):
+    - `42.42 * 256 = 10859.52` → `static_cast<int>` -> `10859` → `toFloat()` ≈ `42.41796875`
+- Diferencia en negativos:
+    - `-1.7` -> `static_cast<int>(-1.7)` = `-1` (trunc hacia 0), pero `std::floor(-1.7)` = `-2`.
+
+Recomendaciones:
+- Mantener `roundf` en el constructor desde `float` si quieres minimizar el error al convertir a punto fijo.
+- Mantener `toInt()` como truncamiento si quieres que su comportamiento coincida con `(int)someFloat` (es la opción más intuitiva para casts en C++). Si preferís otra semántica (p. ej. `floor` o `round`), documentadlo claramente y/o añadid un método alternativo (por ejemplo `toIntFloor()` o `toIntRound()`).
+
 ### Firma de funciones añadidas
 ```cpp
 Fixed(const int nbr);
@@ -225,7 +260,37 @@ En nuestra implementación:
 - Audio digital
 - Sistemas embebidos
 
-### ¿Qué significa "raw"?
+### Nota: pre-incremento vs post-incremento (operator++)
+
+En la clase `Fixed` (y en C++ en general) existen dos formas de sobrecargar el operador de incremento: `operator++()` y `operator++(int)`.
+
+- Pre-incremento (prefijo):
+    - Firma: `Fixed& Fixed::operator++()`
+    - Se usa con la sintaxis `++x`.
+    - Incrementa el objeto y devuelve una **referencia** al objeto ya incrementado (evita copias).
+    - Ejemplo: `Fixed b = ++a;` → `a` se incrementa y `b` toma el nuevo valor.
+
+- Post-incremento (postfijo):
+    - Firma: `Fixed Fixed::operator++(int)` (el `int` es un parámetro ficticio utilizado solo para distinguir la firma).
+    - Se usa con la sintaxis `x++`.
+    - Devuelve por **valor** una copia del estado anterior y luego incrementa el objeto.
+    - Ejemplo: `Fixed c = a++;` → `c` recibe el valor antiguo de `a`, y `a` queda incrementado.
+
+Notas:
+- El compilador elige la versión según la sintaxis (`++x` vs `x++`).
+- Prefiere la versión prefija para tipos complejos cuando no necesitas la copia antigua (más eficiente).
+- Implementación típica: definir la prefija y hacer que la postfija cree una copia y delegue en la prefija (como en `Fixed.cpp`).
+
+Ejemplo de prueba para `main.cpp`:
+
+```cpp
+Fixed a(1);
+Fixed b = ++a; // a = 2, b = 2
+Fixed c = a++; // c = 2 (valor antiguo), a = 3
+std::cout << "a=" << a << " b=" << b << " c=" << c << std::endl;
+```
+
+Fin de la nota sobre incrementos.
 
 "Raw" se refiere al valor bruto (en crudo) del número de punto fijo, es decir, el valor entero que realmente almacenamos internamente antes de interpretarlo como decimal.
 
@@ -405,8 +470,43 @@ _value += 1; // siempre aumenta 1/256
 > Con Fixed, sabés **exactamente** qué números son representables y cuáles no.
 > Con Float, la representación depende de la magnitud del número y de la mantisa → el error relativo cambia según el valor.
 
----
 
-Si querés, puedo hacer un **mini esquema visual** mostrando cómo un float y un Fixed representan los mismos números y cómo la “discretización” es más clara en Fixed.
-¿Querés que lo haga?
+
+## Nota: `operator<<` — ¿por qué usamos `toFloat()` y no `toInt()`?
+
+Al sobrecargar `operator<<` para `Fixed` normalmente queremos imprimir el valor numérico en forma decimal (con su parte fraccionaria). Por eso la implementación común es:
+
+```cpp
+std::ostream& operator<<(std::ostream& os, const Fixed& f)
+{
+        os << f.toFloat(); // mostramos el número con decimales
+        return os;
+}
+```
+
+Razones clave:
+- `toFloat()` reconstruye el valor real incluyendo la fracción (p. ej. `42.4219`).
+- `toInt()` devuelve la parte entera truncada (p. ej. `42`) — perderías la parte fraccionaria al imprimir.
+
+Opciones y formatos:
+- Si querés controlar la precisión visual, usa manipuladores de flujo:
+    ```cpp
+    #include <iomanip>
+    std::cout << std::fixed << std::setprecision(2) << f << std::endl; // 2 decimales
+    ```
+- Si necesitas otras representaciones útiles:
+    - `f.getRawBits()` para ver el valor raw entero
+    - `f.toInt()` para imprimir solo la parte entera
+
+Ejemplo rápido comparativo:
+
+```cpp
+Fixed a(42.42f);
+std::cout << "toFloat: " << a.toFloat() << std::endl; // p. ej. 42.4219
+std::cout << "toInt:   " << a.toInt()   << std::endl; // 42
+std::cout << "operator<<: " << a << std::endl;        // usa toFloat -> 42.4219
+```
+
+
+
 
