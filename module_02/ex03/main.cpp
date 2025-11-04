@@ -1,46 +1,71 @@
 #include <iostream>
 #include "Point.hpp"
 
-bool bsp( Point const a, Point const b, Point const c, Point const point);
-
 int main()
 {
-    Point a(0, 0);
-    Point b(10, 0);
-    Point c(0, 10);
+	Point a(0, 0);
+	Point b(10, 0);
+	Point c(0, 10);
 
-    Point inside(2, 2);
-    Point outside(10, 10);
-    Point on_edge(5, 0);
-    Point vertex(0, 0);
+	Point inside(2, 2);
+	Point outside(10, 10);
+	Point on_edge(5, 0);
+	Point vertex(0, 0);
 
-    // Pruebas rápidas: cada línea muestra si el punto está estrictamente dentro
-    // ("Dentro") o fuera / en borde ("Fuera o en borde").
-    const char* resultado;
+	const char* texto;
+	const char* color;
 
-    if (bsp(a,b,c,inside))
-        resultado = "Dentro";
-    else
-        resultado = "Fuera o en borde";
-    std::cout << "dentro(2,2) -> " << resultado << std::endl;
+	// caso 1
+	if (bsp(a,b,c,inside))
+	{
+		texto = "Dentro";
+		color = BRIGHT_GREEN;
+	}
+	else
+	{
+		texto = "Fuera o en borde";
+		color = BRIGHT_RED;
+	}
+	std::cout << BRIGHT_CYAN << "(" << inside.getX() << "," << inside.getY() << ") -> " << color << BOLD << texto << RESET << std::endl;
 
-    if (bsp(a,b,c,outside))
-        resultado = "Dentro";
-    else
-        resultado = "Fuera o en borde";
-    std::cout << "fuera(10,10) -> " << resultado << std::endl;
+	// caso 2
+	if (bsp(a,b,c,outside))
+	{
+		texto = "Dentro";
+		color = BRIGHT_GREEN;
+	}
+	else
+	{
+		texto = "Fuera o en borde";
+		color = BRIGHT_RED;
+	}
+	std::cout << BRIGHT_CYAN << "(" << outside.getX() << "," << outside.getY() << ") -> " << color << BOLD << texto << RESET << std::endl;
 
-    if (bsp(a,b,c,on_edge))
-        resultado = "Dentro";
-    else
-        resultado = "Fuera o en borde";
-    std::cout << "en_borde(5,0) -> " << resultado << std::endl;
+	// caso 3
+	if (bsp(a,b,c,on_edge))
+	{
+		texto = "Dentro";
+		color = BRIGHT_GREEN;
+	}
+	else
+	{
+		texto = "Fuera o en borde";
+		color = BRIGHT_RED;
+	}
+	std::cout << BRIGHT_CYAN << "(" << on_edge.getX() << "," << on_edge.getY() << ") -> " << color << BOLD << texto << RESET << std::endl;
 
-    if (bsp(a,b,c,vertex))
-        resultado = "Dentro";
-    else
-        resultado = "Fuera o en borde";
-    std::cout << "vertice(0,0) -> " << resultado << std::endl;
+	// caso 4
+	if (bsp(a,b,c,vertex))
+	{
+		texto = "Dentro";
+		color = BRIGHT_GREEN;
+	}
+	else
+	{
+		texto = "Fuera o en borde";
+		color = BRIGHT_RED;
+	}
+	std::cout << BRIGHT_CYAN << "(" << vertex.getX() << "," << vertex.getY() << ") -> " << color << BOLD << texto << RESET << std::endl;
 
-    return (0);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 18:15:45 by brivera           #+#    #+#             */
-/*   Updated: 2025/10/30 16:45:45 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/04 12:34:46 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,8 @@ Fixed Fixed::operator-(const Fixed& other) const
 
 Fixed Fixed::operator*(const Fixed& other) const
 {
-	Fixed	res;
-	long long mul;
+	Fixed		res;
+	long long	mul;
 
 	mul = static_cast<long long>(this->_value) * static_cast<long long>(other._value);
 	res.setRawBits(static_cast<int>(mul >> _fractionalBits));

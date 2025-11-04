@@ -1,62 +1,75 @@
 #include "Point.hpp"
 
-// Epsilon en unidades 'raw' (1 -> 1/256 en valor real).
-// Exponemos EPS_RAW como macro para que sea fácil de ajustar en tiempo de edición/compilación.
-// Cambia el valor si prefieres una tolerancia diferente.
-#define EPS_RAW 1 // unidad mínima en raw (1 == 1/(1<<_fractionalBits))
+/*
+ * Epsilon en unidades 'raw' (1 -> 1/256 en valor real).
+ * EPS_RAW como macro para que sea fácil de ajustar.
+ * unidad mínima en raw (1 == 1/(1<<_fractionalBits))
+ * 
+*/
+
+#define EPS_RAW 1 
 
 static const Fixed EPS(EPS_RAW);
 
 static Fixed cross(Fixed const x1, Fixed const y1, Fixed const x2, Fixed const y2)
 {
-    // cross product z component for (x1,y1) x (x2,y2)
-    return ((x1 * y2) - (y1 * x2));
+	return ((x1 * y2) - (y1 * x2));
 }
 
-// Valor absoluto para Fixed
 static Fixed absFixed(Fixed v)
 {
-    if (v < Fixed(0))
-        return (Fixed(0) - v);
-    return (v);
+	if (v < Fixed(0))
+		return (Fixed(0) - v);
+	return (v);
 }
 
-
-bool bsp( Point const a, Point const b, Point const c, Point const point)
+static Fixed crossPoint(Point const &a, Point const &b, Point const &p)
 {
-    // Implementación BSP usando producto cruz (2D z component)
-    // Idea: para un triángulo ABC y un punto P, calcular los productos
-    // cruzados entre cada arista y el vector hacia P. Si los tres tienen
-    // el mismo signo (todos positivos o todos negativos), P está
-    // estrictamente dentro. Si alguno es cero -> P está en el borde -> false.
+	Fixed abx = b.getX() - a.getX();
+	Fixed aby = b.getY() - a.getY();
+	Fixed apx = p.getX() - a.getX();
+	Fixed apy = p.getY() - a.getY();
+	return (cross(abx, aby, apx, apy));
+}
 
-    // Vectores: AB, BC, CA y AP, BP, CP
-    Fixed abx = b.getX() - a.getX();
-    Fixed aby = b.getY() - a.getY();
-    Fixed bcx = c.getX() - b.getX();
-    Fixed bcy = c.getY() - b.getY();
-    Fixed cax = a.getX() - c.getX();
-    Fixed cay = a.getY() - c.getY();
+/*
+ * Devuelve true si p está sobre la arista ab (dentro de la tolerancia EPS)
+*/
 
-    Fixed apx = point.getX() - a.getX();
-    Fixed apy = point.getY() - a.getY();
-    Fixed bpx = point.getX() - b.getX();
-    Fixed bpy = point.getY() - b.getY();
-    Fixed cpx = point.getX() - c.getX();
-    Fixed cpy = point.getY() - c.getY();
+static bool	pointOnEdge(Point const &a, Point const &b, Point const &p)
+{
+	Fixed c = crossPoint(a, b, p);
+	return (absFixed(c) <= EPS);
+}
 
-    Fixed cross1 = cross(abx, aby, apx, apy);
-    Fixed cross2 = cross(bcx, bcy, bpx, bpy);
-    Fixed cross3 = cross(cax, cay, cpx, cpy);
+/*
+ * Comprueba si tres productos cruzados tienen el mismo signo
+*/
+static bool	sameSign(Fixed c1, Fixed c2, Fixed c3)
+{
+	bool all_pos = (c1 > Fixed(0)) && (c2 > Fixed(0)) && (c3 > Fixed(0));
+	bool all_neg = (c1 < Fixed(0)) && (c2 < Fixed(0)) && (c3 < Fixed(0));
+	return (all_pos || all_neg);
+}
 
-    // Usar EPS porque puede haber pequeñas imprecisiones.
-    // EPS está definido arriba como static const Fixed EPS(1).
-    if (absFixed(cross1) <= EPS || absFixed(cross2) <= EPS || absFixed(cross3) <= EPS)
-        return (false);
+/*
+ *
+ * Implementación BSP usando producto cruz (2D z component)
+ * Idea: para un triángulo ABC y un punto P, calcular los productos
+ * cruzados entre cada arista y el vector hacia P. Si los tres tienen
+ * el mismo signo (todos positivos o todos negativos), P está
+ * estrictamente dentro. Si alguno es cero -> P está en el borde -> false.
+ * Vectores: AB, BC, CA y AP, BP, CP
+ * 
+*/
 
-    // Comprobar signos estrictos
-    bool all_pos = (cross1 > Fixed(0)) && (cross2 > Fixed(0)) && (cross3 > Fixed(0));
-    bool all_neg = (cross1 < Fixed(0)) && (cross2 < Fixed(0)) && (cross3 < Fixed(0));
+bool	bsp( Point const a, Point const b, Point const c, Point const point)
+{
+	Fixed cross1 = crossPoint(a, b, point);
+	Fixed cross2 = crossPoint(b, c, point);
+	Fixed cross3 = crossPoint(c, a, point);
 
-    return (all_pos || all_neg);
+	if (pointOnEdge(a, b, point) || pointOnEdge(b, c, point) || pointOnEdge(c, a, point))
+		return (false);
+	return (sameSign(cross1, cross2, cross3));
 }

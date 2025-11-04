@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 17:27:04 by brivera           #+#    #+#             */
-/*   Updated: 2025/10/30 16:27:51 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/04 12:34:04 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,14 @@ int main( void )
 	/* ------------------------------------------------------------------ */
 
 	float nbr = 42.42f;
-	int scaled = static_cast<int>(nbr * (1 << 8)); // truncamiento directo
+	int scaled = static_cast<int>(nbr * (1 << 8));
 	int rounded = static_cast<int>(roundf(nbr * (1 << 8)));
 
 	Fixed fromFloat(nbr);               // usa roundf dentro del constructor
 	Fixed truncFixed;
-	truncFixed.setRawBits(scaled); // simulamos conversión por truncamiento
-	
+	truncFixed.setRawBits(scaled); 
 	Fixed roundFixed;
-	roundFixed.setRawBits(rounded); // simulamos conversión por roundf
+	roundFixed.setRawBits(rounded);
 
 	std::cout << std::endl << BRIGHT_CYAN << "--- Comparación (positivo) ---" << RESET << std::endl;
 	std::cout << "valor original float: " << nbr << std::endl;
@@ -78,7 +77,7 @@ int main( void )
 
 	/* Prueba con número negativo */
 	float nbrN = -42.42f;
-	int scaledN = static_cast<int>(nbrN * (1 << 8)); // truncamiento directo
+	int scaledN = static_cast<int>(nbrN * (1 << 8));
 	int roundedN = static_cast<int>(roundf(nbrN * (1 << 8)));
 
 	Fixed fromFloatN(nbrN);
