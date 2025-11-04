@@ -12,10 +12,14 @@ Point::Point(const Point& other) : _x(other._x), _y(other._y)
 {
 }
 
-// Nota: _x y _y son const, por lo que no se pueden reasignar aquí.
-// Definimos el operador= para cumplir la forma canónica, pero no
-// realizamos la asignación (usar el constructor de copia para crear
-// nuevas instancias con los mismos valores).
+/* 
+ *
+ * Nota: _x y _y son const, por lo que no se pueden reasignar aquí.
+ * Definimos el operador= para cumplir la forma canónica, pero no
+ * realizamos la asignación (usar el constructor de copia para crear
+ * nuevas instancias con los mismos valores).
+ * 
+ * */
  
 Point& Point::operator=(const Point& other)
 {

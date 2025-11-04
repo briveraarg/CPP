@@ -6,19 +6,23 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/27 18:15:45 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/04 12:59:05 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/04 15:59:20 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 #include <cmath>
 
-// Implementación de Fixed 
-// - Los constructores inicializan el valor interno _value.
-// - toFloat() y toInt() permiten convertir entre la representación
-//   interna y tipos de C++.
-// - Operaciones aritméticas usan la representación raw y ajustan
-//   por _fractionalBits para mantener precisión.
+/*
+ * 
+ * Implementación de Fixed 
+ * 	- Los constructores inicializan el valor interno _value.
+ * 	- toFloat() y toInt() permiten convertir entre la representación
+ * 	interna y tipos de C++.
+ * 	- Operaciones aritméticas usan la representación raw y ajustan
+ * por _fractionalBits para mantener precisión. 
+ *
+ */
 
 const int Fixed::_fractionalBits = 8;
 
