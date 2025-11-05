@@ -19,7 +19,7 @@ Y aunque no forma parte de la "regla de 3" original, también se incluye:
 
 #### ¿Por qué es importante?
 
-Si tu clase maneja recursos (memoria dinámica, archivos, conexiones), necesitas estos métodos para evitar:
+Si la clase maneja recursos (memoria dinámica, archivos, conexiones), necesito estos métodos para evitar:
 - Pérdidas de memoria (memory leaks)
 - Double-free (liberar memoria dos veces)
 - Shallow copy (copias superficiales donde dos objetos apuntan al mismo recurso)
@@ -114,6 +114,7 @@ Fixed(int value);  // Constructor sobrecargado con parámetro int
 
 ### Casos donde se llama a cada constructor/operador
 
+```cpp
 
 // Constructor de copia
 Fixed b(a);    // Forma explícita
@@ -231,10 +232,6 @@ c is 42.4219
 d is 10
 ```
 
-### Recomendaciones
-- Usar `roundf` en el constructor desde float para precisión visual y menor sesgo.
-- Documentar en `Fixed.hpp` la semántica de `toInt()` y `toFloat()` para evitar confusiones con negativos.
-
 ## Fixed Point: Conceptos Básicos
 
 En próximos ejercicios expandiremos la clase Fixed para trabajar con números de punto fijo, que son una forma de representar números con parte decimal usando enteros con un número fijo de bits decimales.
@@ -289,10 +286,6 @@ Fixed b = ++a; // a = 2, b = 2
 Fixed c = a++; // c = 2 (valor antiguo), a = 3
 std::cout << "a=" << a << " b=" << b << " c=" << c << std::endl;
 ```
-
-Fin de la nota sobre incrementos.
-
-"Raw" se refiere al valor bruto (en crudo) del número de punto fijo, es decir, el valor entero que realmente almacenamos internamente antes de interpretarlo como decimal.
 
 #### Ejemplo:
 Para representar `5.5` con 8 bits fraccionarios:
@@ -429,15 +422,6 @@ static const int _fractionalBits = 16; // pasos de 1/65536 ≈ 0.00001526
 
 → mucho más exacto, pero `_value` sigue siendo un `int` (o necesitás `long` si se pasa de rango).
 
----
-
-Si querés, puedo hacerte un **mini cuadro comparando Fixed y float** con rangos, pasos y precisión para que lo veas clarito.
-¿Querés que lo haga?
-
-
-¡Perfecto! Vamos paso a paso.
-
----
 
 ## 1️⃣ Comparación Fixed vs Float
 
