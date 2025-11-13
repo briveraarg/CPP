@@ -6,7 +6,7 @@
 #    By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/11 18:25:17 by brivera           #+#    #+#              #
-#    Updated: 2025/11/11 18:25:59 by brivera          ###   ########.fr        #
+#    Updated: 2025/11/13 15:54:37 by brivera          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,7 @@ NAME 	:= ex00
 CC		:= c++
 FLAGS	:= -Wall -Wextra -Werror -std=c++98
 
-SRCS 	:= main.cpp \
-		   ClapTrap.cpp
+SRCS 	:= ClapTrap.cpp main.cpp
 HEADERS := ClapTrap.hpp
 
 OBJS_DIR 	:= objs

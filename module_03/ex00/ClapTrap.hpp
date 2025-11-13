@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:28:39 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/11 19:08:50 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/13 16:38:39 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,15 @@ class ClapTrap
 
 	public:
 		ClapTrap(void);
+		ClapTrap(const std::string &name);
 		ClapTrap(const ClapTrap& name);
-
 		ClapTrap& operator=(const ClapTrap& other);
 
 		~ClapTrap();
 
 		void attack(const std::string& target);
-		void takeDamage(unsigned int amount);
-		void beRepaired(unsigned int amount);
+		//void takeDamage(unsigned int amount);
+		//void beRepaired(unsigned int amount);
 };
 
 #endif
