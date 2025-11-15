@@ -96,5 +96,79 @@ Este apartado recoge los conceptos clave que se aplican en el ejercicio, explica
 
 ---
 
+## ex02 - FragTrap (notas y diseño)
+
+Esta sección recoge las decisiones y conceptos para la clase `FragTrap` (ejercicio ex02), que hereda de `ClapTrap`.
+
+1) Propósito
+- `FragTrap` es una clase derivada de `ClapTrap` que representa un tipo de robot con estadísticas y comportamiento propio (comúnmente: más hit points, más energy, mayor attack damage y una habilidad especial `highFivesGuys`).
+
+2) Declaración típica
+```cpp
+class FragTrap : public ClapTrap
+{
+public:
+		FragTrap();
+		FragTrap(const std::string &name);
+		FragTrap(const FragTrap &other);
+		FragTrap &operator=(const FragTrap &other);
+		~FragTrap();
+
+		void highFivesGuys(); // método especial de FragTrap
+};
+```
+
+3) Estadísticas sugeridas
+- Hit Points: 100
+- Energy Points: 100
+- Attack Damage: 30
+
+Estas cifras son las usadas históricamente en el ejercicio y permiten distinguir `FragTrap` de `ClapTrap` y `ScavTrap`.
+
+4) Inicialización correcta
+- Como se explicó arriba, los miembros declarados en `ClapTrap` (p.ej. `_hitPoints`) no pueden inicializarse directamente desde la lista de inicializadores de `FragTrap`.
+- Dos opciones:
+	- Asignar en el cuerpo del constructor de `FragTrap` (válido y sencillo).
+	- Mejor: añadir en `ClapTrap` un constructor parametrizado (name, hp, ep, ad) y llamar a ese constructor desde la lista de inicializadores de `FragTrap` para inicializar la parte base correctamente.
+
+Ejemplo (opción intermedia — asignación en cuerpo):
+```cpp
+FragTrap::FragTrap(const std::string &name): ClapTrap(name)
+{
+		this->_hitPoints = 100;
+		this->_energyPoints = 100;
+		this->_attackDamage = 30;
+		std::cout << "FragTrap " << this->_name << " constructor called" << std::endl;
+}
+```
+
+5) Método especial
+- `void highFivesGuys()` típicamente imprime un mensaje pidiendo un "high five" o que realiza alguna interacción amigable.
+- No tiene por qué cambiar el estado interno, pero puedes añadir un booleano `_wantsHighFive` si quieres que sea una bandera mantenida por el objeto.
+
+6) Polimorfismo y buenas prácticas
+- Si `attack` es `virtual` en `ClapTrap`, `FragTrap` puede sobrescribirlo si quieres. En el ejercicio clásico `FragTrap` suele usar `ClapTrap::attack` tal cual, añadiendo `highFivesGuys` como extra.
+- Mantén `~ClapTrap()` virtual para permitir borrado seguro vía puntero a la base.
+
+7) Ejemplo de uso en `main` (ex02)
+```cpp
+FragTrap f("Freddie");
+f.attack("target");
+f.highFivesGuys();
+
+ClapTrap *p = new FragTrap("F2");
+p->attack("foe"); // si virtual -> FragTrap::attack o ClapTrap::attack según implementación
+delete p; // destructor virtual en la base garantiza llamada correcta
+```
+
+8) Tests y Makefile
+- Añade `FragTrap.cpp` y `FragTrap.hpp` a `ex02/Makefile` y crea un `ex02/main.cpp` simple que construya, copie y pruebe `highFivesGuys()`.
+
+9) Posibles mejoras
+- Añadir test que compare comportamiento por valor (slicing) vs por referencia/puntero.
+- Implementar `_highFiveMode` booleano que cambie el comportamiento de `highFivesGuys()`.
+
+Si quieres, puedo implementar `FragTrap.cpp` y un `ex02/main.cpp` de prueba (con constructor/copy/assign/destructor y `highFivesGuys()`), añadirlos al `Makefile` y compilar para verificar la salida. ¿Lo implemento ahora? 
+
 
 
