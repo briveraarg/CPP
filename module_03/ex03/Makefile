@@ -6,14 +6,14 @@
 #    By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/11 18:25:17 by brivera           #+#    #+#              #
-#    Updated: 2025/11/15 18:42:43 by brivera          ###   ########.fr        #
+#    Updated: 2025/11/15 18:55:41 by brivera          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 	:= ex03
 
 CC		:= c++
-FLAGS	:= -Wall -Wextra -Werror -std=c++98 
+FLAGS	:= -Wall -Wextra -Werror -std=c++98
 
 SRCS 	:= ClapTrap.cpp ScavTrap.cpp FragTrap.cpp DiamondTrap.cpp main.cpp
 HEADERS := ClapTrap.hpp ScavTrap.hpp FragTrap.hpp DiamondTrap.hpp
