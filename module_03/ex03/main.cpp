@@ -1,0 +1,46 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/15 18:20:00 by brivera           #+#    #+#             */
+/*   Updated: 2025/11/15 18:35:27 by brivera          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "DiamondTrap.hpp"
+
+
+/*
+ * main - pruebas para DiamondTrap
+ * - Construction test: crea un DiamondTrap y muestra el orden de construcción.
+ * - Abilities: invoca attack (delegado a ScavTrap), highFivesGuys (FragTrap),
+ *   guardGate (ScavTrap) y whoAmI (DiamondTrap).
+ * - Copy/Assign test: prueba constructor de copia y operador=, y verifica
+ *   que las habilidades heredadas funcionan correctamente.
+ */
+
+int main()
+{
+	std::cout << BOLD << BRIGHT_CYAN << "-- DiamondTrap construction test --" << RESET << std::endl;
+	DiamondTrap d("Iria");
+	std::cout << std::endl;
+
+	std::cout << BOLD << BRIGHT_CYAN << "-- DiamondTrap abilities --" << RESET << std::endl;
+	d.attack("Ana");
+	d.highFivesGuys();
+	d.guardGate();
+	d.whoAmI();
+
+	std::cout << BOLD << BRIGHT_CYAN << "\n-- Copy/Assign test --" << RESET << std::endl;
+	DiamondTrap d2 = d;
+	d2.whoAmI();
+	DiamondTrap d3;
+	d3 = d2;
+	d3.attack("another enemy");
+
+	std::cout << BOLD << BRIGHT_CYAN << "\n-- End --" << RESET << std::endl;
+	return (0);
+}
