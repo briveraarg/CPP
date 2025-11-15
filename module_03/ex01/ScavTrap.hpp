@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 16:50:00 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/15 16:57:05 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/15 17:55:49 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 class ScavTrap : public ClapTrap
 {
+    private:
     public:
         ScavTrap();
         ScavTrap(const std::string &name);

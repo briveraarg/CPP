@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 16:50:00 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/15 17:35:46 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/15 17:58:01 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,5 @@ int main()
 	}
 
 	std::cout << BOLD << BRIGHT_MAGENTA << "\n-- End --" << RESET << std::endl;
-	return 0;
+	return (0);
 }
