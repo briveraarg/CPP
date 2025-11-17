@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:26:25 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/15 15:59:12 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/17 12:29:25 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ ClapTrap::ClapTrap(const std::string &name): _name(name),_hitPoints(10),
 		RESET << " constructor called" << std::endl;    
 }
 
-ClapTrap::ClapTrap(const ClapTrap& other):_name(other._name), _hitPoints(10),
-		_energyPoints(10), _attackDamage(0)
+ClapTrap::ClapTrap(const ClapTrap& other):
+	_name(other._name),
+	_hitPoints(10),
+	_energyPoints(10),
+	_attackDamage(0)
 {
-	this->_hitPoints = other._hitPoints;
-	this->_energyPoints = other._energyPoints;
-	this->_attackDamage = other._attackDamage;
 	std::cout << "ClapTrap " << BOLD << this->_name << 
 				RESET << " copy constructor called" << std::endl;
 }
@@ -44,9 +44,9 @@ ClapTrap &ClapTrap::operator=(const ClapTrap& other)
 		this->_hitPoints = other._hitPoints;
 		this->_energyPoints = other._energyPoints;
 		this->_attackDamage = other._attackDamage;
+		std::cout << "ClapTrap " << BOLD << this->_name << RESET
+			<< " copy assignment operator called" << std::endl;
 	}
-	std::cout << "ClapTrap " << BOLD << this->_name << RESET
-				<< " copy assignment operator called" << std::endl;
 	return(*this);
 }
 
