@@ -12,7 +12,7 @@ Este módulo trata sobre cómo una clase puede heredar de otra, compartiendo sus
 - Colores: el proyecto usa macros ANSI para colorear la salida opcionalmente; se recomienda usarlos usando `<< BRIGHT_BLUE << name << RESET <<` (no concatenarlos como literales adyacentes).
 - Tests: `ex00/main.cpp` contiene pruebas manuales que ejercitan ataques, reparación, agotamiento de energía, muerte y copia/assign.
 
-¿Por qué 3 constructores?
+### ¿Por qué 3 constructores?
 
 Constructor por defecto (ClapTrap()): crea un objeto con valores iniciales por defecto (útil cuando no conoces el nombre o para crear arrays/containers).
 Constructor parametrizado (ClapTrap(const std::string &name)): te permite crear una instancia con un nombre específico.
@@ -21,8 +21,6 @@ Esto encaja con la llamada "Rule of Three" en C++98: si implementas manualmente 
 
 
 ## Conceptos teóricos y notas extensas (ejercicio ClapTrap / ScavTrap)
-
-Este apartado recoge los conceptos clave que se aplican en el ejercicio, explicados en español con ejemplos y notas prácticas.
 
 1) Relación IS-A (Herencia)
 - Cuando declares `class ScavTrap : public ClapTrap` decimos que "ScavTrap es un ClapTrap" (IS-A). El subobjeto `ClapTrap` forma parte del objeto `ScavTrap`.
