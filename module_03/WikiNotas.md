@@ -19,8 +19,7 @@ Constructor parametrizado (ClapTrap(const std::string &name)): te permite crear 
 Constructor de copia (ClapTrap(const ClapTrap &other)): define cómo se copia un objeto a otro (necesario para copias correctas de estado).
 Esto encaja con la llamada "Rule of Three" en C++98: si implementas manualmente cualquiera de (destructor, constructor de copia, operador=), normalmente debes implementar los otros dos. En tu código tienes también el operador= y el destructor, así que estás respetando la regla.
 
-
-## Conceptos teóricos y notas extensas (ejercicio ClapTrap / ScavTrap)
+# Notas sobre el ex01 (ejercicio ClapTrap / ScavTrap)
 
 1) Relación IS-A (Herencia)
 - Cuando declares `class ScavTrap : public ClapTrap` decimos que "ScavTrap es un ClapTrap" (IS-A). El subobjeto `ClapTrap` forma parte del objeto `ScavTrap`.
