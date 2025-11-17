@@ -195,7 +195,7 @@ void DiamondTrap::whoAmI() {
 
 ---
 
-Fin de la sección `ex03`.
+
 
 Esta sección recoge las decisiones y conceptos para la clase `FragTrap` (ejercicio ex02), que hereda de `ClapTrap`.
 
@@ -250,9 +250,224 @@ p->attack("foe"); // si virtual -> FragTrap::attack o ClapTrap::attack según im
 delete p; // destructor virtual en la base garantiza llamada correcta
 ```
 
-8) Tests y Makefile
 
-9) Posibles mejoras
+Perfecto, acá tenés un **apunte corto, claro y perfecto para tu .md** sobre constructores eficientes aplicados a *ClapTrap → ScavTrap → FragTrap → DiamondTrap*.
+Todo compacto y pensado para estudiar.
+
+---
+
+# 📘 Apunte: Constructores eficientes en el Módulo 03
+
+En C++, la forma más eficiente de crear objetos es **inicializando** los atributos directamente en la *lista de inicialización del constructor*.
+Esto evita trabajo innecesario y asegura que los objetos padres se construyan correctamente.
+
+---
+
+# 🟦 1. ¿Por qué usar listas de inicialización?
+
+### Inicialización (eficiente)
+
+El objeto se construye **directamente** con los valores correctos.
+
+### Asignación (menos eficiente)
+
+Primero se construye con valores por defecto → luego se reasigna → doble trabajo.
+
+➡️ **Regla de oro:** *Todo lo que se pueda inicializar, se inicializa en la lista.*
+
+---
+
+# 🟦 2. Ejemplo general
+
+```cpp
+Class::Class(int x) : _value(x)   // Inicialización
+{
+    // Código extra
+}
+```
+
+vs
+
+```cpp
+Class::Class(int x)
+{
+    _value = x;                   // Asignación → menos eficiente
+}
+```
+
+
+Exacto, **la forma REALMENTE eficiente es esta**:
+
+```cpp
+FragTrap::FragTrap(const std::string &name)
+	: ClapTrap(name, 100, 100, 30)
+{
+	std::cout << "FragTrap " << BOLD << this->_name
+			  << RESET << " constructor called" << std::endl;
+}
+```
+
+## ✅ ¿Por qué esta es la versión más eficiente?
+
+Porque **inicializás absolutamente todo directamente en la lista de inicialización**, incluyendo:
+
+* `_name`
+* `_hitPoints`
+* `_energyPoints`
+* `_attackDamage`
+
+Esto significa:
+
+❌ No hay asignaciones posteriores
+❌ No hay sobreescritura de valores por defecto
+❌ No hay trabajo duplicado
+❌ No hay inicialización seguida de reasignación
+
+✔️ ClapTrap recibe **todo lo que necesita** y lo deja listo en un solo paso.
+
+---
+
+## Comparación clara (para tu .md)
+
+### ❌ Menos eficiente
+
+```cpp
+FragTrap::FragTrap(const std::string &name)
+    : ClapTrap(name)
+{
+    this->_hitPoints = 100;      // Asignación (2 pasos)
+    this->_energyPoints = 100;   // Asignación (2 pasos)
+    this->_attackDamage = 30;    // Asignación (2 pasos)
+}
+```
+
+Problema:
+ClapTrap inicializa primero con valores por defecto → después vos reasignás → se hizo doble trabajo.
+
+---
+
+### ✅ Más eficiente (ideal)
+
+```cpp
+FragTrap::FragTrap(const std::string &name)
+    : ClapTrap(name, 100, 100, 30)
+{
+    std::cout << "FragTrap " << this->_name << " constructor called\n";
+}
+```
+
+Ventajas:
+
+✔️ Todo se inicializa de una sola vez
+✔️ ClapTrap ya nace con los valores correctos
+✔️ No se reasigna nada
+✔️ Código más limpio y claro
+
+---
+
+## ✨ Regla de oro resumen
+
+> **Lo que puedas inicializar en la lista de inicialización → HACÉLO ahí.
+> Lo que dejes para el cuerpo del constructor → solo si no hay otra opción.**
+
+---
+
+Si querés, te hago un **apunte corto basado en esta mejora** exclusivamente para FragTrap, ScavTrap y DiamondTrap.
+
+---
+
+# 🟦 3. Aplicación en el módulo: ClapTrap → Herencias
+
+Para maximizar eficiencia, **los valores deben llegar ya correctos al constructor del padre**.
+
+---
+
+# 🟩 ClapTrap
+
+Constructor con parámetros:
+
+```cpp
+ClapTrap::ClapTrap(const std::string& name, unsigned int hp,
+                   unsigned int ep, unsigned int ad)
+    : _name(name), _hitPoints(hp), _energyPoints(ep), _attackDamage(ad)
+{
+    std::cout << "ClapTrap " << _name << " custom constructor\n";
+}
+```
+
+---
+
+# 🟦 ScavTrap (HP=100, EP=50, AD=20)
+
+```cpp
+ScavTrap::ScavTrap(const std::string& name)
+    : ClapTrap(name, 100, 50, 20)
+{
+    std::cout << "ScavTrap " << _name << " constructor\n";
+}
+```
+
+✔️ Todo inicializado en un solo lugar (ClapTrap).
+✔️ Nada que reasignar en el cuerpo.
+
+---
+
+# 🟪 FragTrap (HP=100, EP=100, AD=30)
+
+```cpp
+FragTrap::FragTrap(const std::string &name)
+    : ClapTrap(name, 100, 100, 30)
+{
+    std::cout << "FragTrap " << _name << " constructor\n";
+}
+```
+
+✔️ El más eficiente (sin asignaciones después).
+
+---
+
+# 🟧 DiamondTrap (doble herencia)
+
+DiamondTrap tiene dos nombres:
+
+* `_name` propio
+* `ClapTrap::_name` → debe ser `name + "_clap_name"`
+
+### Constructor eficiente:
+
+```cpp
+DiamondTrap::DiamondTrap(const std::string &name)
+    : ClapTrap(name + "_clap_name", 100, 50, 30),
+      ScavTrap(name),
+      FragTrap(name),
+      _name(name)
+{
+    std::cout << "DiamondTrap " << _name << " constructor\n";
+}
+```
+
+✔️ ClapTrap nace **directamente** con HP, EP y AD correctos
+✔️ `_name` propio queda separado
+✔️ No hay reasignaciones internas
+
+---
+
+# 🟦 4. Resumen final (para la memoria)
+
+* **Usá parámetros en la lista de inicialización cuando se pueda.**
+* **Constructores de las clases base deben llamarse en la lista.**
+* **Nada de asignar HP/EP/AD dentro del cuerpo si se pueden pasar por constructor.**
+* **DiamondTrap debe inicializar ClapTrap con `<name>_clap_name`.**
+
+---
+
+Si querés, te preparo también un apunte igual de corto sobre:
+
+🟦 *Regla de los 4 (forma canónica en C++)*
+🟦 *Orden de construcción en herencia múltiple*
+🟦 *Qué hace el compilador por defecto en cada constructor*
+
+¡Vos decime!
 
 
 
