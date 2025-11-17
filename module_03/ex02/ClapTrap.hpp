@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:28:39 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/15 17:42:08 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/17 14:46:27 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,11 @@
  * Operador/Destructor:
  *  - operator=: copia el estado de otro ClapTrap protegiendo contra
  *    autoasignación.
- *  - ~ClapTrap(): destructor (no gestiona recursos dinámicos en este
- *    ejemplo, solo imprime un mensaje de seguimiento).
+ *  - virtual ~ClapTrap(): destructor 
+ * 
  *
  * Métodos principales:
- *  - void attack(const std::string& target): imprime un mensaje
- *    describiendo el ataque y decrementa energyPoints en 1 si el
- *    objeto tiene hitPoints>0 y energyPoints>0. No afecta a otros
- *    ClapTrap (según el enunciado del ejercicio).
+ *  - virtual void attack(const std::string& target):
  *  - void takeDamage(unsigned int amount): reduce hitPoints en
  *    'amount'. Si amount >= hitPoints, establece hitPoints a 0.
  *    Se evita underflow comprobando antes de restar.

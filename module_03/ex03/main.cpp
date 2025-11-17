@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 18:20:00 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/15 18:35:27 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/17 15:30:36 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,19 @@
 int main()
 {
 	std::cout << BOLD << BRIGHT_CYAN << "-- DiamondTrap construction test --" << RESET << std::endl;
-	DiamondTrap d("Iria");
+	DiamondTrap i("Iria");
 	std::cout << std::endl;
 
 	std::cout << BOLD << BRIGHT_CYAN << "-- DiamondTrap abilities --" << RESET << std::endl;
-	d.attack("Ana");
-	d.highFivesGuys();
-	d.guardGate();
-	d.whoAmI();
+	i.attack("Ana");
+	i.highFivesGuys();
+	i.guardGate();
+	i.whoAmI();
 
 	std::cout << BOLD << BRIGHT_CYAN << "\n-- Copy/Assign test --" << RESET << std::endl;
-	DiamondTrap d2 = d;
+	DiamondTrap d2 = i;
 	d2.whoAmI();
-	DiamondTrap d3;
-	d3 = d2;
-	d3.attack("another enemy");
+	d2.attack("another enemy");
 
 	std::cout << BOLD << BRIGHT_CYAN << "\n-- End --" << RESET << std::endl;
 	return (0);
