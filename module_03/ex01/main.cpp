@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 16:50:00 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/17 13:04:11 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/17 13:54:37 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int main()
 	a2.attack("pew pew!");
 	a2.guardGate();
 
-	std::cout << BOLD << BRIGHT_MAGENTA << "\n-- Polymorphism demo --" << RESET << std::endl;
+	std::cout << BOLD << BRIGHT_MAGENTA << "\n-- demo --" << RESET << std::endl;
 	{
 		ClapTrap* p = new ScavTrap("Guardian");
 		p->attack("xxxxxxxx");
