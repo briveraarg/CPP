@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:28:39 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/17 14:46:49 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/17 16:36:00 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@
  *    hitPoints=10, energyPoints=10, attackDamage=0.
  *  - ClapTrap(const std::string& name): constructor con nombre.
  *  - ClapTrap(const ClapTrap& other): constructor de copia.
+ *  - ClapTrap(const std::string& name, unsigned int hp ... 
+ * 		: constructor con parametro
  *
  * Operador/Destructor:
  *  - operator=: copia el estado de otro ClapTrap protegiendo contra
@@ -68,6 +70,7 @@ class ClapTrap
 		ClapTrap(void);
 		ClapTrap(const std::string &name);
 		ClapTrap(const ClapTrap& name);
+		ClapTrap(const std::string& name, unsigned int hp, unsigned int ep, unsigned int ad);
 	
 		ClapTrap& operator=(const ClapTrap& other);
 
@@ -76,6 +79,7 @@ class ClapTrap
 		virtual void	attack(const std::string& target);
 		void			takeDamage(unsigned int amount);
 		void 			beRepaired(unsigned int amount);
+
 };
 
 #endif

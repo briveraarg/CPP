@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 16:50:00 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/17 13:54:37 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/17 16:43:03 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int main()
 {
 	std::cout << BOLD << BRIGHT_MAGENTA << "-- Construction order test --" << RESET << std::endl;
 	ClapTrap b("Base");
-	ScavTrap a("Ana");
+	ScavTrap a("ana");
 
 	std::cout << BOLD << BRIGHT_MAGENTA << "\n-- ScavTrap actions --" << RESET << std::endl;
 	a.attack("zaz!!");

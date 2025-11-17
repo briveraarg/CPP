@@ -6,35 +6,35 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 16:50:00 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/15 17:40:56 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/17 16:42:23 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScavTrap.hpp"
 
-ScavTrap::ScavTrap(): ClapTrap()
+/* 
+ * Valores que pide el subjet
+ * this->_hitPoints = 100;
+ * this->_energyPoints = 50;
+ * this->_attackDamage = 20;
+ * 
+ * */
+
+ScavTrap::ScavTrap() : ClapTrap("Default", 100, 50, 20)
 {
-	this->_hitPoints = 100;
-	this->_energyPoints = 50;
-	this->_attackDamage = 20;
 	std::cout << "ScavTrap " << BOLD << this->_name
 				<< RESET << " default constructor called" << std::endl;
 }
 
-ScavTrap::ScavTrap(const std::string &name): ClapTrap(name)
+ScavTrap::ScavTrap(const std::string &name): ClapTrap(name, 100, 50, 20)
 {
-	this->_hitPoints = 100;
-	this->_energyPoints = 50;
-	this->_attackDamage = 20;
 	std::cout << "ScavTrap " << BOLD << this->_name
 			<< RESET << " constructor called" << std::endl;
 }
 
-ScavTrap::ScavTrap(const ScavTrap& other): ClapTrap(other)
+ScavTrap::ScavTrap(const ScavTrap& other)
+    : ClapTrap(other._name, other._hitPoints, other._energyPoints, other._attackDamage)
 {
-	this->_hitPoints = other._hitPoints;
-	this->_energyPoints = other._energyPoints;
-	this->_attackDamage = other._attackDamage;
 	std::cout << "ScavTrap " << BOLD << this->_name
 			<< RESET << " copy constructor called" << std::endl;
 }

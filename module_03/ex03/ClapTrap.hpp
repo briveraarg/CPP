@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:28:39 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/17 14:47:14 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/17 16:36:00 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,33 @@
 
 #define BOLD			"\033[1m"
 
+/*
+ * ClapTrap - implementación
+ *
+ * Constructores:
+ *  - ClapTrap(): constructor por defecto. Inicializa name="default",
+ *    hitPoints=10, energyPoints=10, attackDamage=0.
+ *  - ClapTrap(const std::string& name): constructor con nombre.
+ *  - ClapTrap(const ClapTrap& other): constructor de copia.
+ *  - ClapTrap(const std::string& name, unsigned int hp ... 
+ * 		: constructor con parametro
+ *
+ * Operador/Destructor:
+ *  - operator=: copia el estado de otro ClapTrap protegiendo contra
+ *    autoasignación.
+ *  - virtual ~ClapTrap(): Los destructores virtuales son necesarios
+ * 	  para garantizar la destrucción adecuada de objetos
+ * 	  de clases derivadas 
+ *
+ * Métodos principales:
+ *  - virtual void attack(const std::string& target):
+ *  - void takeDamage(unsigned int amount): reduce hitPoints en
+ *    'amount'. Si amount >= hitPoints, establece hitPoints a 0.
+ *    Se evita underflow comprobando antes de restar.
+ *  - void beRepaired(unsigned int amount): incrementa hitPoints en
+ *    'amount' y decrementa energyPoints en 1. No funciona si
+ *    hitPoints==0 o energyPoints==0.
+ */
 
 class ClapTrap
 {
@@ -43,6 +70,7 @@ class ClapTrap
 		ClapTrap(void);
 		ClapTrap(const std::string &name);
 		ClapTrap(const ClapTrap& name);
+		ClapTrap(const std::string& name, unsigned int hp, unsigned int ep, unsigned int ad);
 	
 		ClapTrap& operator=(const ClapTrap& other);
 
@@ -51,6 +79,7 @@ class ClapTrap
 		virtual void	attack(const std::string& target);
 		void			takeDamage(unsigned int amount);
 		void 			beRepaired(unsigned int amount);
+
 };
 
 #endif
