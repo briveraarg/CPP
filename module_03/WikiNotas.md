@@ -1,5 +1,4 @@
-
-# 🚀 C++ Módulo 03: Inheritance (Herencia)
+# Módulo 03: Inheritance (Herencia)
 
 Este módulo trata sobre cómo una clase puede heredar de otra, compartiendo atributos y comportamientos (Relación "IS-A"), y cómo extenderlos o modificarlos sin romper todo.
 
@@ -204,5 +203,3 @@ FragTrap::FragTrap(const std::string &name)
 5.  **Diamond:** Requiere herencia virtual (`virtual public`) para no duplicar al abuelo `ClapTrap`.
 
 -----
-
-**¿Te gustaría que genere un `main.cpp` de prueba que integre todas las clases para verificar el tema del Diamond y el Shadowing?**
