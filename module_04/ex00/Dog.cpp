@@ -6,15 +6,14 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 18:00:14 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/26 12:05:58 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/26 14:32:05 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Dog.hpp"
 
-Dog::Dog(void) : Animal()
+Dog::Dog(void) : Animal("Dog")
 {
-	type = "Dog";
 	std::cout << BOLD << "Dog" << RESET
 			<< " default constructor called" << std::endl;
 }

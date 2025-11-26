@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 17:20:13 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/26 11:50:24 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/26 14:31:54 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ class	Animal
 
 	public:
 		Animal(void);
+		Animal(const std::string& type);
 		Animal(const Animal& other);
 
 		Animal& operator=(const Animal& other);

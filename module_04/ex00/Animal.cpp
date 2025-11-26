@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 17:21:54 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/26 12:05:55 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/26 14:31:58 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@ Animal::Animal(void): type("Animal")
 {
 	std::cout << BOLD << "Animal" << RESET
 				<< " default constructor called" << std::endl;
+}
+
+Animal::Animal(const std::string& type): type(type)
+{
+    std::cout << BOLD << type << RESET
+              << " default constructor called" << std::endl;
 }
 
 Animal::Animal(const Animal& other) : type(other.type)

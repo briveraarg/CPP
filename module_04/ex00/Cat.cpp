@@ -12,9 +12,8 @@
 
 #include "Cat.hpp"
 
-Cat::Cat(void): Animal()
+Cat::Cat(void): Animal("Cat")
 {
-	type = "Cat";
 	std::cout << BOLD << "Cat" << RESET
 			<< " default constructor called" << std::endl;
 }
