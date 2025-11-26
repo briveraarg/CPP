@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 12:30:00 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/26 12:14:59 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/26 12:18:42 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@
 
 class WrongCat : public WrongAnimal
 {
-    public:
-        WrongCat();
-        WrongCat(const WrongCat& other);
-        WrongCat& operator=(const WrongCat& other);
-        ~WrongCat();
+	public:
+		WrongCat();
+		WrongCat(const WrongCat& other);
+		WrongCat& operator=(const WrongCat& other);
+		~WrongCat();
 
-        void makeSound() const; // still NOT virtual
+		void makeSound() const; // still NOT virtual
 };
 
 #endif
