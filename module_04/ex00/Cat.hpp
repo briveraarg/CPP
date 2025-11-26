@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Cat.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/25 17:37:28 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/25 20:24:15 by brivera          ###   ########.fr       */
+/*   Created: 2025/11/25 18:02:32 by brivera           #+#    #+#             */
+/*   Updated: 2025/11/25 20:21:28 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Animal.hpp"
-#include "Cat.hpp"
+#ifndef CAT_HPP
+#define CAT_HPP
 
-int main()
+#include <iostream>
+#include "Animal.hpp"
+
+class Cat : public Animal
 {
-   // const Animal* meta = new Animal();
-  //  const Animal* j = new Dog();
-    const Animal* i = new Cat();
-  //  std::cout << j->getType() << " " << std::endl;
-    std::cout << i->getType() << "" << std::endl;
-    i->makeSound(); //will output the cat sound!
-   // j->makeSound();
-    //meta->makeSound();
-   // delete meta;
-   // delete j;
-    delete i;
-    return 0;
-}
+	public:
+		Cat(void);
+		Cat(const Cat& other);
+		Cat& operator=(const Cat& other);
+
+		~Cat();
+		void	makeSound() const;
+};
+#endif
