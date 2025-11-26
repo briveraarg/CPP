@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.hpp                                         :+:      :+:    :+:   */
+/*   color.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/25 17:20:13 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/26 11:50:24 by brivera          ###   ########.fr       */
+/*   Created: 2025/11/26 11:48:18 by brivera           #+#    #+#             */
+/*   Updated: 2025/11/26 11:48:54 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ANIMAL_HPP
-#define ANIMAL_HPP
+#ifndef COLOR_HPP
+#define COLOR_HPP
 
-#include <iostream>
-#include "color.hpp" 
+/***************************************/
+/*                COLOR                */
+/***************************************/
 
-class	Animal
-{
-	protected:
-		std::string	type;
+#define RESET			"\033[0m"
+#define BRIGHT_RED		"\033[91m"
+#define BRIGHT_GREEN	"\033[92m"
+#define BRIGHT_BLUE		"\033[94m"
+#define BRIGHT_MAGENTA	"\033[95m"
+#define BRIGHT_CYAN		"\033[96m"
 
-	public:
-		Animal(void);
-		Animal(const Animal& other);
-
-		Animal& operator=(const Animal& other);
-		virtual ~Animal();
-
-		std::string getType() const;
-		virtual void makeSound() const;
-};
+#define BOLD			"\033[1m"
 
 #endif

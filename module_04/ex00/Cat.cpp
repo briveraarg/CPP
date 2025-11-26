@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 18:01:40 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/25 20:18:49 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/26 11:59:21 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 Cat::Cat(void): Animal()
 {
-	type = "cat";
+	type = "Cat";
 	std::cout << "Cat default constructor called" << std::endl;
 }
 
@@ -27,7 +27,7 @@ Cat &Cat::operator=(const Cat &other)
 {
 	if (this != &other)
 		Animal::operator=(other);
-	std::cout << "Cat operator assigned called" << std::endl;
+	std::cout << "Cat copy assignment operator called" << std::endl;
 	return (*this);
 }
 
@@ -38,5 +38,5 @@ Cat::~Cat()
 
 void	Cat::makeSound() const
 {
-std::cout << "_miau_" << std::endl;	
+	std::cout << "meow!" << std::endl;	
 }
