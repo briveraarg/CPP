@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 15:37:19 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/15 15:51:26 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/17 12:30:22 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int main()
 	copy.attack("¡zaz!");
 
 	ClapTrap assigned;
-	assigned = Ana; 
 	assigned.attack("nothing");
 	std::cout << BOLD << BRIGHT_BLUE << "\n-- Destructor --" << RESET << std::endl;
 	return (0);

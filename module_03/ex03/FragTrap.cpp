@@ -1,28 +1,29 @@
 #include "FragTrap.hpp"
 
-FragTrap::FragTrap(): ClapTrap()
+
+/* 
+ * Valores que pide el subjet
+ * this->_hitPoints = 100;
+ * this->_energyPoints = 100;
+ * this->_attackDamage = 30;
+ * 
+ * */
+
+FragTrap::FragTrap(): ClapTrap("Default", 100, 100, 30)
 {
-	this->_hitPoints = 100;
-	this->_energyPoints = 100;
-	this->_attackDamage = 30;
 	std::cout << "FragTrap " << BOLD << this->_name
 			<< RESET << " default constructor called" << std::endl;
 }
 
-FragTrap::FragTrap(const std::string &name): ClapTrap(name)
+FragTrap::FragTrap(const std::string &name): ClapTrap(name, 100, 100, 30)
 {
-	this->_hitPoints = 100;
-	this->_energyPoints = 100;
-	this->_attackDamage = 30;
 	std::cout << "FragTrap " << BOLD << this->_name
 			<< RESET << " constructor called" << std::endl;
 }
 
-FragTrap::FragTrap(const FragTrap &other): ClapTrap(other)
+FragTrap::FragTrap(const FragTrap &other)
+	: ClapTrap(other._name, other._hitPoints, other._energyPoints, other._attackDamage)
 {
-	this->_hitPoints = other._hitPoints;
-	this->_energyPoints = other._energyPoints;
-	this->_attackDamage = other._attackDamage;
 	std::cout << "FragTrap " << BOLD << this->_name
 			<< RESET << " copy constructor called" << std::endl;
 }

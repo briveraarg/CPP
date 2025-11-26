@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 16:50:00 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/15 18:05:48 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/17 16:10:56 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 int main()
 {
 	std::cout << BOLD << BRIGHT_GREEN<< "-- Construction order test --" << RESET << std::endl;
-	ClapTrap base("BaseC");
+	ClapTrap base("Base");
 	FragTrap o("Oliver");
 
 	std::cout << BOLD << BRIGHT_GREEN<< "\n-- FragTrap actions --" << RESET << std::endl;
-	o.attack("target");
+	o.attack("zaz! zaz!");
 	o.highFivesGuys();
 	o.takeDamage(40);
 	o.beRepaired(20);
@@ -30,11 +30,11 @@ int main()
 
 	FragTrap f3;
 	f3 = f2;
-	f3.attack("dummy");
+	f3.attack("pew! pew!");
 
 	std::cout << BOLD << BRIGHT_GREEN<< "\n-- Polymorphism demo --" << RESET << std::endl;
 	{
-		ClapTrap *p = new FragTrap("FragPtr");
+		ClapTrap *p = new FragTrap("Bren");
 		p->attack("intruder");
 		delete p;
 	}

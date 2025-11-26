@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:28:39 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/15 15:58:12 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/17 11:56:31 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,11 @@
  *    describiendo el ataque y decrementa energyPoints en 1 si el
  *    objeto tiene hitPoints>0 y energyPoints>0. No afecta a otros
  *    ClapTrap (según el enunciado del ejercicio).
+ * 
  *  - void takeDamage(unsigned int amount): reduce hitPoints en
  *    'amount'. Si amount >= hitPoints, establece hitPoints a 0.
  *    Se evita underflow comprobando antes de restar.
+ * 
  *  - void beRepaired(unsigned int amount): incrementa hitPoints en
  *    'amount' y decrementa energyPoints en 1. No funciona si
  *    hitPoints==0 o energyPoints==0.
