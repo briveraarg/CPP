@@ -20,7 +20,7 @@ Animal::Animal(void): type("Animal")
 
 Animal::Animal(const std::string& type): type(type)
 {
-    std::cout << BOLD << type << RESET
+    std::cout << BOLD << "Animal (type: " << type << ")" << RESET
               << " default constructor called" << std::endl;
 }
 
