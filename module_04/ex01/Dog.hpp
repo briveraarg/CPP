@@ -18,6 +18,27 @@
 
 #include <iostream>
 
+/*
+ * 
+ * Estructura de la clase Dog:
+ * - Herencia:
+ * 		Hereda públicamente de la clase Animal.
+ * - Atributo privado:
+ * 		Brain* _brain; // puntero a la clase Brain (composición).
+ * - Constructores:
+ * 		Dog() -> constructor por defecto (inicializa type a "Dog" y crea new Brain).
+ * 		Dog(const Dog& other) -> constructor de copia (deep copy del Brain).
+ * - Operador de asignación: 
+ * 		operator=(const Dog& other) deep copy del Brain y llama al operador base.
+ * - Destructor:
+ * 		~Dog() libera la memoria del Brain (delete _brain).
+ * - Métodos:
+ * 		void makeSound() const;     // implementación específica del sonido ("woof!").
+ * 		getIdeaDog/setIdeaDog;      // métodos específicos para acceder a ideas.
+ * 		getBrain();                 // devuelve el puntero al cerebro.
+ * 
+*/
+
 class Dog : public Animal
 {
 	private:

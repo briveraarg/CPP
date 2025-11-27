@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 18:02:32 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/25 20:21:28 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/27 18:57:28 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,23 @@
 
 #include <iostream>
 #include "Animal.hpp"
+
+/*
+ * 
+ * Estructura de la clase Cat:
+ * - Herencia:
+ * 		Hereda públicamente de la clase Animal.
+ * - Constructores:
+ * 		Cat() -> constructor por defecto (inicializa type a "Cat").
+ * 		Cat(const Cat& other) -> constructor de copia.
+ * - Operador de asignación: 
+ * 		operator=(const Cat& other) llama al operador de la base.
+ * - Destructor:
+ * 		~Cat() destructor específico.
+ * - Métodos:
+ * 		void makeSound() const;     // implementación específica del sonido ("meow!").
+ * 
+*/
 
 class Cat : public Animal
 {

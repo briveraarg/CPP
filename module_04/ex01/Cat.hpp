@@ -17,6 +17,27 @@
 #include "Animal.hpp"
 #include "Brain.hpp"
 
+/*
+ * 
+ * Estructura de la clase Cat:
+ * - Herencia:
+ * 		Hereda públicamente de la clase Animal.
+ * - Atributo privado:
+ * 		Brain* _brain; // puntero a la clase Brain (composición).
+ * - Constructores:
+ * 		Cat() -> constructor por defecto (inicializa type a "Cat" y crea new Brain).
+ * 		Cat(const Cat& other) -> constructor de copia (deep copy del Brain).
+ * - Operador de asignación: 
+ * 		operator=(const Cat& other) deep copy del Brain y llama al operador base.
+ * - Destructor:
+ * 		~Cat() libera la memoria del Brain (delete _brain).
+ * - Métodos:
+ * 		void makeSound() const;     // implementación específica del sonido ("meow!").
+ * 		getIdeaCat/setIdeaCat;      // métodos específicos para acceder a ideas.
+ * 		getBrain();                 // devuelve el puntero al cerebro.
+ * 
+*/
+
 class Cat : public Animal
 {
 	private:
