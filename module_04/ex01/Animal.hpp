@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 17:20:13 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/26 14:37:30 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/27 18:19:01 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ class	Animal
 
 		std::string getType() const;
 		virtual void makeSound() const;
+
 };
 
 #endif
