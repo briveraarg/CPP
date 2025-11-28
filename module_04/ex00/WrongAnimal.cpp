@@ -6,11 +6,13 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 12:30:00 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/26 12:18:54 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/28 16:24:04 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "WrongAnimal.hpp"
+
+/* ---- Constructores y Destructor ---- */
 
 WrongAnimal::WrongAnimal(): type("WrongAnimal")
 {
@@ -38,6 +40,8 @@ WrongAnimal::~WrongAnimal()
 	std::cout << BOLD << "WrongAnimal" << RESET
 			  << " destructor called" << std::endl;
 }
+
+/* ---- Métodos ---- */
 
 std::string WrongAnimal::getType() const
 {

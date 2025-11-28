@@ -6,11 +6,13 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 18:01:40 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/26 14:34:49 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/28 16:23:54 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cat.hpp"
+
+/* ---- Constructores y Destructor ---- */
 
 Cat::Cat(void): Animal("Cat")
 {
@@ -38,6 +40,8 @@ Cat::~Cat()
 	 std::cout << BOLD << "Cat" << RESET
 		 << " destructor called" << std::endl;
 }
+
+/* ---- Métodos ---- */
 
 void	Cat::makeSound() const
 {
