@@ -6,11 +6,13 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 17:21:54 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/28 15:06:00 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/28 16:21:38 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "AAnimal.hpp"
+
+/* ---- Constructores y Destructor ---- */
 
 AAnimal::AAnimal(void): type("Animal")
 {
@@ -44,6 +46,8 @@ AAnimal::~AAnimal()
 	 std::cout << BOLD << "Animal" << RESET
 				<< " destructor called" << std::endl;
 }
+
+/* ---- Métodos ---- */
 
 std::string AAnimal::getType() const
 {

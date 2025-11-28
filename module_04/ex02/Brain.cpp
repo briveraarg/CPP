@@ -6,11 +6,13 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 15:45:29 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/27 12:39:18 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/28 16:21:37 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Brain.hpp"
+
+/* ---- Constructores y Destructor ---- */
 
 Brain::Brain(void)
 {
@@ -47,6 +49,8 @@ Brain:: ~Brain()
 	std::cout << BOLD << "Brain" << RESET
 		<< " destructor called" << std::endl;
 }
+
+/* ---- Métodos ---- */
 
 std::string	Brain::getIdeas(size_t index) const
 {

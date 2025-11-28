@@ -6,11 +6,13 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 18:00:14 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/28 14:57:28 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/28 16:21:35 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Dog.hpp"
+
+/* ---- Constructores y Destructor ---- */
 
 Dog::Dog(void) : AAnimal("Dog")
 {
@@ -51,6 +53,8 @@ Dog::~Dog()
 	std::cout << BOLD << "Dog" << RESET
 		<< " destructor called" << std::endl;
 }
+
+/* ---- Métodos ---- */
 
 void	Dog::makeSound()	const
 {
