@@ -12,6 +12,8 @@
 
 #include "Brain.hpp"
 
+/* ---- Constructores y Destructor ---- */
+
 Brain::Brain(void)
 {
 	for (size_t i = 0; i < 100; ++i)
@@ -47,6 +49,8 @@ Brain:: ~Brain()
 	std::cout << BOLD << "Brain" << RESET
 		<< " destructor called" << std::endl;
 }
+
+/* ---- Métodos ---- */
 
 std::string	Brain::getIdeas(size_t index) const
 {

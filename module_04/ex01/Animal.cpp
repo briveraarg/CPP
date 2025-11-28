@@ -12,6 +12,8 @@
 
 #include "Animal.hpp"
 
+/* ---- Constructores y Destructor ---- */
+
 Animal::Animal(void): type("Animal")
 {
 	std::cout << BOLD << "Animal" << RESET
@@ -44,6 +46,8 @@ Animal::~Animal()
 	 std::cout << BOLD << "Animal" << RESET
 				<< " destructor called" << std::endl;
 }
+
+/* ---- Métodos ---- */
 
 std::string Animal::getType() const
 {

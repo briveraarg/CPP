@@ -12,6 +12,8 @@
 
 #include "Dog.hpp"
 
+/* ---- Constructores y Destructor ---- */
+
 Dog::Dog(void) : Animal("Dog")
 {
 	_brain = new Brain();
@@ -51,6 +53,8 @@ Dog::~Dog()
 	std::cout << BOLD << "Dog" << RESET
 		<< " destructor called" << std::endl;
 }
+
+/* ---- Métodos ---- */
 
 void	Dog::makeSound()	const
 {

@@ -12,6 +12,8 @@
 
 #include "Cat.hpp"
 
+/* ---- Constructores y Destructor ---- */
+
 Cat::Cat(void): Animal("Cat")
 {
 	_brain = new Brain();
@@ -52,6 +54,8 @@ Cat::~Cat()
 	std::cout << BOLD << "Cat" << RESET
 		 << " destructor called" << std::endl;
 }
+
+/* ---- Métodos ---- */
 
 void	Cat::makeSound() const
 {
