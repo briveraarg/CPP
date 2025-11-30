@@ -6,7 +6,7 @@
 #    By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/25 17:08:51 by brivera           #+#    #+#              #
-#    Updated: 2025/11/26 12:15:34 by brivera          ###   ########.fr        #
+#    Updated: 2025/11/30 20:36:32 by brivera          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC		:= c++
 FLAGS	:= -Wall -Wextra -Werror -std=c++98
 
 SRCS 	:=  main.cpp Animal.cpp Cat.cpp Dog.cpp WrongAnimal.cpp WrongCat.cpp
-HEADERS := 	Animal.hpp Cat.hpp Dog.hpp WrongAnimal.hpp WrongCat.hpp
+HEADERS := 	Animal.hpp Cat.hpp Dog.hpp WrongAnimal.hpp WrongCat.hpp color.hpp
 
 OBJS_DIR 	:= objs
 OBJS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.cpp=.o))
