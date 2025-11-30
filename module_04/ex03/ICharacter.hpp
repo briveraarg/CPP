@@ -6,14 +6,13 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 16:47:52 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/29 18:53:58 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/30 20:04:39 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ICHARACTER_HPP
 #define ICHARACTER_HPP
 
-#include "color.hpp"
 #include "AMateria.hpp"
 #include <iostream>
 

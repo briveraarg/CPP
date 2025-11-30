@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/28 16:21:51 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/29 17:09:15 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/30 20:06:37 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@
 #include "Ice.hpp"
 #include "Cure.hpp"
 #include "MateriaSource.hpp"
+#include "color.hpp"
 
 int main(void)
 {
+	std::cout << BOLD << BRIGHT_BLUE << "------ ex03 ------" << RESET << std::endl;
 	IMateriaSource* src = new MateriaSource();
 	src->learnMateria(new Ice());
 	src->learnMateria(new Cure());

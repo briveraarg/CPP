@@ -6,29 +6,26 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 17:10:49 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/29 17:12:49 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/29 20:18:31 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CURE_HPP
-#define CURE_HPP
+#ifndef ICE_HPP
+#define ICE_HPP
 
-class Ice
+#include "AMateria.hpp"
+
+class Ice : public AMateria
 {
-	private:
-		/* data */
 	public:
-		Ice(/* args */);
+		Ice(void);
+		Ice(const Ice& other);
 		~Ice();
+
+		Ice& operator=(const Ice& other);
+
+		AMateria* clone() const;
+		void use(ICharacter& target);
 };
-
-Ice::Ice(/* args */)
-{
-}
-
-Ice::~Ice()
-{
-}
-
 
 #endif

@@ -6,19 +6,19 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 17:11:21 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/29 20:13:06 by brivera          ###   ########.fr       */
+/*   Updated: 2025/11/30 20:07:51 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MateriaSource.hpp"
 
-/* ------ constructors ------ */
+/* ------ Constructors ------ */
 
 MateriaSource::MateriaSource(void)
 {
 	for (int i = 0; i < MAX_MATERIA; i++)
 		this->_materias[i] = NULL;
-	std::cout << "MateriaSource default constructor called" << std::endl;
+	// std::cout << "MateriaSource default constructor called" << std::endl;
 }
 
 MateriaSource::MateriaSource(const MateriaSource& other)
@@ -30,10 +30,10 @@ MateriaSource::MateriaSource(const MateriaSource& other)
 		else
 			this->_materias[i] = NULL;
 	}
-	std::cout << "MateriaSource copy constructor called" << std::endl;
+	// std::cout << "MateriaSource copy constructor called" << std::endl;
 }
 
-/* ------ destructor ------ */
+/* ------ Destructor ------ */
 
 MateriaSource::~MateriaSource()
 {
@@ -42,10 +42,10 @@ MateriaSource::~MateriaSource()
 		if (this->_materias[i])
 			delete this->_materias[i];
 	}
-	std::cout << "MateriaSource destructor called" << std::endl;
+	// std::cout << "MateriaSource destructor called" << std::endl;
 }
 
-/* ------ operator ------ */
+/* ------ Operators ------ */
 
 MateriaSource& MateriaSource::operator=(const MateriaSource& other)
 {
@@ -65,11 +65,11 @@ MateriaSource& MateriaSource::operator=(const MateriaSource& other)
 				this->_materias[i] = NULL;
 		}
 	}
-	std::cout << "MateriaSource assignment operator called" << std::endl;
+	// std::cout << "MateriaSource assignment operator called" << std::endl;
 	return (*this);
 }
 
-/* ------ methods ------ */
+/* ------ Methods ------ */
 
 /*
  * Si está lleno, borramos m para evitar leaks (asumiendo que nos pasan ownership)
