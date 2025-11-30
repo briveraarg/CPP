@@ -96,7 +96,7 @@ virtual void makeSound() const = 0;
 
 ---
 
-# 🚀 **SUPER RESUMEN (para recordarlo siempre)**
+# **RESUMEN (para recordarlo siempre)**
 
 > **“Hay animales polimórficos,
 > cerebros que se copian profundamente,
