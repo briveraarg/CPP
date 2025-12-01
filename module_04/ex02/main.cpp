@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 14:46:18 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/28 15:26:04 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/01 12:26:10 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int main()
 {
 	std::cout << BOLD << BRIGHT_CYAN << "------ ex02 ------" << RESET << std::endl;
 	
-	// Intentamos instanciar AAnimal (debería dar error)
+	// Intentamos instanciar AAnimal
 	// const AAnimal* animal = new AAnimal();
 	
 	Dog* luli = new Dog();

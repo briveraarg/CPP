@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 17:21:54 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/29 17:36:20 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/01 12:24:54 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,14 @@ AAnimal::AAnimal(const AAnimal& other) : type(other.type)
 				<< " copy constructor called" << std::endl;
 }
 
+AAnimal::~AAnimal()
+{
+	 std::cout << BOLD << "Animal" << RESET
+				<< " destructor called" << std::endl;
+}
+
+/* ---- Operador  ---- */
+
 AAnimal& AAnimal::operator=(const AAnimal &other)
 {
 	if (this != &other)
@@ -41,11 +49,6 @@ AAnimal& AAnimal::operator=(const AAnimal &other)
 	return (*this);
 }
 
-AAnimal::~AAnimal()
-{
-	 std::cout << BOLD << "Animal" << RESET
-				<< " destructor called" << std::endl;
-}
 
 /* ---- Métodos ---- */
 

@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 18:01:40 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/28 16:21:33 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/01 12:25:36 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,15 @@ Cat::Cat(const Cat& other): AAnimal(other)
 			<< " copy constructor called" << std::endl;
 }
 
+Cat::~Cat()
+{
+	delete _brain;
+	std::cout << BOLD << "Cat" << RESET
+		 << " destructor called" << std::endl;
+}
+
+/* ---- Operador  ---- */
+
 Cat &Cat::operator=(const Cat &other)
 {
 	if (this != &other)
@@ -46,13 +55,6 @@ Cat &Cat::operator=(const Cat &other)
 	std::cout << BOLD << "Cat" << RESET
 			<< " copy assignment operator called" << std::endl;
 	return (*this);
-}
-
-Cat::~Cat()
-{
-	delete _brain;
-	std::cout << BOLD << "Cat" << RESET
-		 << " destructor called" << std::endl;
 }
 
 /* ---- Métodos ---- */
