@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 17:21:54 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/28 16:26:17 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/01 12:19:13 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,15 @@ Animal::Animal(const Animal& other) : type(other.type)
 				<< " copy constructor called" << std::endl;
 }
 
+Animal::~Animal()
+{
+	 std::cout << BOLD << "Animal" << RESET
+				<< " destructor called" << std::endl;
+
+}
+
+/* ---- Operador  ---- */
+
 Animal& Animal::operator=(const Animal &other)
 {
 	if (this != &other)
@@ -39,12 +48,6 @@ Animal& Animal::operator=(const Animal &other)
 	std::cout << BOLD << "Animal" << RESET
 				<< " copy assignment operator called" << std::endl;
 	return (*this);
-}
-
-Animal::~Animal()
-{
-	 std::cout << BOLD << "Animal" << RESET
-				<< " destructor called" << std::endl;
 }
 
 /* ---- Métodos ---- */

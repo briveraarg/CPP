@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 15:45:29 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/28 16:26:08 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/01 12:20:31 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,14 @@ Brain::Brain(const Brain& other)
 		<< " copy constructor called" << std::endl;
 }
 
+Brain:: ~Brain()
+{
+	std::cout << BOLD << "Brain" << RESET
+		<< " destructor called" << std::endl;
+}
+
+/* ---- Operador  ---- */
+
 Brain& Brain::operator=(const Brain& other)
 {
 	if (this != &other)
@@ -42,12 +50,6 @@ Brain& Brain::operator=(const Brain& other)
 	std::cout << BOLD << "Brain" << RESET
 		<< " copy assignment operator called" << std::endl;
 	return (*this);
-}
-
-Brain:: ~Brain()
-{
-	std::cout << BOLD << "Brain" << RESET
-		<< " destructor called" << std::endl;
 }
 
 /* ---- Métodos ---- */

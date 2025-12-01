@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 16:06:00 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/27 19:01:31 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/01 12:19:54 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ class	Brain
 		
 		~Brain();
 
-		std::string getIdeas(size_t index) const;
+		std::string	getIdeas(size_t index) const;
 		void		setIdea(size_t index, const std::string& idea);
 
 };
