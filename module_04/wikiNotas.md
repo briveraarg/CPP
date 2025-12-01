@@ -1,9 +1,9 @@
 
-# 🧠 **ESQUEMA MENTAL DEL MÓDULO 04 — EN 5 BLOQUES**
+# **ESQUEMA MENTAL DEL MÓDULO 04**
 
-# ➊ **"Hay un tipo de objeto que se comporta distinto según el hijo"**
+### Hay un tipo de objeto que se comporta distinto según el hijo
 
-👉 Eso es **POLIMORFISMO**.
+Eso es **POLIMORFISMO**.
 
 **Animal**
 → `makeSound()` virtual
@@ -11,25 +11,25 @@
 
 **Clave mental:**
 
-> *"Un puntero al padre puede ejecutar funciones del hijo."*
+> *Un puntero al padre puede ejecutar funciones del hijo.*
 
 ---
 
-# ➋ **"Si NO uso virtual, el polimorfismo no funciona"*
+### Si NO uso virtual, el polimorfismo no funciona*
 
-👉 WrongAnimal / WrongCat
+WrongAnimal / WrongCat
 
 **Clave mental:**
 
-> *"Sin virtual, el programa no sabe cuál función llamar."*
+> *Sin virtual, el programa no sabe cuál función llamar.*
 
 Se usa solo para mostrar el error.
 
 ---
 
-# ➌ **"Perros y gatos tienen ideas → necesitan memoria dinámica"**
+### **Perros y gatos tienen ideas → necesitan memoria dinámica**
 
-👉 Deep copy + Brain
+Deep copy + Brain
 
 Todos tienen :
 `Brain* brain;`
@@ -41,9 +41,9 @@ Todos tienen :
 
 ---
 
-# ➍ **"Animal no debe poder existir solo"**
+### **Animal no debe poder existir solo**
 
-👉 Clase abstracta
+Clase abstracta
 
 MakeSound se vuelve:
 
@@ -57,11 +57,11 @@ virtual void makeSound() const = 0;
 
 ---
 
-# ➎ **"Sistema de magia estilo RPG"**
+### **Sistema de magia**
 
-👉 Interfaces + Polimorfismo + Factoría + Deep Copy
+Interfaces + Polimorfismo + Factoría + Deep Copy
 
-## Materias (hechizos)
+### Materias (hechizos)
 
 * **AMateria** → clase abstracta (tipo + clone + use)
 * **Ice** → ataca
@@ -69,9 +69,9 @@ virtual void makeSound() const = 0;
 
 **Clave mental:**
 
-> *"Cada magia es un hijo distinto con su propia acción."*
+> *Cada magia es un hijo distinto con su propia acción.*
 
-## Personajes (héroes)
+### Personajes (héroes)
 
 * **Character**
 
@@ -81,9 +81,9 @@ virtual void makeSound() const = 0;
 
 **Clave mental:**
 
-> *"El héroe usa materia, pero no la destruye al desequipar."*
+> *El héroe usa materia, pero no la destruye al desequipar.*
 
-## Fuente de magia (NPC)
+### Fuente de magia
 
 * **MateriaSource**
 
@@ -92,11 +92,11 @@ virtual void makeSound() const = 0;
 
 **Clave mental:**
 
-> *"Las materias no se crean con 'new Ice()', sino desde una fábrica."*
+> *Las materias no se crean con 'new Ice()', sino desde una fábrica.*
 
 ---
 
-# **RESUMEN (para recordarlo siempre)**
+### **RESUMEN **
 
 > **“Hay animales polimórficos,
 > cerebros que se copian profundamente,
@@ -105,17 +105,142 @@ virtual void makeSound() const = 0;
 > personajes que las equipan,
 > y una fábrica que crea hechizos.”**
 
+
+## Que es eso de clone? como funciona? 
+1. **Copiar un personaje → copia profunda de las materias del inventario**
+2. **MateriaSource crea materias usando clone()**
+
 ---
 
-# 🌟 **VERSIÓN AÚN MÁS SIMPLE **
+## PRIMERO: ¿QUÉ ES REALMENTE `clone()`?
 
-```
-POLIMORFISMO → Animal / Dog / Cat
-SIN VIRTUAL → WrongAnimal (error)
-DEEP COPY → Brain dentro de Dog/Cat
-ABSTRACTO → Animal no puede existir
-MAGIA → AMateria / Ice / Cure
-PERSONAJE → Equipar y usar materias
-FABRICA → MateriaSource crea copias
+En AMateria:
+
+```cpp
+virtual AMateria* clone() const = 0;
 ```
 
+Esto significa:
+
+* **AMateria no implementa clone()**
+* Solo declara que *todas las hijas* deben implementarlo
+* El compilador garantiza que **llamar clone() desde un puntero AMateria siempre va a ejecutar la versión correcta de la clase hija**
+
+---
+
+## En Ice:
+
+```cpp
+AMateria* Ice::clone() const {
+    return new Ice(*this);
+}
+```
+
+Esto crea un **nuevo objeto Ice** copiando *este*.
+
+---
+
+## En Cure:
+
+```cpp
+AMateria* Cure::clone() const {
+    return new Cure(*this);
+}
+```
+
+Esto crea un **nuevo Cure** copiando *este*.
+
+---
+
+
+### **SI COPIO UN PERSONAJE → ¿Cómo se clonan sus materias?**
+
+Imaginemos este personaje:
+
+```
+me.inventory = [ Ice*, Cure*, empty, empty ]
+```
+
+Y hacés:
+
+```cpp
+Character tmp = me;
+```
+
+Entonces entra el **copy constructor** de Character.
+
+Este constructor debe hacer:
+
+```cpp
+for (int i = 0; i < 4; i++) {
+    if (other.inventory[i] != NULL) {
+        this->inventory[i] = other.inventory[i]->clone();
+    } else {
+        this->inventory[i] = NULL;
+    }
+}
+```
+
+### ¿Qué pasa aquí realmente?
+
+El compilador ve:
+
+```
+other.inventory[i] → puntero AMateria*
+```
+
+Pero ese puntero **en realidad** apunta a:
+
+* un Ice
+* o un Cure
+
+Entonces cuando vos llamás:
+
+```
+other.inventory[i]->clone()
+```
+
+EL COMPILADOR NO ELIGE LA FUNCIÓN.
+
+**Elige en tiempo de ejecución**
+por la palabra clave **virtual**.
+
+El CPU mira el objeto real en memoria y ejecuta:
+
+* `Ice::clone()` si es un Ice
+* `Cure::clone()` si es un Cure
+
+Emitimos un diagrama:
+
+```
+AMateria* ptr → (en realidad) Ice
+
+ptr->clone()
+      ↓
+Ejecuta Ice::clone()
+      ↓
+new Ice(*this)
+```
+
+  Por eso se llama **polimorfismo dinámico**.
+
+---
+
+### **Resultado: el personaje copia PROFUNDAMENTE cada materia**
+
+Así queda la memoria:
+
+```
+Original:
+   inventory[0] → Ice (A)
+   inventory[1] → Cure (A)
+
+Copia:
+   inventory[0] → Ice (B)  ← nuevo objeto creado por clone()
+   inventory[1] → Cure (B) ← nuevo objeto creado por clone()
+```
+
+No comparten la misma materia.
+Cada una es nueva.
+
+---
