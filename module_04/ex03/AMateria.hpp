@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 16:35:20 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/29 20:23:51 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/01 16:32:44 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ class ICharacter;
 
 class AMateria
 {
-	private:
+	protected:
 		std::string		_type;
 	public:
 		AMateria(void);
