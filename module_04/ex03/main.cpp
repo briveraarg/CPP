@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/28 16:21:51 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/30 20:27:17 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/01 13:07:33 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 
 int main(void)
 {
-	/* --- SUBJECT TEST --- */
-	std::cout << BOLD << BRIGHT_BLUE << "------ TEST DEL SUBJECT ------" << RESET << std::endl;
+	std::cout << BOLD << BRIGHT_BLUE
+		<< "------ TEST DEL SUBJECT ------" << RESET << std::endl;
 	{
 		IMateriaSource* src = new MateriaSource();
 		src->learnMateria(new Ice());
@@ -45,8 +45,8 @@ int main(void)
 		delete src;
 	}
 
-	/* --- DEEP COPY TEST --- */
-	std::cout << std::endl << BOLD << BRIGHT_BLUE << "------ TEST DE COPIA PROFUNDA ------" << RESET << std::endl;
+	std::cout << std::endl << BOLD << BRIGHT_BLUE
+		<< "------ TEST DE COPIA PROFUNDA ------" << RESET << std::endl;
 	{
 		Character* iria = new Character("Iria");
 		iria->equip(new Ice());
@@ -79,8 +79,8 @@ int main(void)
 		delete oli;
 	}
 
-	/* --- UNEQUIP TEST --- */
-	std::cout << std::endl << BOLD << BRIGHT_BLUE << "------ TEST DE UNEQUIP ------" << RESET << std::endl;
+	std::cout << std::endl << BOLD << BRIGHT_BLUE
+		<< "------ TEST DE UNEQUIP ------" << RESET << std::endl;
 	{
 		ICharacter* ana = new Character("Ana");
 		AMateria* m = new Ice();
@@ -97,15 +97,17 @@ int main(void)
 		std::cout << "Usando slot 0 (no deberia hacer nada):" << std::endl;
 		ana->use(0, *oli);
 
-		// Importante: unequip no borra la memoria, debemos hacerlo nosotros para evitar leaks
+		// Importante: unequip no borra la memoria,
+		// acá se reservo, aca se limpio... para evitar leaks
 		delete m;
 		delete ana;
 		delete oli;
 	}
 	
-	/* --- FULL INVENTORY TEST --- */
-	std::cout << std::endl << BOLD << BRIGHT_BLUE << "------ TEST DE INVENTARIO LLENO ------" << RESET << std::endl;
+	std::cout << std::endl << BOLD << BRIGHT_BLUE
+		<< "------ TEST DE INVENTARIO LLENO ------" << RESET << std::endl;
 	{
+		std::cout << "-> Intentando equipar ..." << std::endl;
 		ICharacter* ana = new Character("Ana");
 		AMateria* m1 = new Ice();
 		AMateria* m2 = new Cure();
@@ -118,15 +120,16 @@ int main(void)
 		ana->equip(m3);
 		ana->equip(m4);
 		
-		std::cout << "Intentando equipar 5to item..." << std::endl;
+		std::cout << "-> Intentando equipar 5to item..." << std::endl;
 		ana->equip(m5); // Should fail or print message
 
 		delete ana;
 		// Si equip falló, m5 no es propiedad del personaje, hay que borrarlo
-		// Nota: Depende de tu implementación de equip. Si equip no toma ownership al fallar, borramos.
+		// Nota: Depende de la implementación de equip.
+		// Si equip no toma ownership al fallar, borramos.
 		// Asumimos que tu equip no guarda si está lleno.
+		// Main reserva, main borra
 		delete m5; 
 	}
-
 	return (0);
 }

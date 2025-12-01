@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 16:45:32 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/30 20:07:54 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/01 12:37:46 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ std::string const & AMateria::getType() const
 /*
  * El método *USE* de AMateria es un método virtual
  * No hace nada en la clase base.
- * Esta declaracion es solo para evitar el warning
- * de "unused parameter"
+ * Los que valen son los *use* de las clases hijas
  *
 */
 
