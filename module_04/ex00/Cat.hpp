@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 18:02:32 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/27 18:57:28 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/01 12:13:41 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@
  * - Destructor:
  * 		~Cat() destructor específico.
  * - Métodos:
- * 		void makeSound() const;     // implementación específica del sonido ("meow!").
+ * 		void makeSound() const;
+ * 		// implementación específica del sonido ("meow!").
  * 
 */
 

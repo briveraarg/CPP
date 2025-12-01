@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 18:02:24 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/27 18:57:40 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/01 12:15:07 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,21 @@
  * - Destructor:
  * 		~Dog() destructor específico.
  * - Métodos:
- * 		void makeSound() const;     // implementación específica del sonido ("woof!").
+ * 		void makeSound() const;     // implementación específica
+ *                                  // del sonido ("woof!").
  * 
 */
 
 class Dog : public Animal
 {
-    public:
-        Dog(void);
-        Dog(const Dog& other);
-        Dog& operator=(const Dog& other);
+	public:
+		Dog(void);
+		Dog(const Dog& other);
+		Dog& operator=(const Dog& other);
 
-        ~Dog();
-        
-        void    makeSound() const;
+		~Dog();
+		
+		void    makeSound() const;
 };
 
 #endif

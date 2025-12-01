@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 17:20:13 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/26 14:37:30 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/01 12:14:10 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@
  * 		virtual ~Animal() para permitir destrucción polimórfica.
  * - Métodos:
  * 		std::string getType() const;        // devuelve el tipo
- * 		virtual void makeSound() const;     // método virtual que imprimirá el sonido
- * 								   			// específico en las clases derivadas.
+ * 		virtual void makeSound() const;     // método virtual que
+ * 											// imprimirá el sonido
+ * 								   			// específico en las clases
+ * 											// derivadas.
  * 
 */
 

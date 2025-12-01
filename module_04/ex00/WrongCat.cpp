@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 12:30:00 by brivera           #+#    #+#             */
-/*   Updated: 2025/11/28 16:24:06 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/01 12:16:02 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,14 @@ WrongCat::WrongCat(const WrongCat& other): WrongAnimal(other)
 			  << " copy constructor called" << std::endl;
 }
 
+WrongCat::~WrongCat()
+{
+	std::cout << BOLD << "WrongCat" << RESET
+			  << " destructor called" << std::endl;
+}
+
+/* ---- Operador  ---- */
+
 WrongCat& WrongCat::operator=(const WrongCat& other)
 {
 	if (this != &other)
@@ -36,11 +44,7 @@ WrongCat& WrongCat::operator=(const WrongCat& other)
 	return (*this);
 }
 
-WrongCat::~WrongCat()
-{
-	std::cout << BOLD << "WrongCat" << RESET
-			  << " destructor called" << std::endl;
-}
+
 
 /* ---- Métodos ---- */
 
