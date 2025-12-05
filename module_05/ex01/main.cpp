@@ -1,0 +1,98 @@
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/05 19:06:38 by brivera           #+#    #+#             */
+/*   Updated: 2025/12/05 19:40:01 by brivera          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "Bureaucrat.hpp"
+#include "Form.hpp"
+
+int main()
+{
+	std::cout << BOLD << BRIGHT_BLUE << "--- ex01 ---" << RESET << std::endl;
+
+	Bureaucrat director("Iria", 1);
+	Bureaucrat jefe("Oliver", 25);
+	Bureaucrat empleado("Ana", 75);
+	Bureaucrat pasante("Brendi", 150);
+
+	std::cout << BRIGHT_BLUE << "Formulario válido y firma por distintos actores" << RESET << std::endl;
+	try
+    {
+		Form contrato("Contrato", 50, 25);
+		std::cout << contrato << std::endl;
+
+		empleado.signForm(contrato); // debe fallar (grado 75 > 50)
+		jefe.signForm(contrato);     // debe funcionar (grado 25 <= 50)
+		jefe.signForm(contrato);     // firmar ya firmado: comportamiento permitido o mensaje informativo
+
+		std::cout << contrato << std::endl;
+	}
+	catch (const std::exception& e)
+    {
+		std::cout << BRIGHT_RED << "Exception: " << e.what() << RESET << std::endl;
+	}
+
+	// formularios con grados inválidos en el constructor
+	try
+    {
+		Form invalidoAlto("InvalidoAlto", 0, 25); // grado 0 no válido
+	}
+	catch (const std::exception& e)
+    {
+		std::cout << BRIGHT_MAGENTA << "Constructor caught (alto): " << e.what() << RESET << std::endl;
+	}
+
+	try
+    {
+		Form invalidoBajo("InvalidoBajo", 151, 25); // grado 151 no válido
+	}
+	catch (const std::exception& e)
+    {
+		std::cout << BRIGHT_MAGENTA << "Constructor caught (bajo): " << e.what() << RESET << std::endl;
+	}
+
+	// intento de firmar con el burócrata más bajo
+	try
+    {
+		Form hoja("HojaSimple", 150, 150);
+		std::cout << hoja << std::endl;
+		pasante.signForm(hoja); // debe funcionar: pasante grado 150, requiere 150
+		std::cout << hoja << std::endl;
+	}
+	catch (const std::exception& e)
+    {
+		std::cout << BRIGHT_RED << "Exception: " << e.what() << RESET << std::endl;
+	}
+
+	// copiar y asignar Form y comprobar estado firmado
+	try
+    {
+		Form original("Original", 50, 50);
+		jefe.signForm(original);
+
+		Form copia(original); // copy ctor
+		Form asignada = original; // operator=
+
+		std::cout << "Original: " << original << std::endl;
+		std::cout << "Copia:    " << copia << std::endl;
+		std::cout << "Asignada: " << asignada << std::endl;
+	}
+	catch (const std::exception& e)
+    {
+		std::cout << BRIGHT_RED << "Exception: " << e.what() << RESET << std::endl;
+	}
+
+	//  mensajes informativos del sistema
+	std::cout << BOLD << "Pruebas completadas." << RESET << std::endl;
+
+	return (0);
+}
+

@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/11/25 17:08:51 by brivera           #+#    #+#              #
-#    Updated: 2025/12/03 15:34:41 by brivera          ###   ########.fr        #
+#    Created: 2025/12/05 19:05:00 by brivera           #+#    #+#              #
+#    Updated: 2025/12/05 19:44:26 by brivera          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,10 @@ NAME 	:= ex01
 
 CC		:= c++
 FLAGS	:= -Wall -Wextra -Werror -std=c++98
+DEBUG_FLAGS := -DDEBUG
 
-SRCS 	:=  main.cpp 
-HEADERS := 	
+SRCS 	:=  main.cpp Bureaucrat.cpp Form.cpp
+HEADERS := 	Bureaucrat.hpp Form.hpp
 
 OBJS_DIR 	:= objs
 OBJS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.cpp=.o))
@@ -48,6 +49,9 @@ fclean: clean
 re: fclean all
 	@echo "$(GREEN)Recompiled $(NAME).$(CLEAR_COLOR)"
 
-.PHONY: all clean fclean re
+debug: FLAGS += $(DEBUG_FLAGS)
+debug: re
+
+.PHONY: all clean fclean re debug
 
 .GOAL: all
