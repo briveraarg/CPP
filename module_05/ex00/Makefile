@@ -6,7 +6,7 @@
 #    By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/25 17:08:51 by brivera           #+#    #+#              #
-#    Updated: 2025/12/04 19:32:13 by brivera          ###   ########.fr        #
+#    Updated: 2025/12/05 19:03:38 by brivera          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,6 @@ fclean: clean
 re: fclean all
 	@echo "$(GREEN)Recompiled $(NAME).$(CLEAR_COLOR)"
 
-# Debug target: compile with -DDEBUG to enable debug prints (disabled by default)
 debug: FLAGS += $(DEBUG_FLAGS)
 debug: re
 
