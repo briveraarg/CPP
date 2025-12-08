@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 12:15:24 by brivera           #+#    #+#             */
-/*   Updated: 2025/12/08 13:36:45 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/08 13:54:14 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int main()
 {
     std::cout << BOLD << BRIGHT_MAGENTA<< "--- ex02 ---" << RESET << std::endl;
 
-	// Creamos burócratas (nombres en español)
+	// Creamos burócratas 
 	Bureaucrat iria("Iria", 1);
 	Bureaucrat ana("Ana", 70);
 	Bureaucrat oliver("Oliver", 140);
