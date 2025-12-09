@@ -85,3 +85,15 @@ En C++, una cadena literal (por ejemplo, "Este es un mensaje de error") tiene au
 4. El comentario es importante porque le indica al lector del código que la función what() devuelve un puntero a esta memoria persistente.
 
 
+
+La expresión
+const int tableSize = sizeof(table) / sizeof(table[0]);
+
+lo que hace es calcular cuántos elementos hay en el array table en tiempo de compilación, dividiendo el tamaño en bytes del array completo entre el tamaño en bytes de un elemento (el primero).
+
+Por ejemplo, si Entry ocupa 16 bytes y table tiene 10 elementos:
+
+sizeof(table) = 10 * 16 = 160
+sizeof(table[0]) = 16
+160 / 16 = 10 → número de elementos
+
