@@ -6,17 +6,21 @@
 #    By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/25 17:08:51 by brivera           #+#    #+#              #
-#    Updated: 2025/12/03 15:34:47 by brivera          ###   ########.fr        #
+#    Updated: 2025/12/09 16:17:58 by brivera          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 	:= ex03
+NAME	 	:= ex03
 
-CC		:= c++
-FLAGS	:= -Wall -Wextra -Werror -std=c++98
+CC			:= c++
+FLAGS		:= -Wall -Wextra -Werror -std=c++98
+DEBUG_FLAGS := -DDEBUG
 
-SRCS 	:=  main.cpp 
-HEADERS := 	
+SRCS 	:=  main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp \
+			RobotomyRequestForm.cpp PresidentialPardonForm.cpp
+
+HEADERS := 	Bureaucrat.hpp AForm.hpp ShrubberyCreationForm.hpp \
+			RobotomyRequestForm.hpp PresidentialPardonForm.hpp
 
 OBJS_DIR 	:= objs
 OBJS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.cpp=.o))
@@ -48,6 +52,9 @@ fclean: clean
 re: fclean all
 	@echo "$(GREEN)Recompiled $(NAME).$(CLEAR_COLOR)"
 
-.PHONY: all clean fclean re
+debug: FLAGS += $(DEBUG_FLAGS)
+debug: re
+
+.PHONY: all clean fclean re debug
 
 .GOAL: all
