@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 15:36:54 by brivera           #+#    #+#             */
-/*   Updated: 2025/12/05 19:35:34 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/09 13:03:17 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ const int MIN_GRADE = 150;
  *   (--_grade) para "promover" al burócrata.
  */
 
-class Form; /* forward declaration used by signForm */
+class Form; /* used by signForm */
 
 class Bureaucrat
 {

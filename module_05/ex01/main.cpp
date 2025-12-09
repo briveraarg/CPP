@@ -22,27 +22,30 @@ int main()
 	Bureaucrat jefe("Oliver", 25);
 	Bureaucrat empleado("Ana", 75);
 	Bureaucrat pasante("Brendi", 150);
-
 	std::cout << BRIGHT_BLUE
-				<< "Formulario válido y firma por distintos actores" << RESET << std::endl;
+			<< "Formulario válido y firma por distintos actores"
+			<< RESET << std::endl;
 	try
 	{
 		Form contrato("Contrato", 50, 25);
 		std::cout << contrato << std::endl;
 
-		empleado.signForm(contrato); // debe fallar (grado 75 > 50)
-		jefe.signForm(contrato);     // debe funcionar (grado 25 <= 50)
-		jefe.signForm(contrato);     // firmar ya firmado: comportamiento permitido o mensaje informativo
-
+		std::cout << empleado << std::endl;
+		empleado.signForm(contrato);
+		std:: cout << "-----" << std::endl; 
+		std::cout << jefe << std::endl;
+		jefe.signForm(contrato);
+		std:: cout << "-----" << std::endl; 
 		std::cout << contrato << std::endl;
 	}
 	catch (const std::exception& e)
 	{
-		std::cout << BRIGHT_RED << "Exception: " << e.what() << RESET << std::endl;
+		std::cout << BRIGHT_RED << "Exception: "
+			<< e.what() << RESET << std::endl;
 	}
-
-	std::cout << BRIGHT_BLUE 
-				<< "Formularios con grados inválidos en el constructor" << RESET << std::endl;
+	std::cout << BRIGHT_BLUE  "-----" << std::endl
+				<< "Formularios con grados inválidos en el constructor"
+				<< RESET << std::endl;
 	try
 	{
 		Form invalidoAlto("InvalidoAlto", 0, 25); 
@@ -62,23 +65,27 @@ int main()
 		std::cout << "Constructor caught (bajo): "
 			 << e.what() << RESET << std::endl;
 	}
-
-	std::cout << BRIGHT_BLUE 
-		<< "Intento de firmar con el burócrata más bajo" << RESET << std::endl;
+	std:: cout << BRIGHT_BLUE << "-----" << std::endl
+		<< "Intento de firmar con el burócrata más bajo"
+		<< RESET << std::endl;
 	try
 	{
 		Form hoja("HojaSimple", 150, 150);
 		std::cout << hoja << std::endl;
-		pasante.signForm(hoja); // debe funcionar: pasante grado 150, requiere 150
+		std:: cout << "-----" << std::endl;
+		std::cout << pasante << std::endl;
+		pasante.signForm(hoja); 
+		std:: cout << "-----" << std::endl; 
 		std::cout << hoja << std::endl;
 	}
 	catch (const std::exception& e)
 	{
-		std::cout << BRIGHT_RED << "Exception: " << e.what() << RESET << std::endl;
+		std::cout << BRIGHT_RED
+		<< "Exception: " << e.what() << RESET << std::endl;
 	}
-
-	std::cout << BRIGHT_BLUE 
-		<< "Copiar y asignar Form y comprobar estado firmado" << RESET << std::endl;
+	std:: cout << BRIGHT_BLUE << "-----" << std::endl
+		<< "Copiar y asignar Form y comprobar estado firmado"
+		<< RESET << std::endl;
 	try
 	{
 		Form original("Original", 50, 50);
@@ -93,7 +100,8 @@ int main()
 	}
 	catch (const std::exception& e)
 	{
-		std::cout << BRIGHT_RED << "Exception: " << e.what() << RESET << std::endl;
+		std::cout << BRIGHT_RED << "Exception: "
+			<< e.what() << RESET << std::endl;
 	}
 
 	return (0);
