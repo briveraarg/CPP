@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 19:09:23 by brivera           #+#    #+#             */
-/*   Updated: 2025/12/08 13:18:33 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/09 13:24:42 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ AForm::AForm(const AForm& other)
 	DBG_MSG("copy constructor called");
 }
 
+/* ---- Operador ---- */
+
 AForm& AForm::operator=(const AForm& other)
 {
 	if (this != &other)
@@ -97,19 +99,18 @@ AForm& AForm::operator=(const AForm& other)
 	return (*this);
 }
 
+/* ---- Destructor ---- */
+
 AForm::~AForm()
 {
 	DBG_MSG("destructor called");
 }
 
+/* ---- Getters publicos ---- */
+
 const std::string& AForm::getName() const
 {
 	return (_name);
-}
-
-bool AForm::isSigned() const
-{
-	return (_isSigned);
 }
 
 int AForm::getSignGrade() const
@@ -122,12 +123,24 @@ int AForm::getExecGrade() const
 	return (_execGrade);
 }
 
+/* ---- otros métodos ---- */
+
+bool AForm::isSigned() const
+{
+	return (_isSigned);
+}
+
 void AForm::beSigned(const Bureaucrat& b)
 {
 	if (b.getGrade() > _signGrade)
 		throw GradeTooLowException();
 	_isSigned = true;
 }
+
+/*
+ * Implementación de what() para las excepciones anidadas.
+ * Se devuelve una cadena literal con duración estática.
+ */
 
 const char* AForm::GradeTooHighException::what() const throw()
 {

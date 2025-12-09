@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 15:39:00 by brivera           #+#    #+#             */
-/*   Updated: 2025/12/08 13:19:18 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/09 13:24:58 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,7 @@ Bureaucrat::Bureaucrat(const Bureaucrat& other)
 	DBG_MSG("copy constructor called");
 }
 
-/*
- * Destructor
- */
+/* ---- Destructor ---- */
 
 Bureaucrat::~Bureaucrat()
 {
