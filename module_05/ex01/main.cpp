@@ -103,7 +103,7 @@ int main()
 		std::cout << BRIGHT_RED << "Exception: "
 			<< e.what() << RESET << std::endl;
 	}
-
+	std::cout << "---------\n";
 	return (0);
 }
 
