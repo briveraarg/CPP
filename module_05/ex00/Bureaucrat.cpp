@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 15:39:00 by brivera           #+#    #+#             */
-/*   Updated: 2025/12/05 19:13:45 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/09 12:12:48 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 #endif
 
 /*
- * Constructores y destructor
+ * Constructores
  * - El constructor por defecto crea un Bureaucrat con nombre "Default"
  *   y grado mínimo (peor).
  * - El constructor parametrizado valida el grado y lanza las excepciones
@@ -56,9 +56,7 @@ Bureaucrat::Bureaucrat(const Bureaucrat& other)
 	DBG_MSG("copy constructor called");
 }
 
-/*
- * Destructor
- */
+/* ---- Destructor ---- */
 
 Bureaucrat::~Bureaucrat()
 {

@@ -60,3 +60,28 @@ Se lee de la siguiente manera:
 **En resumen, esta clase define un nuevo tipo de error que, al ser lanzado (`throw`), puede ser capturado por un bloque `catch` para que el programa gestione el caso de una calificación demasiado alta.**
 
 
+### comentario visto en las excepciones
+
+```
+
+/*
+ * Implementación de what() para las excepciones anidadas.
+ * Se devuelve una cadena literal con duración estática.
+ */
+```
+
+### Desglose del comentario
+1. Implementación de what() para las excepciones anidadas.
+Se refiere a que el código que sigue define una función miembro llamada what().
+La función what() es un método estándar definido en la clase base std::exception en C++.
+Esta función está diseñada para devolver una cadena de caracteres (const char*) que describe el error que ocurrió.
+
+2. El término "excepciones anidadas" sugiere que este manejo de errores es parte de un sistema donde una excepción puede capturarse dentro de otro bloque try-catch, y se puede conservar la información de la excepción original (usando std::nested_exception)
+
+3. Se devuelve una cadena literal con duración estática.
+Esta es la parte clave sobre "duración estática" (static duration).
+En C++, una cadena literal (por ejemplo, "Este es un mensaje de error") tiene automáticamente duración estática. Esto significa que la memoria para esa cadena se asigna una sola vez al inicio del programa y persiste durante toda la ejecución del mismo.
+
+4. El comentario es importante porque le indica al lector del código que la función what() devuelve un puntero a esta memoria persistente.
+
+

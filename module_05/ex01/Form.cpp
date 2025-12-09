@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 19:09:23 by brivera           #+#    #+#             */
-/*   Updated: 2025/12/05 20:12:23 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/09 12:19:31 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # define DBG_MSG(x) ((void)0)
 #endif
 
+/* ---- Constructores ---- */
 /*
- *
  * Constructor por defecto de Form.
  *
  * Crea un formulario con valores predeterminados:
@@ -89,6 +89,15 @@ Form::Form(const Form& other)
 	DBG_MSG("copy constructor called");
 }
 
+/* ---- Destructor ---- */
+
+Form::~Form()
+{
+	DBG_MSG("destructor called");
+}
+
+/* ---- Operador  ---- */
+
 Form& Form::operator=(const Form& other)
 {
 	if (this != &other)
@@ -97,19 +106,11 @@ Form& Form::operator=(const Form& other)
 	return (*this);
 }
 
-Form::~Form()
-{
-	DBG_MSG("destructor called");
-}
+/* ---- Getters publico ---- */
 
 const std::string& Form::getName() const
 {
 	return (_name);
-}
-
-bool Form::isSigned() const
-{
-	return (_isSigned);
 }
 
 int Form::getSignGrade() const
@@ -122,12 +123,24 @@ int Form::getExecGrade() const
 	return (_execGrade);
 }
 
+/* ---- otros métodos ---- */
+
+bool Form::isSigned() const
+{
+	return (_isSigned);
+}
+
 void Form::beSigned(const Bureaucrat& b)
 {
 	if (b.getGrade() > _signGrade)
 		throw GradeTooLowException();
 	_isSigned = true;
 }
+
+/*
+ * Implementación de what() para las excepciones anidadas.
+ * Se devuelve una cadena literal con duración estática.
+ */
 
 const char* Form::GradeTooHighException::what() const throw()
 {
