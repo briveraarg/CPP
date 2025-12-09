@@ -6,7 +6,7 @@
 #    By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/25 17:08:51 by brivera           #+#    #+#              #
-#    Updated: 2025/12/09 16:17:58 by brivera          ###   ########.fr        #
+#    Updated: 2025/12/09 21:38:23 by brivera          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,10 +17,10 @@ FLAGS		:= -Wall -Wextra -Werror -std=c++98
 DEBUG_FLAGS := -DDEBUG
 
 SRCS 	:=  main.cpp Bureaucrat.cpp AForm.cpp ShrubberyCreationForm.cpp \
-			RobotomyRequestForm.cpp PresidentialPardonForm.cpp
+			RobotomyRequestForm.cpp PresidentialPardonForm.cpp Intern.cpp
 
 HEADERS := 	Bureaucrat.hpp AForm.hpp ShrubberyCreationForm.hpp \
-			RobotomyRequestForm.hpp PresidentialPardonForm.hpp
+			RobotomyRequestForm.hpp PresidentialPardonForm.hpp Intern.hpp
 
 OBJS_DIR 	:= objs
 OBJS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.cpp=.o))

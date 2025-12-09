@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 16:24:36 by brivera           #+#    #+#             */
-/*   Updated: 2025/12/09 18:16:55 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/09 21:58:04 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,57 @@ Intern& Intern::operator=(const Intern& other)
 }
 
 /* ---- Métodos ---- */
-
-AForm* Intern::makeForm(std::string& nameForm, std::string& target)
+static AForm* createShrub(const std::string& t)
 {
-	AForm*	form;
-	int		type;
-	std::string typeForm[3] = {SCF, RRF, PPF};
+	return (new ShrubberyCreationForm(t));
+}
 
-	
-	return(form);
+static AForm* createRobot(const std::string& t)
+{
+	return (new RobotomyRequestForm(t));
+}
+
+static AForm* createPardon(const std::string& t)
+{ 
+	return (new PresidentialPardonForm(t));
+}
+
+AForm* Intern::makeForm(const std::string& nameForm, const std::string& target)
+{
+	// tabla de formularios soportados 
+	// Modo amigable: aceptamos variantes cortas 
+	Entry table[] =
+	{
+		{SCF, &createShrub},
+		{"shrubbery creation", &createShrub},
+		{"shrubbery", &createShrub},
+
+		{RRF, &createRobot},
+		{"robotomy request", &createRobot},
+		{"robotomy", &createRobot},
+
+		{PPF, &createPardon},
+		{"presidential pardon", &createPardon},
+		{"pardon", &createPardon},
+	};
+
+	const int tableSize = sizeof(table) / sizeof(table[0]);
+
+	for (int i = 0; i < tableSize; ++i)
+	{
+		if (nameForm == table[i].name)
+		{
+			AForm* f = table[i].creator(target);
+			std::cout << "Intern creates " << nameForm << std::endl;
+			return (f);
+		}
+	}
+	// Si no se encuentra el nombre, lanzamos excepción para que el llamador
+	// pueda gestionarlo con try/catch en lugar de comprobar un puntero NULL.
+	throw Intern::UnknownFormException();
+}
+
+const char* Intern::UnknownFormException::what() const throw()
+{
+	return ("Intern::UnknownFormException: unknown form name");
 }
