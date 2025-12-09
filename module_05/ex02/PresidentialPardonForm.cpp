@@ -18,6 +18,8 @@
 # define DBG_MSG_FORM(x) ((void)0)
 #endif
 
+/* ---- Constructores y Destructor ---- */
+
 PresidentialPardonForm::PresidentialPardonForm(const std::string& target)
 	: AForm(target, 25, 5), _target(target)
 {
@@ -30,6 +32,13 @@ PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm& oth
 	DBG_MSG_FORM("copy constructor called");
 }
 
+PresidentialPardonForm::~PresidentialPardonForm()
+{
+	DBG_MSG_FORM("destructor called");
+}
+
+/* ---- Operador  ---- */
+
 PresidentialPardonForm& PresidentialPardonForm::operator=(const PresidentialPardonForm& other)
 {
 	if (this != &other)
@@ -38,10 +47,7 @@ PresidentialPardonForm& PresidentialPardonForm::operator=(const PresidentialPard
 	return (*this);
 }
 
-PresidentialPardonForm::~PresidentialPardonForm()
-{
-	DBG_MSG_FORM("destructor called");
-}
+/* ---- Método ---- */
 
 void	PresidentialPardonForm::_executeAction(Bureaucrat const & executor) const
 {

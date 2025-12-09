@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 12:15:24 by brivera           #+#    #+#             */
-/*   Updated: 2025/12/08 13:54:14 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/09 16:11:56 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,37 +18,50 @@
 
 int main()
 {
-    std::cout << BOLD << BRIGHT_MAGENTA<< "--- ex02 ---" << RESET << std::endl;
+    std::cout << BOLD << BRIGHT_MAGENTA 
+		<< "--- ex02 ---" << RESET << std::endl;
 
-	// Creamos burócratas 
+	std::cout << BRIGHT_MAGENTA << "------\n"
+		<< "Creamos burócratas" << RESET << std::endl; 
 	Bureaucrat iria("Iria", 1);
 	Bureaucrat ana("Ana", 70);
 	Bureaucrat oliver("Oliver", 140);
 	Bureaucrat noam("Noam", 150);
 
-	// Formularios
-	ShrubberyCreationForm shrub("casa");
-	RobotomyRequestForm robot("Bender");
+	std::cout << BRIGHT_MAGENTA << "------\n"
+		<< "Creamos los formularios" << RESET <<std::endl; 
+	ShrubberyCreationForm shrub("Shrubbery");
+	RobotomyRequestForm robot("Robotomy");
 	PresidentialPardonForm pardon("Marvin");
 
-	// Shrubbery: intentos de firma
-	noam.signForm(shrub); // debe fallar (150 > 145)
-	oliver.signForm(shrub); // debe tener éxito
-	oliver.executeForm(shrub); // debe fallar (140 > 137)
-	iria.executeForm(shrub); // Iria ejecuta con éxito
+	std::cout << BRIGHT_MAGENTA << "------\n"
+		<< "FORMULARIO: ShrubberyCreationForm" << RESET << std::endl;
+	std::cout << shrub << std::endl;
+	std::cout << noam << std::endl;
+	noam.signForm(shrub);
+	std::cout << "---------\n";
+	std::cout << oliver << std::endl;
+	oliver.signForm(shrub);
+	oliver.executeForm(shrub);
+	std::cout << "---------\n";
+	std::cout << iria << std::endl;
+	iria.executeForm(shrub);
 
-	// Robotomy: firma por Ana (70 <= 72), ejecución por Iria
+	std::cout << BRIGHT_MAGENTA << "------\n"
+		<< "FORMULARIO: RobotomyRequestForm" << RESET <<std::endl;
+	std::cout << ana << std::endl;
 	ana.signForm(robot);
-	ana.executeForm(robot); // debe fallar (70 > 45)
-	iria.executeForm(robot); // Iria ejecuta (resultado aleatorio)
+	ana.executeForm(robot);
+	std::cout << "---------\n";
+	std::cout << iria << std::endl;
+	iria.executeForm(robot);
 
-	// Perdón: Iria puede firmar y ejecutar
+	std::cout << BRIGHT_MAGENTA << "------\n"
+		<< "FORMULARIO: PresidentialPardonForm" << RESET <<std::endl;
+	std::cout << iria << std::endl;
+	iria.executeForm(pardon);
 	iria.signForm(pardon);
 	iria.executeForm(pardon);
-
-	// Intento de ejecutar un formulario sin firmar
-	PresidentialPardonForm notSigned("Ford");
-	ana.executeForm(notSigned); // debe informar que no puede ejecutar (no firmado)
-
+	std::cout << "---------\n";
 	return (0);
 }

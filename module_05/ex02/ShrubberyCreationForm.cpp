@@ -19,6 +19,8 @@
 # define DBG_MSG_FORM(x) ((void)0)
 #endif
 
+/* ---- Constructores y destructor  ---- */
+
 ShrubberyCreationForm::ShrubberyCreationForm(const std::string& target)
 	: AForm(target, 145, 137), _target(target)
 {
@@ -31,6 +33,12 @@ ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm& other)
 	DBG_MSG_FORM("copy constructor called");
 }
 
+ShrubberyCreationForm::~ShrubberyCreationForm()
+{
+	DBG_MSG_FORM("destructor called");
+}
+
+/* ---- Operador  ---- */
 ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationForm& other)
 {
 	if (this != &other)
@@ -39,10 +47,7 @@ ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationF
 	return *this;
 }
 
-ShrubberyCreationForm::~ShrubberyCreationForm()
-{
-	DBG_MSG_FORM("destructor called");
-}
+/* ---- Método  ---- */
 
 void ShrubberyCreationForm::_executeAction(Bureaucrat const & executor) const
 {

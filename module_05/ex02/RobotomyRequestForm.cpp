@@ -23,6 +23,8 @@
 
 static bool __robot_seeded = false;
 
+/* ---- Constructores y Destructor ---- */
+
 RobotomyRequestForm::RobotomyRequestForm(const std::string& target)
 	: AForm(target, 72, 45), _target(target)
 {
@@ -40,6 +42,13 @@ RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& other)
 	DBG_MSG_FORM("copy constructor called");
 }
 
+RobotomyRequestForm::~RobotomyRequestForm()
+{
+	DBG_MSG_FORM("destructor called");
+}
+
+/* ---- Operador  ---- */
+
 RobotomyRequestForm& RobotomyRequestForm::operator=(const RobotomyRequestForm& other)
 {
 	if (this != &other)
@@ -48,10 +57,7 @@ RobotomyRequestForm& RobotomyRequestForm::operator=(const RobotomyRequestForm& o
 	return *this;
 }
 
-RobotomyRequestForm::~RobotomyRequestForm()
-{
-	DBG_MSG_FORM("destructor called");
-}
+/* ---- Método  ---- */
 
 void RobotomyRequestForm::_executeAction(Bureaucrat const & executor) const
 {
