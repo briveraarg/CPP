@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 12:50:00 by brivera           #+#    #+#             */
-/*   Updated: 2025/12/09 15:56:47 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/10 12:47:27 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,7 @@ class ShrubberyCreationForm : public AForm
 	protected:
 		virtual void _executeAction(Bureaucrat const & executor) const;
 };
+
+std::ostream& operator<<(std::ostream& os, const ShrubberyCreationForm& f);
 
 #endif

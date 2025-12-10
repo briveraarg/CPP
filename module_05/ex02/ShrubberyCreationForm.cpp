@@ -66,3 +66,15 @@ void ShrubberyCreationForm::_executeAction(Bureaucrat const & executor) const
 	ofs << "      // \\\\" << std::endl;
 	ofs.close();
 }
+
+std::ostream& operator<<(std::ostream& os, const ShrubberyCreationForm& f)
+{
+	os << f.getName() << ", signed: ";
+	if (f.isSigned())
+		os << "yes";
+	else
+		os << "no";
+	os << ", sign grade " << f.getSignGrade()
+		<< ", exec grade " << f.getExecGrade();
+	return (os);
+}
