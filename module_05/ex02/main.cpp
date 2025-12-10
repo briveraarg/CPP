@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 12:15:24 by brivera           #+#    #+#             */
-/*   Updated: 2025/12/09 16:11:56 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/10 17:08:14 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int main()
 	std::cout << BRIGHT_MAGENTA << "------\n"
 		<< "FORMULARIO: RobotomyRequestForm" << RESET <<std::endl;
 	std::cout << ana << std::endl;
+	std::cout << robot << std::endl;
 	ana.signForm(robot);
 	ana.executeForm(robot);
 	std::cout << "---------\n";
@@ -58,6 +59,7 @@ int main()
 
 	std::cout << BRIGHT_MAGENTA << "------\n"
 		<< "FORMULARIO: PresidentialPardonForm" << RESET <<std::endl;
+	std::cout << pardon << std::endl;
 	std::cout << iria << std::endl;
 	iria.executeForm(pardon);
 	iria.signForm(pardon);
