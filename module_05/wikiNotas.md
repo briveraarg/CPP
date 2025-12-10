@@ -1,69 +1,84 @@
-
 # Notas del Module 05
 
-### ¿Qué son y cuál es su objetivo en C++ las excepciones?
+## ¿Qué son y cuál es su objetivo en C++ las excepciones?
 
-Las excepciones son el mecanismo de C++ moderno para reportar y manejar condiciones de error o anomalías que ocurren durante la ejecución del programa,.
+Las excepciones son el mecanismo de C++ moderno para reportar y manejar condiciones de error o situaciones anómalas que ocurren durante la ejecución del programa.
 
-Su objetivo principal es proporcionar una forma formal y bien definida para que la parte del código que detecta un error pueda comunicar ese problema a otra parte del programa que esté diseñada para manejarlo.
+Su objetivo principal es ofrecer una forma formal y bien definida para que la parte del código que detecta un error pueda comunicarlo a otra parte del programa encargada de manejarlo.
 
-En el contexto de la filosofía de C++ y la Programación Orientada a Objetos (POO):
+En el contexto de la filosofía de C++ y la Programación Orientada a Objetos
 
-1.  **Seguridad y Robustez:** Las excepciones obligan al código que realiza una llamada a reconocer y manejar una condición de error. A diferencia de los códigos de error antiguos (como devolver un `int`), las excepciones no manejadas detienen la ejecución, evitando que el programa continúe con datos incorrectos o resultados erróneos,,.
-2.  **Desenredo de la Pila (Stack Unwinding):** Cuando se lanza una excepción, el programa salta a un manejador (`catch`). Durante este proceso, C++ garantiza que los destructores de todos los objetos locales que fueron construidos se invocan automáticamente,,. Esto es esencial para el principio **RAII (Resource Acquisition Is Initialization)**, ya que asegura que recursos como la memoria dinámica (`delete`), *sockets* o archivos se liberen, incluso ante fallos,,,.
-3.  **Separación de Preocupaciones:** Permiten una separación limpia entre el código que detecta el error (`throw`) y el código que lo resuelve (`catch`),,.
+1. **Seguridad y robustez**
+   Las excepciones obligan al código a reconocer y manejar condiciones de error. A diferencia de los códigos de error tradicionales (como devolver enteros), las excepciones no manejadas detienen el programa, evitando continuar con datos corruptos o resultados inválidos.
 
-### Las Tres Palabras Clave
+2. **Desenredo de la pila (Stack Unwinding)**
+   Cuando se lanza una excepción, el flujo salta a un bloque `catch`. Durante este proceso, C++ invoca automáticamente los destructores de los objetos locales creados previamente. Esto es clave para el principio **RAII**, asegurando la liberación correcta de memoria dinámica, archivos, sockets, etc.
 
-El mecanismo de manejo de excepciones se basa en tres palabras reservadas fundamentales:
+3. **Separación de responsabilidades**
+   Permiten una separación clara entre:
 
-1.  **`try`**: Delimita un bloque de código. Aquí se coloca el código que se va a "intentar" ejecutar y donde se monitorean las anomalías,. Si ocurre una excepción dentro de este bloque, el control salta inmediatamente a un manejador `catch`,.
-2.  **`throw`**: Es la instrucción que lanza o dispara una excepción cuando se detecta una situación anormal,,. Cuando se ejecuta `throw`, se crea un objeto temporal que representa la excepción,.
-3.  **`catch`**: Se utiliza para "capturar" una excepción lanzada por un bloque `try`,,. El manejador `catch` procesa el error y puede intentar una acción correctiva o de limpieza.
-
-### ejemplo
-
-Ese bloque de código que me muestras es un ejemplo de cómo se declara una clase de excepción personalizada en C++.
-
-hpp
-
-		class GradeTooHighException : public std::exception
-		{
-			public:
-				const char* what() const throw();
-		};
+   * El código que detecta el error (`throw`).
+   * El código que lo maneja (`catch`).
 
 
-cpp
-		void Bureaucrat::incrementGrade()
-		{
-			if (_grade - 1 <= MAX_GRADE)
-				throw GradeTooHighException();
-			--_grade;
-		}
-Se lee de la siguiente manera:
+## Las tres palabras clave del manejo de excepciones
 
-1.  **`class GradeTooHighException : public std::exception`**:
-	*   Estás definiendo una nueva clase llamada `GradeTooHighException`.
-	*   Esta clase **hereda públicamente** de `std::exception`. Esto es una práctica recomendada en C++, ya que te permite capturar cualquier excepción de tu jerarquía usando `std::exception&`.
+El mecanismo se basa en tres palabras reservadas:
 
-2.  **`public:`**:
-	*   Indica que los miembros que siguen son accesibles desde fuera de la clase.
+### `try`
 
-3.  **`virtual const char* what() const throw();`**:
-	*   Este es el **prototipo** de una función miembro clave.
-	*   `virtual`: Indica que esta función puede ser redefinida (sobrescrita) en clases derivadas. Aunque aquí no hay una clase derivada, se recomienda usar `virtual` para que las excepciones sean polimórficas (manejo en tiempo de ejecución).
-	*   `const char* what()`: Es la función que devuelve un puntero a una cadena de caracteres (`const char*`). Esta cadena típicamente contiene la descripción del error.
-	*   `const`: Indica que esta función no modifica el estado interno del objeto `GradeTooHighException`.
-	*   `throw()`: En C++ moderno se prefiere usar `noexcept`. Esta es la especificación de excepción de C++98, que indica que la función no lanzará ninguna excepción.
+Delimita un bloque donde puede ocurrir una excepción. Si algo falla dentro, el flujo salta al bloque `catch` correspondiente.
 
-**En resumen, esta clase define un nuevo tipo de error que, al ser lanzado (`throw`), puede ser capturado por un bloque `catch` para que el programa gestione el caso de una calificación demasiado alta.**
+### `throw`
+
+Lanza una excepción. Generalmente se crea un objeto temporal que representa el error detectado.
+
+### `catch`
+
+Captura una excepción lanzada desde un bloque `try`. El manejador puede registrar el error, solucionarlo o limpiar recursos.
 
 
-### comentario visto en las excepciones
+### Ejemplo de excepción personalizada
 
+#### `.hpp`
+
+```cpp
+class GradeTooHighException : public std::exception
+{
+    public:
+        const char* what() const throw();
+};
 ```
 
+#### `.cpp`
+
+```cpp
+void Bureaucrat::incrementGrade()
+{
+    if (_grade - 1 <= MAX_GRADE)
+        throw GradeTooHighException();
+    --_grade;
+}
+```
+
+### Explicación
+
+1. **`class GradeTooHighException : public std::exception`**
+   Se define una nueva excepción que hereda de `std::exception`. Esto permite capturarla usando `catch(std::exception&)`.
+
+2. **Miembros públicos**
+   `what()` es accesible desde fuera de la clase.
+
+3. **`virtual const char* what() const throw()`**
+
+   * Devuelve una cadena descriptiva del error.
+   * `virtual`: permite polimorfismo.
+   * `const`: no modifica el estado del objeto.
+   * `throw()`: especificación de C++98 indicando que no lanza excepciones.
+
+### Comentario visto en la implementación de excepciones
+
+```cpp
 /*
  * Implementación de what() para las excepciones anidadas.
  * Se devuelve una cadena literal con duración estática.
@@ -71,29 +86,104 @@ Se lee de la siguiente manera:
 ```
 
 ### Desglose del comentario
-1. Implementación de what() para las excepciones anidadas.
-Se refiere a que el código que sigue define una función miembro llamada what().
-La función what() es un método estándar definido en la clase base std::exception en C++.
-Esta función está diseñada para devolver una cadena de caracteres (const char*) que describe el error que ocurrió.
 
-2. El término "excepciones anidadas" sugiere que este manejo de errores es parte de un sistema donde una excepción puede capturarse dentro de otro bloque try-catch, y se puede conservar la información de la excepción original (usando std::nested_exception)
+1. **Implementación de what()**
+   La función devuelve una descripción del tipo de error.
 
-3. Se devuelve una cadena literal con duración estática.
-Esta es la parte clave sobre "duración estática" (static duration).
-En C++, una cadena literal (por ejemplo, "Este es un mensaje de error") tiene automáticamente duración estática. Esto significa que la memoria para esa cadena se asigna una sola vez al inicio del programa y persiste durante toda la ejecución del mismo.
+2. **Excepciones anidadas**
+   Describe un entorno donde una excepción podría conservar información sobre otra mediante `std::nested_exception`.
 
-4. El comentario es importante porque le indica al lector del código que la función what() devuelve un puntero a esta memoria persistente.
+3. **Duración estática**
+   Las cadenas literales tienen duración estática: existen durante toda la ejecución del programa.
+
+4. **Importancia del comentario**
+   Señala que `what()` devuelve un puntero a una cadena literal válida durante toda la ejecución.
 
 
+### Cálculo del tamaño de un array
 
-La expresión
+```cpp
 const int tableSize = sizeof(table) / sizeof(table[0]);
+```
 
-lo que hace es calcular cuántos elementos hay en el array table en tiempo de compilación, dividiendo el tamaño en bytes del array completo entre el tamaño en bytes de un elemento (el primero).
+Calcula la cantidad de elementos del array `table` durante la compilación.
+Ejemplo:
 
-Por ejemplo, si Entry ocupa 16 bytes y table tiene 10 elementos:
+* Si `Entry` ocupa 16 bytes y `table` tiene 10 elementos:
 
-sizeof(table) = 10 * 16 = 160
-sizeof(table[0]) = 16
-160 / 16 = 10 → número de elementos
+  * `sizeof(table) = 160`
+  * `sizeof(table[0]) = 16`
+  * `160 / 16 = 10`
+
+---
+
+### Por qué `Intern::makeForm` devuelve un puntero `AForm*` y no una referencia `AForm&`
+
+### 1. Diferencias fundamentales
+
+### Devolver un puntero (`AForm*`)
+
+* Permite devolver `NULL` si no existe el tipo solicitado.
+* Permite crear objetos en memoria dinámica con `new`.
+* El llamador puede liberar el formulario con `delete`.
+* Es el patrón estándar al implementar una "factory".
+
+### Devolver una referencia (`AForm&`)
+
+* No puede representar una referencia nula.
+* No puede referirse a un objeto local (en stack).
+* No es adecuada para objetos creados con `new` cuya propiedad debe transferirse.
+
+### 2. Por qué Intern no puede devolver una referencia
+
+El Intern crea nuevos formularios mediante:
+
+```cpp
+return new RobotomyRequestForm(target);
+```
+
+Si intentara devolver una referencia, bloquearía la posibilidad de que el usuario destruya el objeto, generando fugas de memoria.
+
+### 3. Razón de diseño del subject
+
+El Intern actúa como una factory:
+
+```
+Intern -> produce formularios -> los devuelve
+```
+
+Las factories en C++ devuelven punteros porque:
+
+* permiten objetos dinámicos
+* permiten devolver `NULL`
+* el llamador controla el lifetime
+* encajan con el patrón
+
+### 4. Si el formulario no existe
+
+El Intern debe poder hacer:
+
+```cpp
+return NULL;
+```
+
+Esto solo es posible con punteros.
+
+### 5. Comparación breve
+
+| Característica      | Puntero (`AForm*`) | Referencia (`AForm&`) |
+| ------------------- | ------------------ | --------------------- |
+| Puede devolver NULL | Sí                 | No                    |
+| Objetos dinámicos   | Sí                 | No apropiado          |
+| Control del usuario | Sí (`delete`)      | No                    |
+| Patrón factory      | Sí                 | No                    |
+
+### Resumen
+
+El Intern devuelve un puntero porque:
+
+1. Crea formularios con `new`.
+2. Puede necesitar devolver `NULL`.
+3. El llamador debe controlar la vida del objeto.
+4. Es la implementación estándar del patrón factory en C++98.
 
