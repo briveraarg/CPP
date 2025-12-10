@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 16:24:36 by brivera           #+#    #+#             */
-/*   Updated: 2025/12/09 21:58:04 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/10 12:26:49 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ Intern& Intern::operator=(const Intern& other)
 	return(*this);
 }
 
-/* ---- Métodos ---- */
+/* ---- Métodos para crear los diferentes formularios ---- */
+
 static AForm* createShrub(const std::string& t)
 {
 	return (new ShrubberyCreationForm(t));
@@ -71,10 +72,45 @@ static AForm* createPardon(const std::string& t)
 	return (new PresidentialPardonForm(t));
 }
 
-AForm* Intern::makeForm(const std::string& nameForm, const std::string& target)
+/* ---- Excepción ---- */
+
+const char* Intern::UnknownFormException::what() const throw()
 {
-	// tabla de formularios soportados 
-	// Modo amigable: aceptamos variantes cortas 
+	return ("Intern::UnknownFormException: unknown form name");
+}
+
+/**
+ * Crea un formulario dinámicamente según el nombre solicitado.
+ *
+ * Esta función implementa el patrón Factory para generar distintos tipos
+ * de formularios. El Intern no conoce los formularios concretos,
+ * pero utiliza una tabla de correspondencia donde cada entrada asocia:
+ *   - un nombre de formulario (string)
+ *   - un puntero a función creadora (constructor)
+ *
+ * La función compara el nombre solicitado (`nameForm`) contra todas las
+ * entradas de la tabla. Si encuentra una coincidencia, llama a la función
+ * creadora correspondiente y devuelve un puntero a un nuevo AForm ubicado
+ * en heap.
+ *
+ * Se permiten alias y variantes de cada nombre, haciéndolo flexible
+ * y con posibilidades si se agregan nuevos formularios.
+ *
+ * @param nameForm 	Nombre del formulario a crear.
+ * @param target   	Target del formulario, pasado al constructor
+ * 					de la clase concreta.
+ *
+ * @return AForm*  	Puntero al formulario recién creado (propiedad transferida
+ *                 	al main, quien debe liberar con `delete`).
+ *
+ * @throw 	Intern::UnknownFormException
+ *        	Si el nombre del formulario no coincide con ninguna entrada
+ * 			de la tabla.
+ */
+
+AForm* Intern::makeForm(const std::string& nameForm,
+						const std::string& target)
+{
 	Entry table[] =
 	{
 		{SCF, &createShrub},
@@ -89,9 +125,7 @@ AForm* Intern::makeForm(const std::string& nameForm, const std::string& target)
 		{"presidential pardon", &createPardon},
 		{"pardon", &createPardon},
 	};
-
 	const int tableSize = sizeof(table) / sizeof(table[0]);
-
 	for (int i = 0; i < tableSize; ++i)
 	{
 		if (nameForm == table[i].name)
@@ -101,12 +135,5 @@ AForm* Intern::makeForm(const std::string& nameForm, const std::string& target)
 			return (f);
 		}
 	}
-	// Si no se encuentra el nombre, lanzamos excepción para que el llamador
-	// pueda gestionarlo con try/catch en lugar de comprobar un puntero NULL.
 	throw Intern::UnknownFormException();
-}
-
-const char* Intern::UnknownFormException::what() const throw()
-{
-	return ("Intern::UnknownFormException: unknown form name");
 }
