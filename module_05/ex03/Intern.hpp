@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 16:25:02 by brivera           #+#    #+#             */
-/*   Updated: 2025/12/09 21:57:13 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/10 13:06:35 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ class Intern
 		~Intern();
 
 		Intern& operator=(const Intern& other);
-		AForm* makeForm(const std::string& nameForm, const std::string& target);
+		AForm* makeForm(const std::string& typeForm, const std::string& target);
 
 		class UnknownFormException : public std::exception
 		{

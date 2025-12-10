@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/09 16:24:36 by brivera           #+#    #+#             */
-/*   Updated: 2025/12/10 12:26:49 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/10 13:13:19 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,8 @@ AForm* Intern::makeForm(const std::string& nameForm,
 		if (nameForm == table[i].name)
 		{
 			AForm* f = table[i].creator(target);
-			std::cout << "Intern creates " << nameForm << std::endl;
+			std::cout << BOLD << "Intern creates "
+				<< RESET << nameForm << std::endl;
 			return (f);
 		}
 	}

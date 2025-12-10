@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 19:02:33 by brivera           #+#    #+#             */
-/*   Updated: 2025/12/09 16:11:14 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/10 12:52:59 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ class AForm
 	protected:
 		virtual void _executeAction(Bureaucrat const & executor) const = 0;
 	
-	friend std::ostream& operator<<(std::ostream& os, const AForm& f);
 };
+
+std::ostream& operator<<(std::ostream& os, const AForm& f);
 
 #endif

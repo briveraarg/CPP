@@ -68,3 +68,14 @@ void RobotomyRequestForm::_executeAction(Bureaucrat const & executor) const
 		std::cout << _target << " robotomy failed." << std::endl;
 }
 
+std::ostream& operator<<(std::ostream& os, const RobotomyRequestForm& f)
+{
+	os << f.getName() << ", signed: ";
+	if (f.isSigned())
+		os << "yes";
+	else
+		os << "no";
+	os << ", sign grade " << f.getSignGrade()
+		<< ", exec grade " << f.getExecGrade();
+	return (os);
+}
