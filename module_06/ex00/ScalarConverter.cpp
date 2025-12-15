@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 17:04:43 by brivera           #+#    #+#             */
-/*   Updated: 2025/12/12 17:47:24 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/15 17:09:06 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other)
 
 /* ---- método ---- */
 
-void ScalarConverter::convert(const std::string& argument)
+void	ScalarConverter::convert(const std::string& argument)
 {
 	std::cout << argument << std::endl;
 }
