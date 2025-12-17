@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 17:04:43 by brivera           #+#    #+#             */
-/*   Updated: 2025/12/17 19:30:15 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/17 20:54:15 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,38 @@ ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other)
 	return (*this);
 }
 
-/* ---- método ---- */
+/* ---- métodos ---- */
 
 // Comprobaciones (C++98):
 // - endptr == cstr -> no se parseó ningún dígito válido
 // - ERANGE        -> overflow/underflow
 // - *endptr != '\0' -> quedan caracteres no convertidos
 
+bool	ScalarConverter::isChar(const std::string& argument)
+{
+	char	c;
+
+	if (argument.size() == 3 && argument[0] == '\'' && argument[2] == '\'' )
+	{
+		c = argument[1];
+		if (c >= 32 && c <= 126)
+			return (true);
+	}
+	return (false);
+}
+
 void	ScalarConverter::convert(const std::string& argument)
 {
+	int	type = 0;
+
+	if (isChar(argument))
+	{
+		type = CHAR;
+		std::cout << "char: " << argument << std::endl;
+	}
 	double valor = 0;
 
-	if (argument.size() == 1)
+	if (type == CHAR)
 	{
 		char	c = argument[0];
 		int		ascii = static_cast<int>(static_cast<unsigned char>(c));
