@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 16:59:01 by brivera           #+#    #+#             */
-/*   Updated: 2025/12/15 16:55:17 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/17 18:55:55 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,19 @@
 #define SCALARCONVERT_HPP
 
 #include <iostream>
- 
+#include <string>
+#include <limits.h>
+#include <cstdlib>
+#include <cerrno>
+
+enum Format
+{
+	CHAR,
+	INT,
+	FLOAT,
+	DOUBLE
+};
+
 class ScalarConverter
 {
 	private:
