@@ -16,8 +16,8 @@ CC		:= c++
 FLAGS	:= -Wall -Wextra -Werror -std=c++98
 DEBUG_FLAGS := -DDEBUG
 
-SRCS 	:=  main.cpp ScalarConverter.cpp
-HEADERS := 	ScalarConverter.hpp
+SRCS 	:=  main.cpp ScalarConverter.cpp ScalarPrinter.cpp
+HEADERS := 	ScalarConverter.hpp ScalarPrinter.hpp
 
 OBJS_DIR 	:= objs
 OBJS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.cpp=.o))

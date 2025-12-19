@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 16:59:01 by brivera           #+#    #+#             */
-/*   Updated: 2025/12/19 16:31:09 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/19 19:23:41 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,6 @@
 #define SCALARCONVERT_HPP
 
 #include <string>
-
-enum Format
-{
-	CHAR=1,
-	INT,
-	FLOAT,
-	DOUBLE
-};
 
 class ScalarConverter
 {
