@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 16:59:01 by brivera           #+#    #+#             */
-/*   Updated: 2025/12/17 20:03:25 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/19 12:36:05 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@ class ScalarConverter
 		ScalarConverter& operator=(const ScalarConverter& other);
 
 		static bool	isChar(const std::string& argument);
+		static bool isInt(const std::string& argument);
+		static bool isFloat(const std::string& argument);
+		static bool isDouble(const std::string& argument);
 	public:
 		static void convert(const std::string& argument);
 

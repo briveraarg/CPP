@@ -6,11 +6,14 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 17:04:43 by brivera           #+#    #+#             */
-/*   Updated: 2025/12/17 20:54:15 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/19 12:39:43 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScalarConverter.hpp"
+#include <cstdlib> // strtod/strtol
+#include <cerrno>
+#include <cstring>
 
 /* ---- constructores y destructores ---- */
 
@@ -37,11 +40,6 @@ ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other)
 
 /* ---- métodos ---- */
 
-// Comprobaciones (C++98):
-// - endptr == cstr -> no se parseó ningún dígito válido
-// - ERANGE        -> overflow/underflow
-// - *endptr != '\0' -> quedan caracteres no convertidos
-
 bool	ScalarConverter::isChar(const std::string& argument)
 {
 	char	c;
@@ -55,6 +53,52 @@ bool	ScalarConverter::isChar(const std::string& argument)
 	return (false);
 }
 
+bool	ScalarConverter::isInt(const std::string& argument)
+{
+	const char *cstr = argument.c_str();
+	char *endptr = NULL;
+
+	errno = 0;
+	long n = std::strtol(cstr, &endptr, 10);
+
+	// No se parseó ningún dígito válido
+	if (endptr == cstr)
+		return (false);
+	// Si quedan caracteres no convertidos
+	if (*endptr != '\0')
+		return (false);
+	// Comprueba errores de rango
+	if (errno == ERANGE)
+		return (false);
+	//entra en un INT
+	if (n < INT_MIN || n > INT_MAX)
+		return (false);
+	return (true);
+}
+
+bool	ScalarConverter::isFloat(const std::string& argument)
+{
+	const char* cstr = argument.c_str();
+	char* endptr = NULL;
+
+	errno = 0;
+	double v = std::strtod(cstr, &endptr);
+
+	if (endptr == cstr)
+		return (false);
+	if (errno == ERANGE)
+		return (false);
+	if (*endptr != 'f' || endptr[1] != '\0')
+		return (false);
+	(void)v; 
+	return (true);
+}
+
+bool	ScalarConverter::isDouble(const std::string& argument)
+{
+	
+}
+
 void	ScalarConverter::convert(const std::string& argument)
 {
 	int	type = 0;
@@ -64,6 +108,18 @@ void	ScalarConverter::convert(const std::string& argument)
 		type = CHAR;
 		std::cout << "char: " << argument << std::endl;
 	}
+	if (isInt(argument))
+	{
+		std::cout << "int: " << argument << std::endl;
+	}
+	if (isFloat(argument))
+	{
+		std::cout << "float : " << argument << std::endl;
+	}
+
+}
+
+/*
 	double valor = 0;
 
 	if (type == CHAR)
@@ -101,4 +157,4 @@ void	ScalarConverter::convert(const std::string& argument)
 		}
 	}
 	std::cout << "double: " << valor << std::endl;
-}
+*/

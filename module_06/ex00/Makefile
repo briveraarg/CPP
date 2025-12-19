@@ -6,7 +6,7 @@
 #    By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/12 16:55:59 by brivera           #+#    #+#              #
-#    Updated: 2025/12/15 17:12:52 by brivera          ###   ########.fr        #
+#    Updated: 2025/12/19 10:51:18 by brivera          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,9 +49,6 @@ fclean: clean
 re: fclean all
 	@echo "$(GREEN)Recompiled $(NAME).$(CLEAR_COLOR)"
 
-debug: FLAGS += $(DEBUG_FLAGS)
-debug: re
-
-.PHONY: all clean fclean re debug
+.PHONY: all clean fclean re 
 
 .GOAL: all
