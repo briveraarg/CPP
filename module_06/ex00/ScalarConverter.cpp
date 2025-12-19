@@ -6,14 +6,16 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 17:04:43 by brivera           #+#    #+#             */
-/*   Updated: 2025/12/19 12:39:43 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/19 16:37:45 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScalarConverter.hpp"
-#include <cstdlib> // strtod/strtol
-#include <cerrno>
-#include <cstring>
+#include <iostream>	// std::cout, std::cerr, std::endl
+#include <cstdlib>	// std::strtod, std::strtol
+#include <cerrno>	// errno, ERANGE
+#include <cctype>	// std::isdigit
+#include <climits>	// INT_MIN, INT_MAX
 
 /* ---- constructores y destructores ---- */
 
@@ -40,6 +42,26 @@ ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other)
 
 /* ---- métodos ---- */
 
+// Comprueba si hay un '.' en el rango [start, end)
+static bool	has_dot_in_range(const char *start, const char *end)
+{
+	bool	before_digit = false;
+	bool	after_digit = false;
+	
+	for (const char *p = start; p < end; ++p)
+	{
+		if (*p == '.')
+		{
+			before_digit = (p > start)
+				&& std::isdigit(static_cast<unsigned char>(*(p - 1)));
+			after_digit = (p + 1 < end)
+				&& std::isdigit(static_cast<unsigned char>(*(p + 1)));
+			return (before_digit && after_digit); 
+		}
+	}
+	return (false);
+}
+
 bool	ScalarConverter::isChar(const std::string& argument)
 {
 	char	c;
@@ -61,16 +83,12 @@ bool	ScalarConverter::isInt(const std::string& argument)
 	errno = 0;
 	long n = std::strtol(cstr, &endptr, 10);
 
-	// No se parseó ningún dígito válido
 	if (endptr == cstr)
 		return (false);
-	// Si quedan caracteres no convertidos
 	if (*endptr != '\0')
 		return (false);
-	// Comprueba errores de rango
 	if (errno == ERANGE)
 		return (false);
-	//entra en un INT
 	if (n < INT_MIN || n > INT_MAX)
 		return (false);
 	return (true);
@@ -82,7 +100,7 @@ bool	ScalarConverter::isFloat(const std::string& argument)
 	char* endptr = NULL;
 
 	errno = 0;
-	double v = std::strtod(cstr, &endptr);
+	double n = std::strtod(cstr, &endptr);
 
 	if (endptr == cstr)
 		return (false);
@@ -90,71 +108,54 @@ bool	ScalarConverter::isFloat(const std::string& argument)
 		return (false);
 	if (*endptr != 'f' || endptr[1] != '\0')
 		return (false);
-	(void)v; 
-	return (true);
+	if (!has_dot_in_range(cstr, endptr))
+		return (false);
+
+	(void)n;
+	return true;
 }
 
 bool	ScalarConverter::isDouble(const std::string& argument)
 {
-	
+	const char* cstr = argument.c_str();
+	char* endptr = NULL;
+
+	errno = 0;
+	double n = std::strtod(cstr, &endptr);
+	if (endptr == cstr)
+		return (false);
+	if (errno == ERANGE)
+		return (false);
+	if (*endptr != '\0')
+		return (false);
+	if (!has_dot_in_range(cstr, endptr))
+		return (false);
+	(void)n;
+	return (true);
 }
 
 void	ScalarConverter::convert(const std::string& argument)
 {
-	int	type = 0;
-
 	if (isChar(argument))
 	{
-		type = CHAR;
 		std::cout << "char: " << argument << std::endl;
+		return ;
 	}
 	if (isInt(argument))
 	{
 		std::cout << "int: " << argument << std::endl;
+		return ;
 	}
 	if (isFloat(argument))
 	{
 		std::cout << "float : " << argument << std::endl;
-	}
-
-}
-
-/*
-	double valor = 0;
-
-	if (type == CHAR)
-	{
-		char	c = argument[0];
-		int		ascii = static_cast<int>(static_cast<unsigned char>(c));
-
-		valor = ascii;
-		std::cout << "double: " << valor << std::endl;
 		return ;
 	}
+	if (isDouble(argument))
+	{
+		std::cout << "double : " << argument << std::endl;
+		return ;
+	}
+	std::cout << "no es nada" << std::endl;
+}
 
-	char *endptr = NULL;
-	errno = 0;
-	const char *cstr = argument.c_str();
-	
-	valor = std::strtod(cstr, &endptr);
-
-	if (endptr == cstr)
-	{
-		std::cout << "double: impossible" << std::endl;
-		return;
-	}
-	if (errno == ERANGE)
-	{
-		// Desbordamiento o underflow;
-	}
-	if (*endptr != '\0')
-	{
-		if (!(endptr[0] == 'f' && endptr[1] == '\0'))
-		{
-			// Hay caracteres inválidos después del número -> tratar como error
-			std::cout << "double: impossible" << std::endl;
-			return;
-		}
-	}
-	std::cout << "double: " << valor << std::endl;
-*/
