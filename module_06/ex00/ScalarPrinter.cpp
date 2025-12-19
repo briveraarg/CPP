@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 19:31:51 by brivera           #+#    #+#             */
-/*   Updated: 2025/12/19 19:31:54 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/19 19:47:14 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@
 
 bool my_isnan(double x)
 {
-    return x != x;
+    return (x != x);
 }
 
 bool my_isinf(double x)
 {
     using std::numeric_limits;
     if (numeric_limits<double>::has_infinity)
-        return x == numeric_limits<double>::infinity()
-            || x == -numeric_limits<double>::infinity();
-    return x > numeric_limits<double>::max() || x < -numeric_limits<double>::max();
+        return (x == numeric_limits<double>::infinity()
+            || x == -numeric_limits<double>::infinity());
+    return (x > numeric_limits<double>::max() || x < -numeric_limits<double>::max());
 }
 
 std::string formatFloatValue(float f)
@@ -39,7 +39,7 @@ std::string formatFloatValue(float f)
     std::string s = os.str();
     if (s.find_first_of("eE.") == std::string::npos)
         s += ".0";
-    return s;
+    return (s);
 }
 
 std::string formatDoubleValue(double d)
@@ -49,7 +49,7 @@ std::string formatDoubleValue(double d)
     std::string s = os.str();
     if (s.find_first_of("eE.") == std::string::npos)
         s += ".0";
-    return s;
+    return (s);
 }
 
 void output_char_from_double(double value)

@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 17:04:43 by brivera           #+#    #+#             */
-/*   Updated: 2025/12/19 19:36:10 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/19 19:55:17 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,10 @@
 #include <cerrno>	// errno, ERANGE
 #include <cctype>	// std::isdigit
 #include <climits>	// INT_MIN, INT_MAX
-#include <sstream>
-#include <iomanip>
-#include <limits>
+#include <stddef.h>
 #include "ScalarPrinter.hpp"
 
-/* ---- ScalarPrinter.cpp/.hpp funciones auxiliares ---- */
+/* ---- ScalarPrinter.cpp/.hpp helper functions ---- */
 
 static void printCharLiteral(const std::string& argument)
 {
@@ -67,7 +65,7 @@ static void printDoubleLiteral(const std::string& argument)
 	output_double_from_double(value);
 }
 
-/* ---- funcion auxiliar: verificar si hay un punto flotante  ---- */
+/* ---- helper function: check if there is a decimal point ---- */
 
 static bool	has_dot_in_range(const char *start, const char *end)
 {
@@ -88,7 +86,7 @@ static bool	has_dot_in_range(const char *start, const char *end)
 	return (false);
 }
 
-/* ---- constructores y destructores ---- */
+/* ---- constructors and destructor ---- */
 
 ScalarConverter::ScalarConverter(void)
 {
@@ -103,7 +101,7 @@ ScalarConverter::~ScalarConverter()
 {
 }
 
-/* ----  Operador de asignación ---- */
+/* ---- Assignment operator ---- */
 
 ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other)
 {
@@ -111,7 +109,7 @@ ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other)
 	return (*this);
 }
 
-/* ---- métodos para verificar que tipo de variable es el argumento ---- */
+/* ---- methods to check which type the argument is ---- */
 
 
 bool	ScalarConverter::isChar(const std::string& argument)
@@ -189,7 +187,7 @@ bool	ScalarConverter::isDouble(const std::string& argument)
 	return (true);
 }
 
-/* ---- funcion principal ---- */
+/* ---- main function ---- */
 
 void	ScalarConverter::convert(const std::string& argument)
 {
