@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 17:04:43 by brivera           #+#    #+#             */
-/*   Updated: 2025/12/19 19:55:17 by brivera          ###   ########.fr       */
+/*   Updated: 2025/12/22 18:04:00 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,47 @@
 #include <stddef.h>
 #include "ScalarPrinter.hpp"
 
+/* ---- constructors and destructor ---- */
+
+ScalarConverter::ScalarConverter(void)
+{
+}
+
+ScalarConverter::ScalarConverter(const ScalarConverter& other)
+{
+	(void)other;
+}
+
+ScalarConverter::~ScalarConverter()
+{
+}
+
+/* ---- Assignment operator ---- */
+
+ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other)
+{
+	(void)other;
+	return (*this);
+}
+
 /* ---- ScalarPrinter.cpp/.hpp helper functions ---- */
 
 static void printCharLiteral(const std::string& argument)
 {
-	char c = argument[1];
-	double val = static_cast<double>(static_cast<unsigned char>(c));
+	int		val;
+	char	c;
+
+	if (argument.size() == 3)
+	{
+		c = argument[1];
+		val = static_cast<int>(c);
+	}
+	else
+	{
+		std::string	str = argument.substr(1, (argument.size() - 2));
+		std::cout << str << std::endl;
+		val = std::atoi(str.c_str());
+	}
 	output_char_from_double(val);
 	output_int_from_double(val);
 	output_float_from_double(val);
@@ -86,40 +121,20 @@ static bool	has_dot_in_range(const char *start, const char *end)
 	return (false);
 }
 
-/* ---- constructors and destructor ---- */
-
-ScalarConverter::ScalarConverter(void)
-{
-}
-
-ScalarConverter::ScalarConverter(const ScalarConverter& other)
-{
-	(void)other;
-}
-
-ScalarConverter::~ScalarConverter()
-{
-}
-
-/* ---- Assignment operator ---- */
-
-ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other)
-{
-	(void)other;
-	return (*this);
-}
-
 /* ---- methods to check which type the argument is ---- */
 
 
 bool	ScalarConverter::isChar(const std::string& argument)
 {
-	char	c;
+	size_t	len = argument.size();
 
-	if (argument.size() == 3 && argument[0] == '\'' && argument[2] == '\'' )
+	if (len < 3)
+		return (false);
+	if (len >= 3 && argument[0] == '\'' && argument[len - 1] == '\'')
 	{
-		c = argument[1];
-		if (isprint(c))
+		std::string	str = argument.substr(1, (argument.size() - 2));
+		int	value = std::atoi(str.c_str());
+		if (isascii(value))
 			return (true);
 	}
 	return (false);
