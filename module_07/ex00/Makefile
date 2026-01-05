@@ -6,7 +6,7 @@
 #    By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/03 15:57:13 by brivera           #+#    #+#              #
-#    Updated: 2026/01/03 16:48:47 by brivera          ###   ########.fr        #
+#    Updated: 2026/01/05 18:05:05 by brivera          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME 	:= ex00
 
 CC		:= c++
 FLAGS	:= -Wall -Wextra -Werror -std=c++98
-DEBUG_FLAGS := -DDEBUG
+
 
 SRCS 	:=  main.cpp Fixed.cpp
 HEADERS := 	whatever.hpp Fixed.hpp
