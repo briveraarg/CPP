@@ -6,7 +6,7 @@
 #    By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/03 17:10:10 by brivera           #+#    #+#              #
-#    Updated: 2026/01/03 17:10:16 by brivera          ###   ########.fr        #
+#    Updated: 2026/01/05 18:20:00 by brivera          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ FLAGS	:= -Wall -Wextra -Werror -std=c++98
 DEBUG_FLAGS := -DDEBUG
 
 SRCS 	:=  main.cpp 
-HEADERS := 	
+HEADERS := 	Array.hpp Array.tpp
 
 OBJS_DIR 	:= objs
 OBJS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.cpp=.o))
@@ -36,7 +36,7 @@ $(NAME): $(OBJS)
 
 $(OBJS_DIR)/%.o: %.cpp $(HEADERS)
 	@mkdir -p $(OBJS_DIR)
-	@$(CC) $(FLAGS) -c $< -o $@
+	@$(CC) $(FLAGS) $(DEBUG_FLAGS) -c $< -o $@
 
 clean:
 	@$(RM) $(OBJS_DIR)/*.o $(OBJS_DIR)
@@ -49,6 +49,9 @@ fclean: clean
 re: fclean all
 	@echo "$(GREEN)Recompiled $(NAME).$(CLEAR_COLOR)"
 
-.PHONY: all clean fclean re 
+debug: FLAGS += $(DEBUG_FLAGS)
+debug: re
+
+.PHONY: all clean fclean re debug
 
 .GOAL: all
