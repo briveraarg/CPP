@@ -6,7 +6,7 @@
 #    By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/12 16:55:59 by brivera           #+#    #+#              #
-#    Updated: 2025/12/27 19:33:13 by brivera          ###   ########.fr        #
+#    Updated: 2026/01/05 18:05:41 by brivera          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,6 @@ NAME 	:= identify
 
 CC		:= c++
 FLAGS	:= -Wall -Wextra -Werror -std=c++98
-DEBUG_FLAGS := -DDEBUG
 
 SRCS 	:=  main.cpp Base.cpp
 HEADERS :=  Base.hpp A.hpp B.hpp C.hpp

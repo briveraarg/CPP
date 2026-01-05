@@ -6,7 +6,7 @@
 #    By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/12 16:55:59 by brivera           #+#    #+#              #
-#    Updated: 2025/12/27 19:06:49 by brivera          ###   ########.fr        #
+#    Updated: 2026/01/05 18:05:33 by brivera          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME 	:= serializer
 
 CC		:= c++
 FLAGS	:= -Wall -Wextra -Werror -std=c++98
-DEBUG_FLAGS := -DDEBUG
+
 
 SRCS 	:=  main.cpp Serializer.cpp
 HEADERS := 	Serializer.hpp Data.hpp color.hpp
