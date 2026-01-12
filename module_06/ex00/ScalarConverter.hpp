@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 16:59:01 by brivera           #+#    #+#             */
-/*   Updated: 2025/12/19 19:23:41 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/12 12:23:27 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ class ScalarConverter
 		static bool isInt(const std::string& argument);
 		static bool isFloat(const std::string& argument);
 		static bool isDouble(const std::string& argument);
+	
 	public:
 		static void convert(const std::string& argument);
 

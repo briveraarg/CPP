@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 17:04:43 by brivera           #+#    #+#             */
-/*   Updated: 2025/12/22 18:04:00 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/12 14:57:47 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <cctype>	// std::isdigit
 #include <climits>	// INT_MIN, INT_MAX
 #include <stddef.h>
-#include "ScalarPrinter.hpp"
+#include "scalarPrinter.hpp"
 
 /* ---- constructors and destructor ---- */
 
@@ -126,14 +126,21 @@ static bool	has_dot_in_range(const char *start, const char *end)
 
 bool	ScalarConverter::isChar(const std::string& argument)
 {
-	size_t	len = argument.size();
+	std::string		str;
+	int				value;
+	size_t			len;
+	
 
+	len = argument.size();
 	if (len < 3)
 		return (false);
 	if (len >= 3 && argument[0] == '\'' && argument[len - 1] == '\'')
 	{
-		std::string	str = argument.substr(1, (argument.size() - 2));
-		int	value = std::atoi(str.c_str());
+		str = argument.substr(1, (argument.size() - 2));
+		len = str.size();
+		if (len >= 2)
+			return (false);
+		value = std::atoi(str.c_str());
 		if (isascii(value))
 			return (true);
 	}

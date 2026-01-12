@@ -6,7 +6,7 @@
 #    By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/12 16:55:59 by brivera           #+#    #+#              #
-#    Updated: 2026/01/05 18:05:26 by brivera          ###   ########.fr        #
+#    Updated: 2026/01/12 11:43:43 by brivera          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,8 @@ CC		:= c++
 FLAGS	:= -Wall -Wextra -Werror -std=c++98
 
 
-SRCS 	:=  main.cpp ScalarConverter.cpp ScalarPrinter.cpp
-HEADERS := 	ScalarConverter.hpp ScalarPrinter.hpp
+SRCS 	:=  main.cpp ScalarConverter.cpp scalarPrinter.cpp
+HEADERS := 	ScalarConverter.hpp scalarPrinter.hpp
 
 OBJS_DIR 	:= objs
 OBJS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.cpp=.o))

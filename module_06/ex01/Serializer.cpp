@@ -1,4 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Serializer.cpp                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/12 12:35:18 by brivera           #+#    #+#             */
+/*   Updated: 2026/01/12 12:35:22 by brivera          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Serializer.hpp"
+
+/* ---- constructors and destructor ---- */
 
 Serializer::Serializer()
 {
@@ -18,6 +32,8 @@ Serializer& Serializer::operator=(const Serializer& other)
 Serializer::~Serializer()
 {
 }
+
+/* ---- serialize and  deserialize ---- */
 
 uintptr_t Serializer::serialize(Data* ptr)
 {

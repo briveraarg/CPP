@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Serializer.hpp                                     :+:      :+:    :+:   */
+/*   ScalarPrinter.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/12 12:48:17 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/12 12:48:18 by brivera          ###   ########.fr       */
+/*   Created: 2025/12/19 19:39:39 by brivera           #+#    #+#             */
+/*   Updated: 2025/12/19 19:39:42 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SERIALIZER_HPP
-#define SERIALIZER_HPP
+#ifndef SCALARPRINTER_HPP
+#define SCALARPRINTER_HPP
 
-#include "Data.hpp"
-#include <stdint.h> // For uintptr_t
+#include <string>
 
-class Serializer
-{
-	private:
-		Serializer();
-		Serializer(const Serializer& other);
-		Serializer& operator=(const Serializer& other);
-		~Serializer();
+bool	my_isnan(double x);
+bool	my_isinf(double x);
 
-	public:
-		static uintptr_t serialize(Data* ptr);
-		static Data* deserialize(uintptr_t raw);
-};
+std::string	formatFloatValue(float f);
+std::string	formatDoubleValue(double d);
+
+void	output_char_from_double(double value);
+void	output_int_from_double(double value);
+void	output_float_from_double(double value);
+void	output_double_from_double(double value);
 
 #endif

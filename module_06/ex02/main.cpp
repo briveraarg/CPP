@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 19:26:46 by brivera           #+#    #+#             */
-/*   Updated: 2025/12/27 20:02:08 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/12 14:41:51 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ int main()
 		identify(*ptr);
 		delete ptr;
 	}
-
+	std::cout << BRIGHT_BLUE << "\n--- Caso de Unknown ---" << RESET << std::endl;
+	Base p = A();
+	identify(&p);
 	return (0);
 }

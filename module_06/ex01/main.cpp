@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 19:26:46 by brivera           #+#    #+#             */
-/*   Updated: 2025/12/27 19:29:21 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/12 12:28:40 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ int main()
 	myData.value = 3.14159;
 
 	std::cout << BRIGHT_GREEN << "---- Original Data content ----" << RESET << std::endl;
-	std::cout << "ID=" << myData.id << std::endl
-			  << "Name=" << myData.name << std::endl
-			  << "Value=" << myData.value << std::endl;
-	std::cout << "Address: " << BRIGHT_GREEN << &myData << RESET << std::endl;
+	std::cout << "ID = " << myData.id << std::endl
+			  << "Name = " << myData.name << std::endl
+			  << "Value = " << myData.value << std::endl;
+	std::cout << "Address = " << BRIGHT_GREEN << &myData << RESET << std::endl;
 
 	std::cout << BRIGHT_GREEN << "\n---- Serializer ----" << RESET << std::endl;
 	uintptr_t raw = Serializer::serialize(&myData);
@@ -33,10 +33,10 @@ int main()
 
 	Data* deserializedData = Serializer::deserialize(raw);
 	std::cout << "Deserialized Data address: " << BRIGHT_GREEN << deserializedData << RESET << std::endl;
-	std::cout << BRIGHT_GREEN << "---- Data content ----" << RESET << std::endl;
-	std::cout << "ID=" << myData.id << std::endl
-			  << "Name=" << myData.name << std::endl
-			  << "Value=" << myData.value << std::endl;
+	std::cout << BRIGHT_GREEN << "\n---- Data content ----" << RESET << std::endl;
+	std::cout << "ID = " << myData.id << std::endl
+			  << "Name = " << myData.name << std::endl
+			  << "Value = " << myData.value << std::endl;
 
 	return (0);
 }
