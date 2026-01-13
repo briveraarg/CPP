@@ -6,7 +6,7 @@
 #    By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/03 17:10:10 by brivera           #+#    #+#              #
-#    Updated: 2026/01/05 18:20:00 by brivera          ###   ########.fr        #
+#    Updated: 2026/01/13 12:24:58 by brivera          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ $(NAME): $(OBJS)
 
 $(OBJS_DIR)/%.o: %.cpp $(HEADERS)
 	@mkdir -p $(OBJS_DIR)
-	@$(CC) $(FLAGS) $(DEBUG_FLAGS) -c $< -o $@
+	@$(CC) $(FLAGS) -c $< -o $@
 
 clean:
 	@$(RM) $(OBJS_DIR)/*.o $(OBJS_DIR)
