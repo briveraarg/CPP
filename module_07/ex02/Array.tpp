@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 16:21:15 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/05 18:25:38 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/13 12:49:35 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ Array<T>::~Array()
 		delete[] this->_content;
 	DBG_MSG("destructor called");
 }
+
 /* ========= operators ========= */
 
 template <typename T>
