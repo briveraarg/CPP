@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 17:17:22 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/05 18:33:30 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/13 12:14:45 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int main()
 	// --- TEST 2: Functor (PrintLessThan) ---
 	std::cout << BRIGHT_GREEN << "=== TEST 2: Functor (PrintLessThan 4) ===" << RESET << std::endl;
 	std::cout << "Valores menores que 4 en el array modificado:" << std::endl;
-	iter(arr, len, PrintLessThan<int>(4));
+	iter(arr, len, PrintLessThan<int>(6));
 	std::cout << std::endl;
 	
 	// --- TEST 3: Array de Strings ---
@@ -52,8 +52,8 @@ int main()
 	iter(strArr, strLen, print<std::string>);
 	std::cout << std::endl;
 	
-	std::cout << "Añadiendo sufijo '!!!'..." << std::endl;
-	iter(strArr, strLen, AddSuffix("!!!"));
+	std::cout << "Añadiendo sufijo '***'..." << std::endl;
+	iter(strArr, strLen, AddSuffix("***"));
 	
 	std::cout << "Modificado: ";
 	iter(strArr, strLen, print<std::string>);
