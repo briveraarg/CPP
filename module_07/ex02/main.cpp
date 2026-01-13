@@ -1,4 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/13 12:19:18 by brivera           #+#    #+#             */
+/*   Updated: 2026/01/13 12:22:48 by brivera          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 #include "Array.hpp"
 #include "color.hpp"
 
@@ -6,10 +20,10 @@
 
 int main(int, char**)
 {
-	std::cout << BOLD << "=== TEST 1: Construcción y Llenado ===" << RESET << std::endl;
+	std::cout << BOLD << "\n=== TEST 1: Construcción y Llenado ===" << RESET << std::endl;
 	Array<int> numbers(MAX_VAL);
 	int* mirror = new int[MAX_VAL];
-	srand(time(NULL));
+	std::srand(static_cast<unsigned int>(std::time(NULL)));
 	
 	std::cout << "Llenando Array y mirror con valores aleatorios..." << std::endl;
 	for (int i = 0; i < MAX_VAL; i++)
@@ -80,7 +94,7 @@ int main(int, char**)
 
 	for (int i = 0; i < MAX_VAL; i++)
 	{
-		numbers[i] = rand();
+		numbers[i] = std::rand();
 	}
 	delete [] mirror;
 	return (0);
