@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 15:58:21 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/03 17:01:19 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/13 12:12:23 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 
 int main( void )
 {
-	int a = 2;
-	int b = 3;
+	double a = 3.14;
+	double b = 4.13;
 
 	std::cout << "\nValores de a y b" << std::endl;
 	std::cout << "a = " << a << ", b = " << b << std::endl;
@@ -51,7 +51,7 @@ int main( void )
 	std::cout << BRIGHT_GREEN << "\n******************" << RESET << std::endl;
 
 	Fixed e(42.2f);
-	Fixed f(21.8f);
+	Fixed f(24.2f);
 
 	std::cout << "\nValores de e y f (class FIXED)" << std::endl;
 	std::cout << "e = " << e << ", f = " << f << std::endl;
