@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 19:26:46 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/12 14:41:51 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/14 14:41:02 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ Base * generate(void)
 	int r = std::rand() % 3;
 
 	if (r == 0)
-		return (new A());
+		return (std::cout << "A" << std::endl, new A());
 	else if (r == 1)
-		return (new B());
+		return (std::cout << "B" << std::endl, new B());
 	else
-		return (new C());
+		return (std::cout << "C" << std::endl, new C());
 }
 
 void	identify(Base* p)
@@ -82,11 +82,12 @@ int main()
 {
 	std::srand(static_cast<unsigned int>(std::time(NULL)));
 
-	std::cout << BRIGHT_BLUE << "--- Identificación por puntero ---" << RESET << std::endl;
+	std::cout << BRIGHT_BLUE << "\n--- Identificación por puntero ---" << RESET << std::endl;
 	for (int i = 0; i < 5; ++i)
 	{
+		std::cout << "\n" << BOLD << i + 1 << ". Objeto generado: " << RESET;
 		Base* ptr = generate();
-		std::cout << "Objeto generado " << i + 1 << ": ";
+		std::cout << BOLD << "-> Objeto indentificado: " << RESET;
 		identify(ptr);
 		delete ptr;
 	}
@@ -94,8 +95,9 @@ int main()
 	std::cout << BRIGHT_BLUE << "\n--- Identificación por referencia ---" << RESET << std::endl;
 	for (int i = 0; i < 5; ++i)
 	{
+		std::cout << "\n" << BOLD << i + 1 << ". Objeto generado: " << RESET;
 		Base* ptr = generate();
-		std::cout << "Objeto generado " << i + 1 << ": ";
+		std::cout << BOLD << "-> Objeto indentificado: " << RESET;
 		identify(*ptr);
 		delete ptr;
 	}
