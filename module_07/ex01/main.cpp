@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 17:17:22 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/13 12:14:45 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/14 15:10:31 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,10 @@
 
 int main()
 {
-	// --- TEST 1: Array de enteros ---
-	int arr[] = {1, 3, 5, 7, 9, 11, 13};
+	int arr[] = {1,2,3,4,5,6,7};
 	size_t len = sizeof(arr) / sizeof(arr[0]);
 
-	std::cout << BRIGHT_BLUE << "=== TEST 1: Array de INT ===" << RESET << std::endl;
+	std::cout << BRIGHT_BLUE << "\n=== TEST 1.0: Array de INT ===" << RESET << std::endl;
 	std::cout << "Original: ";
 	iter(arr, len, print<int>);
 	std::cout << std::endl;
@@ -35,30 +34,22 @@ int main()
 	
 	std::cout << "Modificado: ";
 	iter(arr, len, print<int>);
-	std::cout << "\n" << std::endl;
 
-	// --- TEST 2: Functor (PrintLessThan) ---
-	std::cout << BRIGHT_GREEN << "=== TEST 2: Functor (PrintLessThan 4) ===" << RESET << std::endl;
+	std::cout << BRIGHT_GREEN << "\n\n=== TEST 1.1: Functor (PrintLessThan 4) ===" << RESET << std::endl;
 	std::cout << "Valores menores que 4 en el array modificado:" << std::endl;
 	iter(arr, len, PrintLessThan<int>(6));
-	std::cout << std::endl;
 	
-	// --- TEST 3: Array de Strings ---
+	std::cout << BRIGHT_MAGENTA << "\n=== TEST 2.0: Array de STRING ===" << RESET << std::endl;
 	std::string strArr[] = {"Argentina", "campeon", "!"};
 	size_t strLen = sizeof(strArr) / sizeof(strArr[0]);
-
-	std::cout << BRIGHT_MAGENTA << "=== TEST 3: Array de STRING ===" << RESET << std::endl;
 	std::cout << "Original: ";
 	iter(strArr, strLen, print<std::string>);
-	std::cout << std::endl;
 	
 	std::cout << "Añadiendo sufijo '***'..." << std::endl;
 	iter(strArr, strLen, AddSuffix("***"));
 	
 	std::cout << "Modificado: ";
 	iter(strArr, strLen, print<std::string>);
-	std::cout << "\n" << std::endl;
-
 	return (0);
 }
 

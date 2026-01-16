@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/03 17:45:00 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/13 12:16:03 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/14 15:11:35 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ template <typename T>
 class	PrintLessThan
 {
 	private:
-		const T _val;
+		const T	_val;
 	public:
 		PrintLessThan(const T& v) : _val(v) {}
 		void	operator()(const T& x)
