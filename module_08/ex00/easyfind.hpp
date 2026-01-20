@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 12:43:07 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/20 14:36:36 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/20 15:28:10 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ class NotFoundException : public std::exception
 {
 	public:
 		const char* what() const throw()
-		{return ("Easyfind: Element not found in container");}
+		{return ("Element not found in container");}
 };
 
 template <typename T>
