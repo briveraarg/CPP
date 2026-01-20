@@ -6,18 +6,18 @@
 #    By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/03 15:57:13 by brivera           #+#    #+#              #
-#    Updated: 2026/01/20 12:38:25 by brivera          ###   ########.fr        #
+#    Updated: 2026/01/20 14:16:41 by brivera          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 	:= ex02
+NAME 	:= ex00
 
 CC		:= c++
 FLAGS	:= -Wall -Wextra -Werror -std=c++98
 
 
 SRCS 	:=  main.cpp 
-HEADERS := 	
+HEADERS := 	easyfind.hpp
 
 OBJS_DIR 	:= objs
 OBJS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.cpp=.o))

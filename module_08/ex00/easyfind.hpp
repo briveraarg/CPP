@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 12:43:07 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/20 13:17:13 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/20 14:36:36 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,20 @@
 #include <algorithm>
 #include <exception>
 
-//template <typename T>
+class NotFoundException : public std::exception
+{
+	public:
+		const char* what() const throw()
+		{return ("Easyfind: Element not found in container");}
+};
 
-#include "easyfind.tpp"
+template <typename T>
+typename T::iterator easyfind(T& container, int n)
+{
+	typename T::iterator R = std::find(container.begin(), container.end(), n);
+	if (R == container.end())
+		throw NotFoundException();
+	return(R);
+}
+
 #endif
