@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 12:42:59 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/20 16:53:49 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/20 17:03:55 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <algorithm>
 #include <ctime>
 #include <vector>
-#include <list>
+#include <map>
 
 #define RESET			"\033[0m"
 #define BRIGHT_GREEN	"\033[92m"
@@ -50,15 +50,17 @@ int main()
 	}
 	std::cout << "\n---------------\n" << std::endl;
 	std::cout << BRIGHT_GREEN  << BOLD
-		<< "*** Contenedor LIST ***" << RESET << std::endl;
-	std::list<int>	l;
+		<< "*** Contenedor MAP ***" << RESET << std::endl;
+	std::map<char,int>	m;
 	std::cout  << BOLD << "Buscar: " << RESET << NUM2 << std::endl;
 	std::srand(static_cast<unsigned int>(std::time(NULL)));
+	char c = 'a';
 	for (int i = 0; i < MAX_NUM; i++)
 	{
 		const int value = rand() % 7;
-		l.push_back(value);
-		std::cout  << i << "->" << v[i] << std::endl;
+		m[c] = value;
+		std::cout  << c << "->" << m[c] << std::endl;
+		c++;
 	}
 	try
 	{
