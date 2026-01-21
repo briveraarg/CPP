@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 12:22:13 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/21 14:38:59 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/21 16:38:06 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,14 @@ class	Span
 			public:
 				const char* what() const throw();
 		};
-		
+		class notSpaceExeption : public std::exception
+		{
+			public:
+				const char* what() const throw();
+		};
+
 		void	addNumber(int num);
+		int		shortestSpan() const;
 		
 };
 
