@@ -6,18 +6,19 @@
 #    By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/03 15:57:13 by brivera           #+#    #+#              #
-#    Updated: 2026/01/20 12:38:40 by brivera          ###   ########.fr        #
+#    Updated: 2026/01/22 15:08:38 by brivera          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 	:= ex00
+NAME 	:= ex02
 
 CC		:= c++
 FLAGS	:= -Wall -Wextra -Werror -std=c++98
+DEBUG_FLAGS := -DDEBUG
 
 
 SRCS 	:=  main.cpp
-HEADERS := 	
+HEADERS := 	MutantStack.hpp MutantStack.tpp
 
 OBJS_DIR 	:= objs
 OBJS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.cpp=.o))
@@ -49,6 +50,9 @@ fclean: clean
 re: fclean all
 	@echo "$(GREEN)Recompiled $(NAME).$(CLEAR_COLOR)"
 
-.PHONY: all clean fclean re 
+debug: FLAGS += $(DEBUG_FLAGS)
+debug: re
+
+.PHONY: all clean fclean re debug
 
 .GOAL: all
