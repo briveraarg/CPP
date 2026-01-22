@@ -6,37 +6,82 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 12:22:04 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/21 16:58:48 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/22 12:12:45 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Span.hpp"
 #include <iostream>
 #include <exception>
+#include <vector>
+#include <algorithm>
+#include <ctime>
+
+#define RESET			"\033[0m"
+#define BRIGHT_RED		"\033[91m"
+#define BRIGHT_BLUE		"\033[94m"
+#define BOLD			"\033[1m"
 
 int main()
 {
-	Span	miVector(5);
+	std::cout << BRIGHT_BLUE BOLD << "=== TEST BÁSICO ===" << RESET << std::endl;
+	try
+	{
+		Span sp = Span(5);
+		sp.addNumber(6);
+		sp.addNumber(3);
+		sp.addNumber(17);
+		sp.addNumber(9);
+		sp.addNumber(11);
+		std::cout << "Shortest: " << sp.shortestSpan() << std::endl;
+		std::cout << "Longest: " << sp.longestSpan() << std::endl;
+	} catch(const std::exception& e){
+		std::cerr << BRIGHT_RED << e.what() << '\n' << RESET;
+	}
+	
+	std::cout << BRIGHT_BLUE BOLD << "\n=== TEST GRANDE (10,000 números) ===" << RESET << std::endl;
+	try
+	{
+		std::vector<int> bigVector(10000);
+		std::srand(std::time(NULL));
+		std::generate(bigVector.begin(), bigVector.end(), std::rand);
 
+		Span sp(10000);
+		sp.addNumber(bigVector.begin(), bigVector.end());
+
+		std::cout << "Shortest span (10k): " << sp.shortestSpan() << std::endl;
+		std::cout << "Longest span (10k): " << sp.longestSpan() << std::endl;
+	} catch (std::exception &e){
+		std::cerr << BRIGHT_RED << e.what() << RESET << std::endl;
+	}
+	
+	std::cout << BRIGHT_BLUE BOLD << "\n=== TEST EXCEPCIONES ===" << RESET << std::endl;
 	try
 	{
-		miVector.addNumber(7);
-		miVector.addNumber(0);
-		miVector.addNumber(1);
-		miVector.addNumber(2);
-		miVector.addNumber(3);
+		Span sp(5);
+		sp.shortestSpan();
+	} catch (std::exception &e){
+		std::cout << "Empty span exception: " << BRIGHT_RED << e.what() << RESET << std::endl;
 	}
-	catch (std::exception &e) {
-		std::cout << e.what() << std::endl;
-	}
+	
 	try
 	{
-		std::cout << miVector[1] << std::endl;
+		Span sp(2);
+		sp.addNumber(1);
+		sp.addNumber(2);
+		sp.addNumber(3);
+	} catch (std::exception &e){
+		std::cout << "Full span exception: " << BRIGHT_RED << e.what() << RESET << std::endl;
 	}
-	catch(const std::exception& e)
+
+	try 
 	{
-		std::cerr << e.what() << '\n';
+		Span sp(5);
+		sp.addNumber(1);
+		std::cout << sp[10] << std::endl;
+	} catch (std::exception &e){
+		std::cout << "Index out of bounds exception: " << BRIGHT_RED << e.what() << RESET << std::endl;
 	}
-	std::cout << miVector.shortestSpan() << std::endl;
+
 	return (0);
 }

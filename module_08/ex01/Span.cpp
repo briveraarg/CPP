@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 12:22:51 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/21 16:59:07 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/22 11:46:38 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,11 @@ const char* Span::notSpaceExeption::what() const throw()
 	return ("Span::container is full");
 }
 
+const char*	Span::fillException::what() const throw()
+{
+	return ("Span::menos de dos elementos");
+}
+ 
 /***** metodos *******/
 
 void	Span::addNumber(int num)
@@ -89,15 +94,28 @@ void	Span::addNumber(int num)
 
 int	Span::shortestSpan() const
 {
+	if (this->_v.size() < 2)
+		throw Span::fillException();
+
 	std::vector<int>	temp = _v;
 	std::sort(temp.begin(), temp.end());
-	int diff = 0;
-	int shortest = 0;
+	unsigned int size = temp.size() - 1;
+	int	shortest = temp[1] - temp[0];
 	
-	for (unsigned int i = 0; i <= this->_size; i++)
+	for (unsigned int i = 0; i < size; i++)
 	{
-		diff = temp[i] - temp[i + 1];
+		int diff = temp[i + 1] - temp[i];
 		shortest = std::min(shortest, diff);
 	}
 	return (shortest);
+}
+
+int	Span::longestSpan() const
+{
+	if (this->_v.size() < 2)
+		throw Span::fillException();
+
+	std::vector<int>	temp = _v;
+	std::sort(temp.begin(), temp.end());
+	return (temp.back() - temp.front());
 }
