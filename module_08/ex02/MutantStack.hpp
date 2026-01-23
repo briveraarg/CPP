@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 14:21:16 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/22 14:37:38 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/23 15:14:36 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,13 @@ class MutantStack : public std::stack<T>
 		~MutantStack();
 		
 		typedef typename std::stack<T>::container_type::iterator iterator;
-
+    	typedef typename std::stack<T>::container_type::const_iterator const_iterator;
+		
 		iterator begin();
 		iterator end();
+
+		const_iterator begin() const;
+		const_iterator end() const;
 };
 
 #include "MutantStack.tpp"
