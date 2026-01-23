@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 12:22:51 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/23 15:00:05 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/23 15:17:03 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ Span::~Span()
 	DBG_MSG("destructor called");
 }
 
-/***** operador *******/
+/***** operadores *******/
 
 Span& Span::operator=(const Span& other)
 {
@@ -82,7 +82,7 @@ const char*	Span::fillException::what() const throw()
 	return ("Span: less than two elements");
 }
  
-/***** metodos *******/
+/***** métodos *******/
 
 void	Span::addNumber(int num)
 {
