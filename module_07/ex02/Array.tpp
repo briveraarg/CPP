@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 16:21:15 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/13 12:49:35 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/16 12:47:02 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,8 @@ Array<T>& Array<T>::operator = (const Array& other)
 template <typename T>
 T& Array<T>::operator [] (unsigned int index) const
 {
-	if (index >= this->_size) {
+	if (index >= this->_size)
 		throw std::out_of_range("Index out of range");
-	}
 	return (this->_content[index]);
 }
 
