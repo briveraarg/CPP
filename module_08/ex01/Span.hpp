@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 12:22:13 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/22 11:42:15 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/23 14:26:46 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ class	Span
 		Span(const Span& other);
 		
 		Span&	operator=(const Span& other);
-		int		operator[](unsigned int index) const;	
+		int		operator[](unsigned int index) const;
 		
 		~Span();
 		

@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/20 12:43:07 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/22 12:40:45 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/23 15:01:13 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ class NotFoundException : public std::exception
 {
 	public:
 		const char* what() const throw()
-		{return ("Elemento no encontrado en el contenedor");}
+		{return ("Element not found");}
 };
 
 template <typename T>

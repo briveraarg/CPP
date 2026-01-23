@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/21 12:22:51 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/22 11:46:38 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/23 15:00:05 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #define RESET			"\033[0m"
 
 #ifdef DEBUG
-# define DBG_MSG(x) std::cout << BOLD << "Spam" << RESET << " " << x << std::endl
+# define DBG_MSG(x) std::cout << BOLD << "Span" << RESET << " " << x << std::endl
 #else
 # define DBG_MSG(x) ((void)0)
 #endif
@@ -52,8 +52,7 @@ Span& Span::operator=(const Span& other)
 	if (this != &other)
 	{
 		_size = other._size;
-		for (unsigned int i = 0; i < this->_size; i++)
-			this->_v[i] = other[i];
+		_v = other._v;
 	}
 	DBG_MSG("assignment operator called");
 	return(*this);
@@ -80,7 +79,7 @@ const char* Span::notSpaceExeption::what() const throw()
 
 const char*	Span::fillException::what() const throw()
 {
-	return ("Span::menos de dos elementos");
+	return ("Span: less than two elements");
 }
  
 /***** metodos *******/
