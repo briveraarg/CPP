@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 12:23:29 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/26 12:38:09 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/26 15:56:45 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 class BitcoinExchange
 {
 	private:
+	
 
 	public:
 		BitcoinExchange();
