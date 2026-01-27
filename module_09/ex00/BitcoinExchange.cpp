@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 12:23:32 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/27 14:54:21 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/27 17:23:32 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <exception>
 #include <cstring>
 #include <sstream>
+#include <map>
 
 /***** constructores y destructor *****/
 BitcoinExchange::BitcoinExchange()
@@ -61,7 +62,7 @@ void	BitcoinExchange::loadDataBase(const std::string& file)
 			throw std::runtime_error(file + ": bad data base");
 		std::cout << date << std::endl;
 		std::cout << value << std::endl;
-		
+		_dataBase.insert(std::make_pair(date, value));
 	}
 	FileDataBase.close();
 }
