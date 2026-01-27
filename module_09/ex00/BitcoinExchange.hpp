@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 12:23:29 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/27 13:19:57 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/27 18:27:58 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 class BitcoinExchange
 {
 	private:
-		std::map<std::string,double>		_dataBase;
+		std::map<std::string,float>		_dataBase;
 	public:
 		BitcoinExchange();
 		BitcoinExchange(const BitcoinExchange& other);
