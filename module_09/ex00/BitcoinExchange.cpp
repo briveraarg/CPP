@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 12:23:32 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/27 17:23:32 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/27 18:28:14 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <exception>
 #include <cstring>
 #include <sstream>
+#include <cstdlib>
 #include <map>
 
 /***** constructores y destructor *****/
@@ -40,7 +41,6 @@ BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other)
 	return (*this);
 }
 
-/***** métodos *****/
 
 void	BitcoinExchange::loadDataBase(const std::string& file)
 {
@@ -49,20 +49,27 @@ void	BitcoinExchange::loadDataBase(const std::string& file)
 
 	if (!FileDataBase.is_open())
 		throw std::runtime_error("Can't open file: " + file);
+	
 	std::getline(FileDataBase, line);
+	std::string		date;
+	std::string		value;
+	float			num;
+	char*			end = NULL;
 	while (std::getline(FileDataBase, line))
 	{
-		std::string		date;
-		double			value;
 		
+		errno = 0;
 		std::stringstream ss(line);
 		if (!std::getline(ss, date, ','))
-			return ;
-		if (!ss || !(ss >> value))
-			throw std::runtime_error(file + ": bad data base");
-		std::cout << date << std::endl;
-		std::cout << value << std::endl;
-		_dataBase.insert(std::make_pair(date, value));
+			throw std::logic_error(file + ": error getline");
+		if (!std::getline(ss, value, ' '))
+			throw std::logic_error(file + ": error getline");
+		num = std::strtof(value.c_str(), &end);
+		if (end == value || errno == ERANGE || *end != '\0')
+			throw std::runtime_error(file + ": bad data base. \nLine: " + line);
+		// if (!ss || !(ss >> value) || !ss.eof())
+		// 	throw std::runtime_error(file + ": bad data base");
+		_dataBase.insert(std::make_pair(date, num));
 	}
 	FileDataBase.close();
 }
