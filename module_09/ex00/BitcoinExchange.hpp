@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 12:23:29 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/28 16:45:14 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/28 17:17:32 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ class BitcoinExchange
 		void	loadDataBase(const std::string& file);
 		void	processInput(const	std::string& file) const;
 
-		double	getExchangeRate(const std::string &date) const;
+		float	getExchangeRate(const std::string &date) const;
 };
 
 

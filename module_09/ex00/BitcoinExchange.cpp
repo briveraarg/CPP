@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 12:23:32 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/28 16:57:52 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/28 17:50:28 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other)
 	return (*this);
 }
 
-/***** métodos *****/
+/***** métodos públicos *****/
 
 void	BitcoinExchange::loadDataBase(const std::string& file)
 {
@@ -78,6 +78,59 @@ void	BitcoinExchange::loadDataBase(const std::string& file)
 	FileDataBase.close();
 }
 
+void	BitcoinExchange::processInput(const std::string& file) const
+{
+	std::ifstream	fileInput(file.c_str());
+	std::string		line;
+
+	if(!fileInput.is_open())
+		throw std::runtime_error("Error: could not open file.");
+	
+	std::getline(fileInput, line);
+	while (std::getline(fileInput, line))
+	{
+		if (line.empty())
+			continue;
+
+		size_t delim = line.find(" | ");
+		if (delim == std::string::npos)
+		{
+			std::cerr << "Error: bad input => " << line << std::endl;
+			continue;
+		}
+		std::string date = line.substr(0, delim);
+		std::string valStr = line.substr(delim + 3);
+		if (!_isValidDate(date))
+		{
+			std::cerr << "Error: bad input => " << date << std::endl;
+			continue;
+		}
+		float val;
+		try
+		{
+			val = _stringToFloat(valStr);
+		}
+		catch (std::exception &e)
+		{
+			std::cerr << "Error: bad input => " << line << std::endl;
+			continue;
+		}
+		if (val < 0)
+		{
+			std::cerr << "Error: not a positive number." << std::endl;
+			continue;
+		}
+		if (val > 1000)
+		{
+			std::cerr << "Error: too large a number." << std::endl;
+			continue;
+		}
+	}
+	fileInput.close();
+}
+
+/***** métodos privados *****/
+
 float	BitcoinExchange::_stringToFloat(const std::string& str) const
 {
 	float	num;
@@ -108,4 +161,3 @@ bool	BitcoinExchange::_isValidDate(const std::string& date) const
 		return (false);
 	return (true);
 }
-

@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 12:22:02 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/27 18:14:49 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/28 17:51:05 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,11 @@ int main(int argc, char **argv)
 	try
 	{
 		btc.loadDataBase("data.csv");
-		(void) argv;
-		//btc.processInput(argv[1]);
+		btc.processInput(argv[1]);
 	}
 	catch(const std::exception& e)
 	{
 		std::cerr << e.what() << '\n';
 	}
-
 	return (0);
 }
