@@ -6,7 +6,7 @@
 #    By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/03 15:57:13 by brivera           #+#    #+#              #
-#    Updated: 2026/01/26 12:20:17 by brivera          ###   ########.fr        #
+#    Updated: 2026/01/29 15:50:53 by brivera          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,8 @@ FLAGS	:= -Wall -Wextra -Werror -std=c++98
 DEBUG_FLAGS := -DDEBUG
 
 
-SRCS 	:=  main.cpp
-HEADERS := 	
+SRCS 	:=  main.cpp RPN.cpp
+HEADERS := 	RPN.hpp
 
 OBJS_DIR 	:= objs
 OBJS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.cpp=.o))
