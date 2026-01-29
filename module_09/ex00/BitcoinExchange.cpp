@@ -6,17 +6,14 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 12:23:32 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/29 13:23:38 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/29 14:08:57 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
 #include <fstream>
-#include <iostream>
 #include <exception>
-#include <cstring>
 #include <sstream>
-#include <cstdlib>
 #include <map>
 #include <ctime>
 
@@ -85,61 +82,26 @@ void	BitcoinExchange::processInput(const std::string& file) const
 
 	if(!fileInput.is_open())
 		throw std::runtime_error("Error: could not open file.");
-	
 	std::getline(fileInput, line);
 	while (std::getline(fileInput, line))
 	{
 		if (line.empty())
 			continue;
-
-		size_t delim = line.find(" | ");
-		if (delim == std::string::npos)
-		{
-			std::cerr << "Error: bad input => " << line << std::endl;
-			continue;
-		}
-		std::string date = line.substr(0, delim);
-		std::string valStr = line.substr(delim + 3);
-		if (!_isValidDate(date))
-		{
-			std::cerr << "Error: bad input => " << date << std::endl;
-			continue;
-		}
-		float val;
-		try
-		{
-			val = _stringToFloat(valStr);
-		}
-		catch (std::exception &e)
-		{
-			std::cerr << "Error: bad input => " << line << std::endl;
-			continue;
-		}
-		if (val < 0)
-		{
-			std::cerr << "Error: not a positive number." << std::endl;
-			continue;
-		}
-		if (val > 1000)
-		{
-			std::cerr << "Error: too large a number." << std::endl;
-			continue;
-		}
-		//std::map<std::string, float>::const_iterator it;
-		//for (it = _dataBase.begin(); it != _dataBase.end(); ++it){
-		//	std::cout << date << " => " << valStr << " = " << it->second << std::endl;
-
-		std::map<std::string, float>::const_iterator it;
-		it = _dataBase.lower_bound(date);
-		if (it != _dataBase.end() && it->first == date)
-   			std::cout << it->first << " => " << val << " = " << val * it->second << std::endl;
-		else
-		{
-        	--it;
-        	std::cout << it->first << " => " << val << " = " << val * it->second << std::endl;
-   		}
+		_processLine(line);
 	}
 	fileInput.close();
+}
+
+float	BitcoinExchange::getExchangeRate(const std::string& date) const
+{
+	std::map<std::string, float>::const_iterator it;
+	it = _dataBase.lower_bound(date);
+	if (it != _dataBase.end() && it->first == date)
+		return (it->second);
+	if (it == _dataBase.begin())
+		return (0.0f); 
+	--it;
+	return (it->second);
 }
 
 /***** métodos privados *****/
@@ -151,8 +113,14 @@ float	BitcoinExchange::_stringToFloat(const std::string& str) const
 
 	errno = 0;
 	num = std::strtof(str.c_str(), &end);
-	if (end == str.c_str() || errno == ERANGE || *end != '\0')
+	if (end == str.c_str() || errno == ERANGE)
 		throw std::exception();
+	while (*end)
+	{
+		if (!std::isspace(*end))
+			throw std::exception();
+		end++;
+	}
 	return (num);
 }
 
@@ -174,3 +142,47 @@ bool	BitcoinExchange::_isValidDate(const std::string& date) const
 		return (false);
 	return (true);
 }
+
+void	BitcoinExchange::_processLine(const std::string& line) const
+{
+	std::stringstream	ss(line);
+	std::string			date;
+	std::string			valStr;
+	float				val;
+	size_t				delim;
+
+	delim = line.find(" | ");
+	if (delim == std::string::npos)
+	{
+		std::cerr << "Error: bad input => " << line << std::endl;
+		return;
+	}
+	date = line.substr(0, delim);
+	valStr = line.substr(delim + 3);
+	if (!_isValidDate(date))
+	{
+		std::cerr << "Error: bad input => " << date << std::endl;
+		return;
+	}
+	try
+	{
+		val = _stringToFloat(valStr);
+	}
+	catch (std::exception &e)
+	{
+		std::cerr << "Error: bad input => " << line << std::endl;
+		return;
+	}
+	if (val < 0)
+	{
+		std::cerr << "Error: not a positive number." << std::endl;
+		return;
+	}
+	if (val > 1000)
+	{
+		std::cerr << "Error: too large a number." << std::endl;
+		return;
+	}
+	std::cout << date << " => " << val << " = " << val * getExchangeRate(date) << std::endl;
+}
+

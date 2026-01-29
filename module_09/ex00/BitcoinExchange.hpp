@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 12:23:29 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/28 17:17:32 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/29 13:57:03 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ class BitcoinExchange
 		std::map<std::string,float>		_dataBase;
 		float							_stringToFloat(const std::string& str) const;
 		bool							_isValidDate(const std::string& date) const;
+		void							_processLine(const std::string& line) const;
 	
 	public:
 		BitcoinExchange();
