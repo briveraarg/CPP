@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 12:23:32 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/28 17:50:28 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/29 13:23:38 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,19 @@ void	BitcoinExchange::processInput(const std::string& file) const
 			std::cerr << "Error: too large a number." << std::endl;
 			continue;
 		}
+		//std::map<std::string, float>::const_iterator it;
+		//for (it = _dataBase.begin(); it != _dataBase.end(); ++it){
+		//	std::cout << date << " => " << valStr << " = " << it->second << std::endl;
+
+		std::map<std::string, float>::const_iterator it;
+		it = _dataBase.lower_bound(date);
+		if (it != _dataBase.end() && it->first == date)
+   			std::cout << it->first << " => " << val << " = " << val * it->second << std::endl;
+		else
+		{
+        	--it;
+        	std::cout << it->first << " => " << val << " = " << val * it->second << std::endl;
+   		}
 	}
 	fileInput.close();
 }
