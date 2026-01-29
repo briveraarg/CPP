@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 12:23:32 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/29 14:08:57 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/29 15:48:11 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,28 @@ float	BitcoinExchange::_stringToFloat(const std::string& str) const
 	}
 	return (num);
 }
+
+/**
+ * Valida si una cadena de texto representa una fecha real
+ * y correctamente formateada (YYYY-MM-DD).
+ * 
+ * Paso a paso:
+ * 1. Inicializa la estructura 'tm' a cero para evitar basura en memoria.
+ * 2. strptime: Verifica que el string siga el patrón AÑO-MES-DÍA.
+ * 	  Si falla el formato, retorna false.
+ * 3. Longitud: Fuerza que el string tenga exactamente 10 caracteres
+ * 	  (evita casos como "2023-1-1").
+ * 4. Verificación de Integridad (mktime): 
+ *    - mktime intenta normalizar la fecha (si le das 32 de enero,
+ * 		lo convierte en 1 de febrero).
+ *    - Al comparar los valores originales (d, m, y)
+ * 		con los valores después de mktime, 
+ *      detectamos si la fecha era inválida originalmente.
+ * 
+ * @param date El string de la fecha a validar.
+ * @return true si la fecha existe en el calendario
+ * y tiene formato correcto, false de lo contrario.
+ */
 
 bool	BitcoinExchange::_isValidDate(const std::string& date) const
 {
