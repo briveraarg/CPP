@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/05 16:21:18 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/16 12:30:21 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/29 18:14:14 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ class Array
 		virtual ~Array();
 
 		Array&	operator=(const Array& other);
-		T& operator[](unsigned int index) const;
+		T& operator[](unsigned int index);
+		const T& operator[](unsigned int index) const;
 		unsigned int size() const;
 };
 #include "Array.tpp"
