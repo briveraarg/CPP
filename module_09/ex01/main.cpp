@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:45:43 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/29 19:07:11 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/30 13:06:36 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int main(int argc, char **argv)
 		return (std::cerr << "Use: ./RPN  \"2 2 +\"" << std::endl, 1);
 	RPN		stack;
 	try{
-		stack.calculator(argv[1]);}
+		std::cout << stack.calculator(argv[1]) << std::endl;
+	}
 	catch(const std::exception& e){
 		std::cerr << e.what() << '\n';}
 	return (0);
