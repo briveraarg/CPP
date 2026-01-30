@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:52:03 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/30 13:05:56 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/30 14:10:22 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,12 @@ int RPN::calculator(const std::string& input)
 		{
 			if (_pilaNumber.size() < 2)
 				throw std::runtime_error("Error de sintaxis2");
-			num1 = _pilaNumber.top();
 			num2 = _pilaNumber.top();
+			_pilaNumber.pop();
+			num1 = _pilaNumber.top();
+			_pilaNumber.pop();
+			//std::cout << "n1 => " << num1 << std::endl;
+			//std::cout << "n2 => " << num2 << std::endl;
 			switch (c)
 			{
 				case '+':
@@ -87,8 +91,9 @@ int RPN::calculator(const std::string& input)
 			}
 			_pilaNumber.push(res);
 		}
+		//std::cout << res << std::endl;
 	}
-	if (_pilaNumber.size() == 1)
+	if (_pilaNumber.size() != 1)
 				throw std::runtime_error("Error quedaron cositas");
 	return (res);
 }
