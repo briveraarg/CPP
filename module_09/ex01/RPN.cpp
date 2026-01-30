@@ -6,13 +6,14 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:52:03 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/30 18:31:52 by brivera          ###   ########.fr       */
+/*   Updated: 2026/01/30 18:43:56 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RPN.hpp"
 #include <iostream>
 #include <string>
+#include <climits>
 
 /* ========= constructores ========= */
 RPN::RPN()
@@ -55,7 +56,7 @@ int RPN::calculator(const std::string& input)
 
 		if (isdigit(c))
 		{
-			if (i + 1 < input.length() && isdigit(input[i+1]))
+			if (i + 1 < input.length() && isdigit(input[i + 1]))
 				throw std::runtime_error("Error: number > 10");
 			_pilaNumber.push(c - '0');
 			flag = true;
@@ -68,24 +69,29 @@ int RPN::calculator(const std::string& input)
 			_pilaNumber.pop();
 			num1 = _pilaNumber.top();
 			_pilaNumber.pop();
+			
+			long long tempRes = 0;
 			switch (c)
 			{
 				case '+':
-					res = num1 + num2;
+					tempRes = static_cast<long long>(num1) + num2;
 					break;
 				case '-':
-					res = num1 - num2;
+					tempRes = static_cast<long long>(num1) - num2;
 					break;
 				case '*':
-					res = num1 * num2;
+					tempRes = static_cast<long long>(num1) * num2;
 					break;
 				default:
 					if (num2 == 0)
 						throw std::runtime_error("Error: division by zero");
-					res = num1 / num2;
+					tempRes = static_cast<long long>(num1) / num2;
 					break;
-				flag = true;
 			}
+			if (tempRes > INT_MAX || tempRes < INT_MIN)
+				throw std::runtime_error("Error: int overflow");
+			res = static_cast<int>(tempRes);
+			flag = true;
 			_pilaNumber.push(res);
 		}
 		else if ((isspace(c)) && flag)
