@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:52:03 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/31 17:58:16 by brivera          ###   ########.fr       */
+/*   Updated: 2026/02/02 12:47:25 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,4 +101,3 @@ int RPN::calculator(const std::string& input)
 		throw std::runtime_error("Error");
 	return (_pilaNumber.top());
 }
-

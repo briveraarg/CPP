@@ -6,7 +6,7 @@
 #    By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/03 15:57:13 by brivera           #+#    #+#              #
-#    Updated: 2026/02/02 16:46:36 by brivera          ###   ########.fr        #
+#    Updated: 2026/02/02 18:35:10 by brivera          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ FLAGS	:= -Wall -Wextra -Werror -std=c++98
 DEBUG_FLAGS := -DDEBUG
 
 
-SRCS 	:=  main.cpp  PmergeMe.cpp
+SRCS 	:=  main.cpp PmergeMe.cpp
 HEADERS := 	PmergeMe.hpp
 
 OBJS_DIR 	:= objs

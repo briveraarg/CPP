@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:52:00 by brivera           #+#    #+#             */
-/*   Updated: 2026/02/02 17:10:19 by brivera          ###   ########.fr       */
+/*   Updated: 2026/02/02 18:35:53 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@
 class PmergeMe
 {
 	private:
-		std::list<int>		list;
-		std::vector<int>	vector;
+		std::list<int>		_list;
+		std::vector<int>	_vector;
 		
+		//void _parseAndFill(int argc, char** argv);
 	public:
 		PmergeMe(void);
+		PmergeMe(int argc, char** argv);
 		PmergeMe(const PmergeMe& other);
 		PmergeMe& operator=(const PmergeMe& other);
 		~PmergeMe();
