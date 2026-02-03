@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:51:52 by brivera           #+#    #+#             */
-/*   Updated: 2026/02/03 16:18:57 by brivera          ###   ########.fr       */
+/*   Updated: 2026/02/03 16:47:09 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,35 @@ void PmergeMe::execute()
 
 /* ========= metodos privados ========= */
 
-void PmergeMe::_sortVector(std::vector<int>& arr)
+void PmergeMe::_sortVector(std::vector<int>& vector)
 {
-	(void)arr;
+	if (vector.size() <= 1)
+		return;
+
+	std::vector<int> mainChain;
+	std::vector<int> pend;
+	bool	hasStraggler = (vector.size() % 2 != 0);
+	size_t	end = vector.size();
+	int		straggler = 0;
+
+	if (hasStraggler)
+		straggler = vector.back();
+	if (hasStraggler)
+		end -= 1;
+	(void)straggler; // para compilar
+	for (size_t i = 0; i < end; i += 2)
+	{
+		if (vector[i] > vector[i + 1])
+		{
+			mainChain.push_back(vector[i]);
+			pend.push_back(vector[i + 1]);
+		}
+		else
+		{
+			mainChain.push_back(vector[i + 1]);
+			pend.push_back(vector[i]);
+		}
+	}
 }
 
 void PmergeMe::_sortList(std::list<int>& arr)
