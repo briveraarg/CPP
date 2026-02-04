@@ -6,13 +6,11 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:51:52 by brivera           #+#    #+#             */
-/*   Updated: 2026/02/03 16:47:09 by brivera          ###   ########.fr       */
+/*   Updated: 2026/02/04 16:59:53 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
-#include <iostream>
-#include <string>
 
 /* ========= constructores ========= */
 
@@ -81,30 +79,117 @@ void PmergeMe::_sortVector(std::vector<int>& vector)
 	if (vector.size() <= 1)
 		return;
 
-	std::vector<int> mainChain;
-	std::vector<int> pend;
+	// 1. Emparejar elementos (ganador, perdedor)
+	std::vector<std::pair<int, int> > pairs;
+	
 	bool	hasStraggler = (vector.size() % 2 != 0);
 	size_t	end = vector.size();
 	int		straggler = 0;
 
 	if (hasStraggler)
+	{
 		straggler = vector.back();
-	if (hasStraggler)
 		end -= 1;
-	(void)straggler; // para compilar
+	}
 	for (size_t i = 0; i < end; i += 2)
 	{
+		// En first guardamos el MAYOR (ganador), en second el MENOR (perdedor)
 		if (vector[i] > vector[i + 1])
-		{
-			mainChain.push_back(vector[i]);
-			pend.push_back(vector[i + 1]);
-		}
+			pairs.push_back(std::make_pair(vector[i], vector[i + 1]));
 		else
-		{
-			mainChain.push_back(vector[i + 1]);
-			pend.push_back(vector[i]);
-		}
+			pairs.push_back(std::make_pair(vector[i + 1], vector[i]));
 	}
+
+	// 2. Ordenar recursivamente los pares basándose en el elemento 'first' (el mayor)
+	_sortPairs(pairs);
+
+	std::vector<int> mainChain;
+	std::vector<int> pending;
+
+
+	for (size_t i = 0; i < pairs.size(); i++)
+	{
+		mainChain.push_back(pairs[i].first); 
+		pending.push_back(pairs[i].second);  
+	}
+	mainChain.insert(mainChain.begin(), pending[0]);
+
+	std::vector<int> jacobsthal = _generateJacobsthal(pending.size());
+
+	size_t lastPos = 1;
+	
+	for (size_t i = 2; i < jacobsthal.size(); i++)
+	{
+		size_t n = jacobsthal[i];
+		if (n > pending.size())
+			n = pending.size();
+
+		for (size_t index = n - 1; index >= lastPos; index--)
+		{
+			// Elemento a insertar
+			int val = pending[index];
+			
+			// Binary Search
+			std::vector<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), val);
+			mainChain.insert(pos, val);
+		}
+		
+		lastPos = n;
+	}
+
+	// Insertar el straggler si existe
+	if (hasStraggler)
+	{
+		std::vector<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), straggler);
+		mainChain.insert(pos, straggler);
+	}
+	vector = mainChain;
+}
+
+void PmergeMe::_sortPairs(std::vector<std::pair<int, int> >& pairs)
+{
+	if (pairs.size() <= 1)
+		return;
+	
+	size_t mid = pairs.size() / 2;
+	std::vector<std::pair<int, int> > left(pairs.begin(), pairs.begin() + mid);
+	std::vector<std::pair<int, int> > right(pairs.begin() + mid, pairs.end());
+
+	_sortPairs(left);
+	_sortPairs(right);
+
+	// Merge
+	size_t i = 0, j = 0, k = 0;
+	while (i < left.size() && j < right.size())
+	{
+		if (left[i].first < right[j].first)
+			pairs[k++] = left[i++];
+		else
+			pairs[k++] = right[j++];
+	}
+	while (i < left.size())
+		pairs[k++] = left[i++];
+	while (j < right.size())
+		pairs[k++] = right[j++];
+}
+
+std::vector<int> PmergeMe::_generateJacobsthal(int n)
+{
+	std::vector<int> jacobsthal;
+	
+	jacobsthal.push_back(0);
+	jacobsthal.push_back(1);
+	
+	int i = 2;
+	while (true)
+	{
+		int next = jacobsthal[i - 1] + 2 * jacobsthal[i - 2];
+		jacobsthal.push_back(next);
+		if (next >= n)
+			break;
+		i++;
+	}
+	return (jacobsthal);
 }
 
 void PmergeMe::_sortList(std::list<int>& arr)
