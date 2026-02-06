@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:51:52 by brivera           #+#    #+#             */
-/*   Updated: 2026/02/06 18:16:38 by brivera          ###   ########.fr       */
+/*   Updated: 2026/02/06 18:45:02 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,27 @@ void PmergeMe::execute(std::vector<int> argument)
 	_printRange(argument.begin(), argument.end());
 	std::cout << "After:  ";
 	_printRange(_list.begin(), _list.end());
-	
 	std::cout << "size " << _vector.size() << " std::vector : " << timeDict1 << " us" << std::endl;
 	std::cout << "size " << _list.size() << " std::list : " << timeDict2 << " us" << std::endl;
 }
 
+std::vector<int> PmergeMe::parse(int argc, char **argv)
+{
+	long				number;
+	char*				endPtr;
+	std::vector<int> 	vector;
+
+	for(int i = 1; i < argc; i++)
+	{
+		number = std::strtol(argv[i], &endPtr, 10);
+		if (*endPtr != '\0' || number < 0 || std::string(argv[i]).empty()
+			|| number > INT_MAX)
+			throw std::runtime_error("Error: Invalid input");
+
+		vector.push_back(static_cast<int>(number));
+	}
+	return (vector);
+}
 /* ========= metodos privados ========= */
 
 void PmergeMe::_sortVector(std::vector<int>& vector)
@@ -149,6 +165,44 @@ void PmergeMe::_sortVector(std::vector<int>& vector)
 	vector = mainChain;
 }
 
+void PmergeMe::_sortList(std::list<int>& list)
+{
+	if (list.size() <= 1)
+		return ;
+	
+	std::list<std::pair<int,int> > pairs;
+	
+	bool	hasStraggler = (list.size() % 2 != 0);
+	int		straggler = 0;
+
+	if (hasStraggler)
+	{
+		straggler = list.back();
+		list.pop_back();
+	}
+	std::list<int>::iterator i = list.begin();
+	while (i != list.end())
+	{
+		int first = *i;
+		i++;
+		int second = *i;
+		i++;
+		
+		if (first > second)
+			pairs.push_back(std::make_pair(first, second));
+		else
+			pairs.push_back(std::make_pair(second, first));
+	}
+	//imprimir pares
+	std::list<std::pair<int, int> >::iterator it;
+	for (it = pairs.begin(); it != pairs.end(); ++it) {
+		std::cout << "[" << it->first << ", " << it->second << "] ";
+	}
+std::cout << std::endl;
+
+	
+}
+
 void PmergeMe::_sortPairs(std::vector<std::pair<int, int> >& pairs)
 {
 	if (pairs.size() <= 1)
@@ -193,29 +247,6 @@ std::vector<int> PmergeMe::_generateJacobsthal(int n)
 		i++;
 	}
 	return (jacobsthal);
-}
-
-void PmergeMe::_sortList(std::list<int>& arr)
-{
-	(void)arr;
-}
-
-std::vector<int> PmergeMe::parse(int argc, char **argv)
-{
-	long				number;
-	char*				endPtr;
-	std::vector<int> 	vector;
-
-	for(int i = 1; i < argc; i++)
-	{
-		number = std::strtol(argv[i], &endPtr, 10);
-		if (*endPtr != '\0' || number < 0 || std::string(argv[i]).empty()
-			|| number > INT_MAX)
-			throw std::runtime_error("Error: Invalid input");
-
-		vector.push_back(static_cast<int>(number));
-	}
-	return (vector);
 }
 
 void PmergeMe::_fillVector(std::vector<int> argument)
