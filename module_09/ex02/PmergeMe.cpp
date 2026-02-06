@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:51:52 by brivera           #+#    #+#             */
-/*   Updated: 2026/02/06 18:45:02 by brivera          ###   ########.fr       */
+/*   Updated: 2026/02/06 19:06:22 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,10 @@ void PmergeMe::execute(std::vector<int> argument)
 
 	std::cout << "Before: ";
 	_printRange(argument.begin(), argument.end());
-	std::cout << "After:  ";
+	std::cout << "After list:  ";
 	_printRange(_list.begin(), _list.end());
+	std::cout << "After vector:  ";
+	_printRange(_vector.begin(), _vector.end());
 	std::cout << "size " << _vector.size() << " std::vector : " << timeDict1 << " us" << std::endl;
 	std::cout << "size " << _list.size() << " std::list : " << timeDict2 << " us" << std::endl;
 }
@@ -97,7 +99,6 @@ void PmergeMe::_sortVector(std::vector<int>& vector)
 {
 	if (vector.size() <= 1)
 		return;
-
 	// 1. Emparejar elementos (ganador, perdedor)
 	std::vector<std::pair<int, int> > pairs;
 	
@@ -120,7 +121,7 @@ void PmergeMe::_sortVector(std::vector<int>& vector)
 	}
 
 	// 2. Ordenar recursivamente los pares basándose en el elemento 'first' (el mayor)
-	_sortPairs(pairs);
+	_sortPairsVector(pairs);
 
 	std::vector<int> mainChain;
 	std::vector<int> pending;
@@ -198,12 +199,12 @@ void PmergeMe::_sortList(std::list<int>& list)
 	for (it = pairs.begin(); it != pairs.end(); ++it) {
 		std::cout << "[" << it->first << ", " << it->second << "] ";
 	}
-std::cout << std::endl;
+	std::cout << std::endl;
+	_sortPairsList(pairs);
 
-	
 }
 
-void PmergeMe::_sortPairs(std::vector<std::pair<int, int> >& pairs)
+void PmergeMe::_sortPairsVector(std::vector<std::pair<int, int> >& pairs)
 {
 	if (pairs.size() <= 1)
 		return;
@@ -212,8 +213,8 @@ void PmergeMe::_sortPairs(std::vector<std::pair<int, int> >& pairs)
 	std::vector<std::pair<int, int> > left(pairs.begin(), pairs.begin() + mid);
 	std::vector<std::pair<int, int> > right(pairs.begin() + mid, pairs.end());
 
-	_sortPairs(left);
-	_sortPairs(right);
+	_sortPairsVector(left);
+	_sortPairsVector(right);
 
 	// Merge
 	size_t i = 0, j = 0, k = 0;
@@ -230,6 +231,11 @@ void PmergeMe::_sortPairs(std::vector<std::pair<int, int> >& pairs)
 		pairs[k++] = right[j++];
 }
 
+void PmergeMe::_sortPairsList(std::list<std::pair<int, int> >& pairs)
+{
+	if (pairs.size() <= 1)
+		return ;
+}
 std::vector<int> PmergeMe::_generateJacobsthal(int n)
 {
 	std::vector<int> jacobsthal;
