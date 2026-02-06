@@ -6,13 +6,13 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 12:23:32 by brivera           #+#    #+#             */
-/*   Updated: 2026/02/06 15:06:13 by brivera          ###   ########.fr       */
+/*   Updated: 2026/02/06 17:17:01 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
 
-/***** constructores y destructor *****/
+/* ======= constructores =======*/
 BitcoinExchange::BitcoinExchange()
 {
 }
@@ -21,11 +21,15 @@ BitcoinExchange::BitcoinExchange(const BitcoinExchange& other)
 {
 	this->_dataBase = other._dataBase;
 }
+
+/* ======= destructor =======*/
+
 BitcoinExchange::~BitcoinExchange()
 {
 }
 
-/***** operador *****/
+/* ======= operador =======*/
+
 
 BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other)
 {
@@ -34,7 +38,8 @@ BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other)
 	return (*this);
 }
 
-/***** métodos públicos *****/
+/* ======= métodos públicos =======*/
+
 
 void	BitcoinExchange::loadDataBase(const std::string& file)
 {
@@ -99,7 +104,7 @@ float	BitcoinExchange::getExchangeRate(const std::string& date) const
 	return (it->second);
 }
 
-/***** métodos privados *****/
+/* ======= métodos privados =======*/
 
 float	BitcoinExchange::_stringToFloat(const std::string& str) const
 {
@@ -155,7 +160,8 @@ bool	BitcoinExchange::_isValidDate(const std::string& date) const
 	int m = tm.tm_mon;
 	int y = tm.tm_year;
 	
-	if (mktime(&tm) == -1 || tm.tm_mday != d || tm.tm_mon != m || tm.tm_year != y)
+	if (mktime(&tm) == -1 ||
+		tm.tm_mday != d || tm.tm_mon != m || tm.tm_year != y)
 		return (false);
 	return (true);
 }
@@ -202,4 +208,3 @@ void	BitcoinExchange::_processLine(const std::string& line) const
 	}
 	std::cout << date << " => " << val << " = " << val * getExchangeRate(date) << std::endl;
 }
-

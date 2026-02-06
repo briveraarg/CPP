@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:51:52 by brivera           #+#    #+#             */
-/*   Updated: 2026/02/06 12:07:45 by brivera          ###   ########.fr       */
+/*   Updated: 2026/02/06 18:16:38 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@
 PmergeMe::PmergeMe(void)
 {
 }
-PmergeMe::PmergeMe(int argc, char** argv)
+
+/* PmergeMe::PmergeMe(int argc, char** argv)
 {
-	_parseAndFill(argc, argv);
-}
+	_parse(argc, argv);
+ */
 
 PmergeMe::PmergeMe(const PmergeMe& other)
 {
@@ -48,25 +49,27 @@ PmergeMe::~PmergeMe()
 
 /* ========= metodos publicos ========= */
 
-void PmergeMe::execute()
+void PmergeMe::execute(std::vector<int> argument)
 {
-	if (_vector.empty())
+	if (argument.empty())
 		return;
-	std::cout << "Before: ";
-	_printContent(_vector);
-	
+
 	std::clock_t startDict1 = std::clock();
+	_fillVector(argument);
 	_sortVector(_vector);
 	std::clock_t endDict1 = std::clock();
 	double timeDict1 = static_cast<double>(endDict1 - startDict1) / CLOCKS_PER_SEC * 1000000; // microsegundos
 
 	std::clock_t startDict2 = std::clock();
+	_fillList(argument);
 	_sortList(_list);
 	std::clock_t endDict2 = std::clock();
 	double timeDict2 = static_cast<double>(endDict2 - startDict2) / CLOCKS_PER_SEC * 1000000; // microsegundos
 
+	std::cout << "Before: ";
+	_printRange(argument.begin(), argument.end());
 	std::cout << "After:  ";
-	_printContent(_vector);
+	_printRange(_list.begin(), _list.end());
 	
 	std::cout << "size " << _vector.size() << " std::vector : " << timeDict1 << " us" << std::endl;
 	std::cout << "size " << _list.size() << " std::list : " << timeDict2 << " us" << std::endl;
@@ -197,10 +200,11 @@ void PmergeMe::_sortList(std::list<int>& arr)
 	(void)arr;
 }
 
-void PmergeMe::_parseAndFill(int argc, char **argv)
+std::vector<int> PmergeMe::parse(int argc, char **argv)
 {
-	long	number;
-	char*	endPtr;
+	long				number;
+	char*				endPtr;
+	std::vector<int> 	vector;
 
 	for(int i = 1; i < argc; i++)
 	{
@@ -209,16 +213,32 @@ void PmergeMe::_parseAndFill(int argc, char **argv)
 			|| number > INT_MAX)
 			throw std::runtime_error("Error: Invalid input");
 
-		_vector.push_back(static_cast<int>(number));
-		_list.push_back(static_cast<int>(number));
+		vector.push_back(static_cast<int>(number));
+	}
+	return (vector);
+}
+
+void PmergeMe::_fillVector(std::vector<int> argument)
+{
+	for (size_t i = 0; i < argument.size(); i++)
+	{
+		_vector.push_back(argument[i]);
 	}
 }
 
-void PmergeMe::_printContent(const std::vector<int>& vector) const
+void PmergeMe::_fillList(std::vector<int> argument)
+{
+	for (size_t i = 0; i < argument.size(); i++)
+	{
+		_list.push_back(argument[i]);
+	}
+}
+
+/* void PmergeMe::_printContent(const std::vector<int>& vector) const
 {
 	for (size_t i = 0; i < vector.size(); i++)
 	{
 		std::cout << vector[i] << " ";
 	}
 	std::cout << std::endl;
-}
+} */
