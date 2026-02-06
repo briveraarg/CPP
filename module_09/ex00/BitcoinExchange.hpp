@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 12:23:29 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/29 13:57:03 by brivera          ###   ########.fr       */
+/*   Updated: 2026/02/06 15:06:49 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,14 @@
 
 #include <iostream>
 #include <map>
+#include <fstream>
+#include <exception>
+#include <sstream>
+#include <map>
+#include <ctime>
+#include <cstdlib>
+#include <cstring>
+#include <ctime>
 
 class BitcoinExchange
 {

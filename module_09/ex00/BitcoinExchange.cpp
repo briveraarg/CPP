@@ -6,16 +6,11 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 12:23:32 by brivera           #+#    #+#             */
-/*   Updated: 2026/01/29 15:48:11 by brivera          ###   ########.fr       */
+/*   Updated: 2026/02/06 15:06:13 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitcoinExchange.hpp"
-#include <fstream>
-#include <exception>
-#include <sstream>
-#include <map>
-#include <ctime>
 
 /***** constructores y destructor *****/
 BitcoinExchange::BitcoinExchange()
@@ -149,7 +144,7 @@ float	BitcoinExchange::_stringToFloat(const std::string& str) const
 bool	BitcoinExchange::_isValidDate(const std::string& date) const
 {
 	struct tm tm;
-	std::memset(&tm, 0, sizeof(struct tm)); // IMPORTANT: Initialize tm struct
+	memset(&tm, 0, sizeof(struct tm)); // IMPORTANT: Initialize tm struct
 
 	if (!strptime(date.c_str(), "%Y-%m-%d", &tm))
 		return (false);
