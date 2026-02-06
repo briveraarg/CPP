@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:50:56 by brivera           #+#    #+#             */
-/*   Updated: 2026/02/03 13:34:17 by brivera          ###   ########.fr       */
+/*   Updated: 2026/02/06 15:10:41 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 #define RPN_HPP
 
 #include <stack>
+#include <iostream>
+#include <climits>
+#include <string>
 
 class RPN
 {

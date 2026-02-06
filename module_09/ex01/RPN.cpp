@@ -6,14 +6,11 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:52:03 by brivera           #+#    #+#             */
-/*   Updated: 2026/02/03 13:30:35 by brivera          ###   ########.fr       */
+/*   Updated: 2026/02/06 15:10:33 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RPN.hpp"
-#include <iostream>
-#include <string>
-#include <climits>
 
 /* ========= constructores ========= */
 RPN::RPN()
