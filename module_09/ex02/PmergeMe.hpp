@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:52:00 by brivera           #+#    #+#             */
-/*   Updated: 2026/02/04 16:47:47 by brivera          ###   ########.fr       */
+/*   Updated: 2026/02/06 12:07:33 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <iomanip>
 #include <iostream>
 #include <string>
+#include <climits>
 
 class PmergeMe
 {

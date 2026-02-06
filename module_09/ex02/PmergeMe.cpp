@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:51:52 by brivera           #+#    #+#             */
-/*   Updated: 2026/02/04 16:59:53 by brivera          ###   ########.fr       */
+/*   Updated: 2026/02/06 12:07:45 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,8 @@ void PmergeMe::_parseAndFill(int argc, char **argv)
 	for(int i = 1; i < argc; i++)
 	{
 		number = std::strtol(argv[i], &endPtr, 10);
-		if (*endPtr != '\0' || number < 0 || std::string(argv[i]).empty())
+		if (*endPtr != '\0' || number < 0 || std::string(argv[i]).empty()
+			|| number > INT_MAX)
 			throw std::runtime_error("Error: Invalid input");
 
 		_vector.push_back(static_cast<int>(number));
