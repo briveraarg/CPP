@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:51:52 by brivera           #+#    #+#             */
-/*   Updated: 2026/02/09 12:35:48 by brivera          ###   ########.fr       */
+/*   Updated: 2026/02/09 14:15:41 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,73 +91,34 @@ std::vector<int> PmergeMe::parse(int argc, char **argv)
 		if (*endPtr != '\0' || number < 0 || std::string(argv[i]).empty()
 			|| number > INT_MAX)
 			throw std::runtime_error("Error: Invalid input");
-
 		vector.push_back(static_cast<int>(number));
 	}
 	return (vector);
 }
+
 /* ========= metodos privados ========= */
 
 void PmergeMe::_sortVector(std::vector<int>& vector)
 {
 	if (vector.size() <= 1)
-		return;
+		return ;
 	std::vector<std::pair<int, int> > pairs;
-	
 	bool	hasStraggler = (vector.size() % 2 != 0);
-	size_t	end = vector.size();
 	int		straggler = 0;
 
 	if (hasStraggler)
-	{
 		straggler = vector.back();
-		end -= 1;
-	}
-	for (size_t i = 0; i < end; i += 2)
-	{
-		if (vector[i] > vector[i + 1])
-			pairs.push_back(std::make_pair(vector[i], vector[i + 1]));
-		else
-			pairs.push_back(std::make_pair(vector[i + 1], vector[i]));
-	}
-
+	_createPairsVector(vector, pairs);
 	_sortPairsVector(pairs);
-
 	std::vector<int> mainChain;
 	std::vector<int> pending;
-
-
-	for (size_t i = 0; i < pairs.size(); i++)
-	{
-		mainChain.push_back(pairs[i].first); 
-		pending.push_back(pairs[i].second);  
-	}
+	_splitPairsVector(pairs, mainChain, pending);
 	mainChain.insert(mainChain.begin(), pending[0]);
-
-	std::vector<int> jacobsthal = _generateJacobsthal(pending.size());
-
-	size_t lastPos = 1;
-	
-	for (size_t i = 2; i < jacobsthal.size(); i++)
-	{
-		size_t n = jacobsthal[i];
-		if (n > pending.size())
-			n = pending.size();
-
-		for (size_t index = n - 1; index >= lastPos; index--)
-		{
-			int val = pending[index];
-			
-			// Binary Search
-			std::vector<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), val);
-			mainChain.insert(pos, val);
-		}
-		
-		lastPos = n;
-	}
+	_insertPendingVector(mainChain, pending);
 	if (hasStraggler)
 	{
-		std::vector<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), straggler);
+		std::vector<int>::iterator pos = 
+			std::lower_bound(mainChain.begin(), mainChain.end(), straggler);
 		mainChain.insert(pos, straggler);
 	}
 	vector = mainChain;
@@ -178,59 +139,17 @@ void PmergeMe::_sortList(std::list<int>& list)
 		straggler = list.back();
 		list.pop_back();
 	}
-	std::list<int>::iterator i = list.begin();
-	while (i != list.end())
-	{
-		int first = *i;
-		i++;
-		int second = *i;
-		i++;
-		
-		if (first > second)
-			pairs.push_back(std::make_pair(first, second));
-		else
-			pairs.push_back(std::make_pair(second, first));
-	}
-	std::cout << std::endl;
+	_createPairsList(list, pairs);
 	_sortPairsList(pairs);
 	std::list<int>	mainChain;
 	std::list<int>	pending;
-	
-	std::list<std::pair<int, int> >::iterator it;
-	for(it = pairs.begin(); it != pairs.end(); ++it)
-	{
-		mainChain.push_back(it->first);
-		pending.push_back(it->second);
-	}
-
+	_splitPairsList(pairs, mainChain, pending);
 	mainChain.insert(mainChain.begin(), pending.front());
-
-	std::list<int> jacobsthal = _generateJacobsthalList(pending.size());
-	std::list<int>::iterator itJacobsthal = jacobsthal.begin();
-	if (jacobsthal.size() > 2)
-		std::advance(itJacobsthal, 2);
-	size_t lastPos = 1;
-	for (; itJacobsthal != jacobsthal.end(); ++itJacobsthal)
-	{
-		size_t n = *itJacobsthal;
-		if (n > pending.size())
-			n = pending.size();
-
-		for (size_t index = n - 1; index >= lastPos; index--)
-		{
-			std::list<int>::iterator itPending = pending.begin();
-			std::advance(itPending, index);
-			int val = *itPending;
-			
-			std::list<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), val);
-			mainChain.insert(pos, val);
-		}
-		lastPos = n;
-	}
-
+	_insertPendingList(mainChain, pending);
 	if (hasStraggler)
 	{
-		std::list<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), straggler);
+		std::list<int>::iterator pos = 
+			std::lower_bound(mainChain.begin(), mainChain.end(), straggler);
 		mainChain.insert(pos, straggler);
 	}
 	list = mainChain;
@@ -239,15 +158,12 @@ void PmergeMe::_sortList(std::list<int>& list)
 void PmergeMe::_sortPairsVector(std::vector<std::pair<int, int> >& pairs)
 {
 	if (pairs.size() <= 1)
-		return;
-	
+		return ;
 	size_t mid = pairs.size() / 2;
 	std::vector<std::pair<int, int> > left(pairs.begin(), pairs.begin() + mid);
 	std::vector<std::pair<int, int> > right(pairs.begin() + mid, pairs.end());
-
 	_sortPairsVector(left);
 	_sortPairsVector(right);
-
 	// Merge
 	size_t i = 0, j = 0, k = 0;
 	while (i < left.size() && j < right.size())
@@ -308,26 +224,26 @@ void PmergeMe::_sortPairsList(std::list<std::pair<int, int> >& pairs)
 	}
 }
 
-std::vector<int> PmergeMe::_generateJacobsthal(int n)
+std::vector<int> PmergeMe::_generateJacobsthal(size_t n)
 {
 	std::vector<int> jacobsthal;
 	
 	jacobsthal.push_back(0);
 	jacobsthal.push_back(1);
 	
-	int i = 2;
+	size_t i = 2;
 	while (true)
 	{
 		int next = jacobsthal[i - 1] + 2 * jacobsthal[i - 2];
 		jacobsthal.push_back(next);
-		if (next >= n)
+		if (static_cast<size_t>(next) >= n)
 			break;
 		i++;
 	}
 	return (jacobsthal);
 }
 
-std::list<int> PmergeMe::_generateJacobsthalList(int n)
+std::list<int> PmergeMe::_generateJacobsthalList(size_t n)
 {
 	std::list<int> jacobsthal;
 	
@@ -342,7 +258,7 @@ std::list<int> PmergeMe::_generateJacobsthalList(int n)
 		int next = last + 2 * secondLast;
 		jacobsthal.push_back(next);
 		
-		if (next >= n)
+		if (static_cast<size_t>(next) >= n)
 			break;
 		
 		secondLast = last;
@@ -405,3 +321,104 @@ Container _generateJacobsthal(int n)
 		std::cout << "[" << it->first << ", " << it->second << "] ";
 	}
 */
+
+void PmergeMe::_insertPendingVector(std::vector<int>& mainChain, std::vector<int>& pending)
+{
+	std::vector<int> jacobsthal = _generateJacobsthal(pending.size());
+
+	size_t lastPos = 1;
+	
+	for (size_t i = 2; i < jacobsthal.size(); i++)
+	{
+		size_t n = jacobsthal[i];
+		if (n > pending.size())
+			n = pending.size();
+
+		for (size_t index = n - 1; index >= lastPos; index--)
+		{
+			int val = pending[index];
+			std::vector<int>::iterator pos
+				= std::lower_bound(mainChain.begin(), mainChain.end(), val);
+			mainChain.insert(pos, val);
+		}
+		lastPos = n;
+	}
+}
+
+void PmergeMe::_insertPendingList(std::list<int>& mainChain, std::list<int>& pending)
+{
+	std::list<int> jacobsthal = _generateJacobsthalList(pending.size());
+	std::list<int>::iterator itJacobsthal = jacobsthal.begin();
+	if (jacobsthal.size() > 2)
+		std::advance(itJacobsthal, 2);
+	size_t lastPos = 1;
+	for (; itJacobsthal != jacobsthal.end(); ++itJacobsthal)
+	{
+		size_t n = *itJacobsthal;
+		if (n > pending.size())
+			n = pending.size();
+
+		for (size_t index = n - 1; index >= lastPos; index--)
+		{
+			std::list<int>::iterator itPending = pending.begin();
+			std::advance(itPending, index);
+			int val = *itPending;
+			
+			std::list<int>::iterator pos =
+				std::lower_bound(mainChain.begin(), mainChain.end(), val);
+			mainChain.insert(pos, val);
+		}
+		lastPos = n;
+	}
+}
+
+void PmergeMe::_splitPairsVector(std::vector<std::pair<int, int> >& pairs, std::vector<int>& mainChain, std::vector<int>& pending)
+{
+	for (size_t i = 0; i < pairs.size(); i++)
+	{
+		mainChain.push_back(pairs[i].first); 
+		pending.push_back(pairs[i].second);
+	}
+}
+
+void PmergeMe::_splitPairsList(std::list<std::pair<int, int> >& pairs, std::list<int>& mainChain, std::list<int>& pending)
+{
+	std::list<std::pair<int, int> >::iterator it;
+	for(it = pairs.begin(); it != pairs.end(); ++it)
+	{
+		mainChain.push_back(it->first);
+		pending.push_back(it->second);
+	}
+}
+
+void PmergeMe::_createPairsVector(std::vector<int>& vector, std::vector<std::pair<int, int> >& pairs)
+{
+	size_t end = vector.size();
+	if (vector.size() % 2 != 0)
+		end -= 1;
+		
+	for (size_t i = 0; i < end; i += 2)
+	{
+		if (vector[i] > vector[i + 1])
+			pairs.push_back(std::make_pair(vector[i], vector[i + 1]));
+		else
+			pairs.push_back(std::make_pair(vector[i + 1], vector[i]));
+	}
+}
+
+void PmergeMe::_createPairsList(std::list<int>& list, std::list<std::pair<int, int> >& pairs)
+{
+	std::list<int>::iterator i = list.begin();
+	while (i != list.end())
+	{
+		int first = *i;
+		i++;
+		int second = *i;
+		i++;
+		
+		if (first > second)
+			pairs.push_back(std::make_pair(first, second));
+		else
+			pairs.push_back(std::make_pair(second, first));
+	}
+}
