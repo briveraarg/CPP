@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:52:00 by brivera           #+#    #+#             */
-/*   Updated: 2026/02/09 16:04:42 by brivera          ###   ########.fr       */
+/*   Updated: 2026/02/09 16:30:10 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@
 #include <iostream>
 #include <string>
 #include <climits>
+
+#define RESET			"\033[0m"
+#define BRIGHT_RED		"\033[91m"
+#define BRIGHT_GREEN	"\033[92m"
+#define BOLD			"\033[1m"
+
+#define MAX_NUM			25
 
 class PmergeMe
 {
@@ -50,8 +57,17 @@ class PmergeMe
 		template <typename It>
 		void _printRange(It begin, It end) const
 		{
+			int count = 0;
 			for (; begin != end; ++begin)
+			{
 				std::cout << *begin << " ";
+				++count;
+				if (count == MAX_NUM)
+				{
+					std::cout << " [...]";
+					break ;
+				}
+			}
 			std::cout << std::endl;
 		}
 

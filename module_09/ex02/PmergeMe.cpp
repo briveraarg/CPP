@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:51:52 by brivera           #+#    #+#             */
-/*   Updated: 2026/02/09 16:05:54 by brivera          ###   ########.fr       */
+/*   Updated: 2026/02/09 16:35:36 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,18 @@ void PmergeMe::execute(std::vector<int> argument)
 	std::clock_t endList = std::clock();
 	double timeList = static_cast<double>(endList - startList) / CLOCKS_PER_SEC * 1000000;
 
-	std::cout << "Before: ";
+	std::cout << BOLD << BRIGHT_GREEN << "Before: " << RESET;
 	_printRange(argument.begin(), argument.end());
-	std::cout << "After:  ";
+	std::cout << "\n";
+	std::cout << BOLD << BRIGHT_GREEN << "After: " << RESET;
 	_printRange(_vector.begin(), _vector.end());
-
+	std::cout << "\n";
 	std::cout << "Time to process a range of " << _vector.size()
-		<< " elements with std::vector : " << timeVector << " us" << std::endl;
+		<< " elements with" << BOLD << " std::vector : " 
+		<< timeVector  << " us" << RESET << std::endl;
 	std::cout << "Time to process a range of " << _list.size()
-		<< " elements with std::list   : " << timeList << " us" << std::endl;
+		<< " elements with" << BOLD << " std::list   : "
+		<< timeList << " us" << RESET << std::endl;
 }
 
 std::vector<int> PmergeMe::parse(int argc, char **argv)
@@ -84,7 +87,7 @@ std::vector<int> PmergeMe::parse(int argc, char **argv)
 		number = std::strtol(argv[i], &endPtr, 10);
 		if (*endPtr != '\0' || number < 0 || std::string(argv[i]).empty()
 			|| number > INT_MAX)
-			throw std::runtime_error("Error: Invalid input");
+			throw std::runtime_error(BOLD BRIGHT_RED "Error:" RESET " Invalid input");
 		vector.push_back(static_cast<int>(number));
 	}
 	return (vector);
@@ -97,6 +100,8 @@ void PmergeMe::_sortVector(std::vector<int>& vector)
 	if (vector.size() <= 1)
 		return ;
 	std::vector<std::pair<int, int> > pairs;
+	std::vector<int> mainChain;
+	std::vector<int> pending;
 	bool	hasStraggler = (vector.size() % 2 != 0);
 	int		straggler = 0;
 
@@ -104,8 +109,6 @@ void PmergeMe::_sortVector(std::vector<int>& vector)
 		straggler = vector.back();
 	_createPairsVector(vector, pairs);
 	_sortPairsVector(pairs);
-	std::vector<int> mainChain;
-	std::vector<int> pending;
 	_splitPairsVector(pairs, mainChain, pending);
 	mainChain.insert(mainChain.begin(), pending[0]);
 	_insertPendingVector(mainChain, pending);
@@ -124,7 +127,8 @@ void PmergeMe::_sortList(std::list<int>& list)
 		return ;
 	
 	std::list<std::pair<int,int> > pairs;
-	
+	std::list<int>	mainChain;
+	std::list<int>	pending;
 	bool	hasStraggler = (list.size() % 2 != 0);
 	int		straggler = 0;
 
@@ -135,8 +139,6 @@ void PmergeMe::_sortList(std::list<int>& list)
 	}
 	_createPairsList(list, pairs);
 	_sortPairsList(pairs);
-	std::list<int>	mainChain;
-	std::list<int>	pending;
 	_splitPairsList(pairs, mainChain, pending);
 	mainChain.insert(mainChain.begin(), pending.front());
 	_insertPendingList(mainChain, pending);
@@ -190,6 +192,7 @@ void PmergeMe::_sortPairsList(std::list<std::pair<int, int> >& pairs)
 	std::list<std::pair<int,int> >::iterator iLeft = left.begin();
 	std::list<std::pair<int,int> >::iterator iRight = right.begin();
 	std::list<std::pair<int,int> >::iterator iPairs = pairs.begin();
+	// Merge
 	while (iLeft != left.end() && iRight != right.end())
 	{
 		if (iLeft->first < iRight->first)
@@ -408,9 +411,12 @@ Container _generateJacobsthal(int n)
 	}
 	return (jacobsthal);
 }
-/* imprimir pares
-std::list<std::pair<int, int> >::iterator it;
+*/
+
+//imprimir pares
+/* std::list<std::pair<int, int> >::iterator it;
 for (it = pairs.begin(); it != pairs.end(); ++it)
 {
 	std::cout << "[" << it->first << ", " << it->second << "] ";
-} */
+}
+ */
