@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:50:56 by brivera           #+#    #+#             */
-/*   Updated: 2026/02/06 15:10:41 by brivera          ###   ########.fr       */
+/*   Updated: 2026/02/09 17:13:42 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 #include <iostream>
 #include <climits>
 #include <string>
+
+#define RESET			"\033[0m"
+#define BRIGHT_RED		"\033[91m"
 
 class RPN
 {

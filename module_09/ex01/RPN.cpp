@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 15:52:03 by brivera           #+#    #+#             */
-/*   Updated: 2026/02/06 15:10:33 by brivera          ###   ########.fr       */
+/*   Updated: 2026/02/09 18:28:52 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,18 @@ int RPN::calculator(const std::string& input)
 	for(unsigned int i = 0; i < input.length(); i++)
 	{
 		char c = input[i];
-
-		if (isdigit(c))
+		if (isdigit(c) && isspace(input[i + 1]))
 		{
 			if (i + 1 < input.length() && isdigit(input[i + 1]))
 				throw std::runtime_error("Error");
 			_pilaNumber.push(c - '0');
 		}
 		else if (_isOperator(c))
+		{
+			if (input[i + 1] != '\0' && !isspace(input[i + 1]))
+				throw std::runtime_error("Error");
 			_performOperation(c);
+		}
 		else if (isspace(c))
 			continue;
 		else

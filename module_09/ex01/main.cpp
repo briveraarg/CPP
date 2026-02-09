@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/29 16:45:43 by brivera           #+#    #+#             */
-/*   Updated: 2026/02/06 17:39:26 by brivera          ###   ########.fr       */
+/*   Updated: 2026/02/09 17:15:24 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ int main(int argc, char **argv)
 		std::cout << stack.calculator(argv[1]) << std::endl;
 	}
 	catch(const std::exception& e){
-		std::cerr << e.what() << '\n';}
+		std::cerr << BRIGHT_RED << e.what() << '\n' << RESET;}
 	return (0);
 }
