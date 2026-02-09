@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:52:00 by brivera           #+#    #+#             */
-/*   Updated: 2026/02/09 16:30:10 by brivera          ###   ########.fr       */
+/*   Updated: 2026/02/09 16:45:35 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ class PmergeMe
 		void	_splitPairsVector(std::vector<std::pair<int, int> >& pairs, std::vector<int>& mainChain, std::vector<int>& pending);
 		void	_createPairsVector(std::vector<int>& vector, std::vector<std::pair<int, int> >& pairs);
 		void	_fillVector(std::vector<int> argument);
+		std::vector<int> _generateJacobsthal(size_t n);
 		
 		/* métodos para ordenar en una lista */
 		void	_sortPairsList(std::list<std::pair<int, int> >& pairs);
@@ -51,9 +52,9 @@ class PmergeMe
 		void	_splitPairsList(std::list<std::pair<int, int> >& pairs, std::list<int>& mainChain, std::list<int>& pending);
 		void	_createPairsList(std::list<int>& list, std::list<std::pair<int, int> >& pairs);;
 		void	_fillList(std::vector<int> argument);
-
-		std::vector<int> _generateJacobsthal(size_t n);
 		std::list<int> _generateJacobsthalList(size_t n);
+		
+		/* métodos aux*/
 		template <typename It>
 		void _printRange(It begin, It end) const
 		{
@@ -70,7 +71,9 @@ class PmergeMe
 			}
 			std::cout << std::endl;
 		}
-
+		void	_printTimeAndNumbers(double& timeList,
+				double& timeval, std::vector<int>& argument);
+				
 	public:
 		PmergeMe(void);
 		PmergeMe(const PmergeMe& other);

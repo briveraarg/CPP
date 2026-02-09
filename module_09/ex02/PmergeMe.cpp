@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:51:52 by brivera           #+#    #+#             */
-/*   Updated: 2026/02/09 16:35:36 by brivera          ###   ########.fr       */
+/*   Updated: 2026/02/09 16:46:29 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,18 +62,7 @@ void PmergeMe::execute(std::vector<int> argument)
 	std::clock_t endList = std::clock();
 	double timeList = static_cast<double>(endList - startList) / CLOCKS_PER_SEC * 1000000;
 
-	std::cout << BOLD << BRIGHT_GREEN << "Before: " << RESET;
-	_printRange(argument.begin(), argument.end());
-	std::cout << "\n";
-	std::cout << BOLD << BRIGHT_GREEN << "After: " << RESET;
-	_printRange(_vector.begin(), _vector.end());
-	std::cout << "\n";
-	std::cout << "Time to process a range of " << _vector.size()
-		<< " elements with" << BOLD << " std::vector : " 
-		<< timeVector  << " us" << RESET << std::endl;
-	std::cout << "Time to process a range of " << _list.size()
-		<< " elements with" << BOLD << " std::list   : "
-		<< timeList << " us" << RESET << std::endl;
+	_printTimeAndNumbers(timeList, timeVector, argument);
 }
 
 std::vector<int> PmergeMe::parse(int argc, char **argv)
@@ -87,7 +76,8 @@ std::vector<int> PmergeMe::parse(int argc, char **argv)
 		number = std::strtol(argv[i], &endPtr, 10);
 		if (*endPtr != '\0' || number < 0 || std::string(argv[i]).empty()
 			|| number > INT_MAX)
-			throw std::runtime_error(BOLD BRIGHT_RED "Error:" RESET " Invalid input");
+			throw std::runtime_error
+				(BOLD BRIGHT_RED "Error:" RESET " Invalid input");
 		vector.push_back(static_cast<int>(number));
 	}
 	return (vector);
@@ -379,6 +369,22 @@ void PmergeMe::_createPairsList(std::list<int>& list, std::list<std::pair<int, i
 		else
 			pairs.push_back(std::make_pair(second, first));
 	}
+}
+
+void PmergeMe::_printTimeAndNumbers(double& timeList, double& timeVector, std::vector<int>& argument)
+{
+	std::cout << BOLD << BRIGHT_GREEN << "Before: " << RESET;
+	_printRange(argument.begin(), argument.end());
+	std::cout << "\n";
+	std::cout << BOLD << BRIGHT_GREEN << "After: " << RESET;
+	_printRange(_vector.begin(), _vector.end());
+	std::cout << "\n";
+	std::cout << "Time to process a range of " << _vector.size()
+		<< " elements with" << BOLD << " std::vector : " 
+		<< timeVector  << " us" << RESET << std::endl;
+	std::cout << "Time to process a range of " << _list.size()
+		<< " elements with" << BOLD << " std::list   : "
+		<< timeList << " us" << RESET << std::endl;
 }
 
 /* void PmergeMe::_printContent(const std::vector<int>& vector) const
