@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:52:00 by brivera           #+#    #+#             */
-/*   Updated: 2026/02/06 19:01:10 by brivera          ###   ########.fr       */
+/*   Updated: 2026/02/09 12:29:00 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ class PmergeMe
 		void	_fillList(std::vector<int> argument);
 
 		std::vector<int> _generateJacobsthal(int n);
-				template <typename It>
+		std::list<int> _generateJacobsthalList(int n);
+		template <typename It>
 		void _printRange(It begin, It end) const
 		{
 			for (; begin != end; ++begin)

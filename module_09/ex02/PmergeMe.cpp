@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:51:52 by brivera           #+#    #+#             */
-/*   Updated: 2026/02/09 11:16:56 by brivera          ###   ########.fr       */
+/*   Updated: 2026/02/09 12:35:48 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,26 +54,29 @@ void PmergeMe::execute(std::vector<int> argument)
 	if (argument.empty())
 		return;
 
-	std::clock_t startDict1 = std::clock();
+	_vector.clear();
+	std::clock_t startVector = std::clock();
 	_fillVector(argument);
 	_sortVector(_vector);
-	std::clock_t endDict1 = std::clock();
-	double timeDict1 = static_cast<double>(endDict1 - startDict1) / CLOCKS_PER_SEC * 1000000; // microsegundos
+	std::clock_t endVector = std::clock();
+	double timeVector = static_cast<double>(endVector - startVector) / CLOCKS_PER_SEC * 1000000;
 
-	std::clock_t startDict2 = std::clock();
+	_list.clear();
+	std::clock_t startList = std::clock();
 	_fillList(argument);
 	_sortList(_list);
-	std::clock_t endDict2 = std::clock();
-	double timeDict2 = static_cast<double>(endDict2 - startDict2) / CLOCKS_PER_SEC * 1000000; // microsegundos
+	std::clock_t endList = std::clock();
+	double timeList = static_cast<double>(endList - startList) / CLOCKS_PER_SEC * 1000000;
 
 	std::cout << "Before: ";
 	_printRange(argument.begin(), argument.end());
-	std::cout << "After list:  ";
-	_printRange(_list.begin(), _list.end());
-	std::cout << "After vector:  ";
+	std::cout << "After:  ";
 	_printRange(_vector.begin(), _vector.end());
-	std::cout << "size " << _vector.size() << " std::vector : " << timeDict1 << " us" << std::endl;
-	std::cout << "size " << _list.size() << " std::list : " << timeDict2 << " us" << std::endl;
+
+	std::cout << "Time to process a range of " << _vector.size()
+		<< " elements with std::vector : " << timeVector << " us" << std::endl;
+	std::cout << "Time to process a range of " << _list.size()
+		<< " elements with std::list   : " << timeList << " us" << std::endl;
 }
 
 std::vector<int> PmergeMe::parse(int argc, char **argv)
@@ -99,7 +102,6 @@ void PmergeMe::_sortVector(std::vector<int>& vector)
 {
 	if (vector.size() <= 1)
 		return;
-	// 1. Emparejar elementos (ganador, perdedor)
 	std::vector<std::pair<int, int> > pairs;
 	
 	bool	hasStraggler = (vector.size() % 2 != 0);
@@ -113,14 +115,12 @@ void PmergeMe::_sortVector(std::vector<int>& vector)
 	}
 	for (size_t i = 0; i < end; i += 2)
 	{
-		// En first guardamos el MAYOR (ganador), en second el MENOR (perdedor)
 		if (vector[i] > vector[i + 1])
 			pairs.push_back(std::make_pair(vector[i], vector[i + 1]));
 		else
 			pairs.push_back(std::make_pair(vector[i + 1], vector[i]));
 	}
 
-	// 2. Ordenar recursivamente los pares basándose en el elemento 'first' (el mayor)
 	_sortPairsVector(pairs);
 
 	std::vector<int> mainChain;
@@ -146,7 +146,6 @@ void PmergeMe::_sortVector(std::vector<int>& vector)
 
 		for (size_t index = n - 1; index >= lastPos; index--)
 		{
-			// Elemento a insertar
 			int val = pending[index];
 			
 			// Binary Search
@@ -156,8 +155,6 @@ void PmergeMe::_sortVector(std::vector<int>& vector)
 		
 		lastPos = n;
 	}
-
-	// Insertar el straggler si existe
 	if (hasStraggler)
 	{
 		std::vector<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), straggler);
@@ -194,15 +191,49 @@ void PmergeMe::_sortList(std::list<int>& list)
 		else
 			pairs.push_back(std::make_pair(second, first));
 	}
-	//imprimir pares
-	std::list<std::pair<int, int> >::iterator it;
-	for (it = pairs.begin(); it != pairs.end(); ++it) {
-		std::cout << "[" << it->first << ", " << it->second << "] ";
-	}//borrar
 	std::cout << std::endl;
 	_sortPairsList(pairs);
-	(void) straggler; //borrar
+	std::list<int>	mainChain;
+	std::list<int>	pending;
+	
+	std::list<std::pair<int, int> >::iterator it;
+	for(it = pairs.begin(); it != pairs.end(); ++it)
+	{
+		mainChain.push_back(it->first);
+		pending.push_back(it->second);
+	}
 
+	mainChain.insert(mainChain.begin(), pending.front());
+
+	std::list<int> jacobsthal = _generateJacobsthalList(pending.size());
+	std::list<int>::iterator itJacobsthal = jacobsthal.begin();
+	if (jacobsthal.size() > 2)
+		std::advance(itJacobsthal, 2);
+	size_t lastPos = 1;
+	for (; itJacobsthal != jacobsthal.end(); ++itJacobsthal)
+	{
+		size_t n = *itJacobsthal;
+		if (n > pending.size())
+			n = pending.size();
+
+		for (size_t index = n - 1; index >= lastPos; index--)
+		{
+			std::list<int>::iterator itPending = pending.begin();
+			std::advance(itPending, index);
+			int val = *itPending;
+			
+			std::list<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), val);
+			mainChain.insert(pos, val);
+		}
+		lastPos = n;
+	}
+
+	if (hasStraggler)
+	{
+		std::list<int>::iterator pos = std::lower_bound(mainChain.begin(), mainChain.end(), straggler);
+		mainChain.insert(pos, straggler);
+	}
+	list = mainChain;
 }
 
 void PmergeMe::_sortPairsVector(std::vector<std::pair<int, int> >& pairs)
@@ -245,7 +276,38 @@ void PmergeMe::_sortPairsList(std::list<std::pair<int, int> >& pairs)
 
 	_sortPairsList(left);
 	_sortPairsList(right);
+	
+	std::list<std::pair<int,int> >::iterator iLeft = left.begin();
+	std::list<std::pair<int,int> >::iterator iRight = right.begin();
+	std::list<std::pair<int,int> >::iterator iPairs = pairs.begin();
+	while (iLeft != left.end() && iRight != right.end())
+	{
+		if (iLeft->first < iRight->first)
+		{
+			*iPairs = *iLeft;
+			++iLeft;
+		}
+		else
+		{
+			*iPairs = *iRight;
+			++iRight;
+		}
+		++iPairs;
+	}
+	while (iLeft != left.end())
+	{
+		*iPairs = *iLeft;
+		++iLeft;
+		++iPairs;
+	}
+	while (iRight != right.end())
+	{
+		*iPairs = *iRight;
+		++iRight;
+		++iPairs;
+	}
 }
+
 std::vector<int> PmergeMe::_generateJacobsthal(int n)
 {
 	std::vector<int> jacobsthal;
@@ -261,6 +323,30 @@ std::vector<int> PmergeMe::_generateJacobsthal(int n)
 		if (next >= n)
 			break;
 		i++;
+	}
+	return (jacobsthal);
+}
+
+std::list<int> PmergeMe::_generateJacobsthalList(int n)
+{
+	std::list<int> jacobsthal;
+	
+	jacobsthal.push_back(0);
+	jacobsthal.push_back(1);
+	
+	int last = 1;
+	int secondLast = 0;
+
+	while (true)
+	{
+		int next = last + 2 * secondLast;
+		jacobsthal.push_back(next);
+		
+		if (next >= n)
+			break;
+		
+		secondLast = last;
+		last = next;
 	}
 	return (jacobsthal);
 }
@@ -289,3 +375,33 @@ void PmergeMe::_fillList(std::vector<int> argument)
 	}
 	std::cout << std::endl;
 } */
+
+/*
+template <typename Container>
+Container _generateJacobsthal(int n)
+{
+    Container jacobsthal;
+    jacobsthal.push_back(0);
+    jacobsthal.push_back(1);
+    
+    int last = 1;
+    int secondLast = 0;
+    
+    while (true)
+    {
+        int next = last + 2 * secondLast;
+        jacobsthal.push_back(next);
+        if (next >= n) break;
+        secondLast = last;
+        last = next;
+    }
+    return (jacobsthal);
+}
+*/
+//imprimir pares
+/*
+	std::list<std::pair<int, int> >::iterator it;
+	for (it = pairs.begin(); it != pairs.end(); ++it) {
+		std::cout << "[" << it->first << ", " << it->second << "] ";
+	}
+*/
