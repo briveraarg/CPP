@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:51:52 by brivera           #+#    #+#             */
-/*   Updated: 2026/02/09 16:46:29 by brivera          ###   ########.fr       */
+/*   Updated: 2026/02/09 16:51:15 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,16 @@ void PmergeMe::execute(std::vector<int> argument)
 	_fillVector(argument);
 	_sortVector(_vector);
 	std::clock_t endVector = std::clock();
-	double timeVector = static_cast<double>(endVector - startVector) / CLOCKS_PER_SEC * 1000000;
+	double timeVector = static_cast<double>(endVector - startVector)
+						/ CLOCKS_PER_SEC * 1000000;
 
 	_list.clear();
 	std::clock_t startList = std::clock();
 	_fillList(argument);
 	_sortList(_list);
 	std::clock_t endList = std::clock();
-	double timeList = static_cast<double>(endList - startList) / CLOCKS_PER_SEC * 1000000;
+	double timeList = static_cast<double>(endList - startList)
+						/ CLOCKS_PER_SEC * 1000000;
 
 	_printTimeAndNumbers(timeList, timeVector, argument);
 }
@@ -146,8 +148,10 @@ void PmergeMe::_sortPairsVector(std::vector<std::pair<int, int> >& pairs)
 	if (pairs.size() <= 1)
 		return ;
 	size_t mid = pairs.size() / 2;
-	std::vector<std::pair<int, int> > left(pairs.begin(), pairs.begin() + mid);
-	std::vector<std::pair<int, int> > right(pairs.begin() + mid, pairs.end());
+	std::vector<std::pair<int, int> > 
+		left(pairs.begin(), pairs.begin() + mid);
+	std::vector<std::pair<int, int> > 
+		right(pairs.begin() + mid, pairs.end());
 	_sortPairsVector(left);
 	_sortPairsVector(right);
 	// Merge
