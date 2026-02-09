@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:51:52 by brivera           #+#    #+#             */
-/*   Updated: 2026/02/09 16:51:15 by brivera          ###   ########.fr       */
+/*   Updated: 2026/02/09 18:39:17 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 PmergeMe::PmergeMe(void)
 {
 }
+
 PmergeMe::PmergeMe(const PmergeMe& other)
 {
 	this->_list = other._list;
