@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:52:00 by brivera           #+#    #+#             */
-/*   Updated: 2026/02/09 14:11:06 by brivera          ###   ########.fr       */
+/*   Updated: 2026/02/09 16:04:42 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,20 @@ class PmergeMe
 		std::list<int>		_list;
 		std::vector<int>	_vector;
 		
-		std::vector<int>	_parse(int argc, char** argv);
-		//void	_printContent(const std::vector<int>& vector) const;
+		/* métodos para ordenar en un vector */
 		void	_sortVector(std::vector<int>& arr);
 		void	_sortPairsVector(std::vector<std::pair<int, int> >& pairs);
+		void	_insertPendingVector(std::vector<int>& mainChain, std::vector<int>& pending);
+		void	_splitPairsVector(std::vector<std::pair<int, int> >& pairs, std::vector<int>& mainChain, std::vector<int>& pending);
+		void	_createPairsVector(std::vector<int>& vector, std::vector<std::pair<int, int> >& pairs);
+		void	_fillVector(std::vector<int> argument);
+		
+		/* métodos para ordenar en una lista */
 		void	_sortPairsList(std::list<std::pair<int, int> >& pairs);
 		void	_sortList(std::list<int>& arr);
-		void	_insertPendingVector(std::vector<int>& mainChain, std::vector<int>& pending);
 		void	_insertPendingList(std::list<int>& mainChain, std::list<int>& pending);
-		void	_splitPairsVector(std::vector<std::pair<int, int> >& pairs, std::vector<int>& mainChain, std::vector<int>& pending);
 		void	_splitPairsList(std::list<std::pair<int, int> >& pairs, std::list<int>& mainChain, std::list<int>& pending);
-		void	_createPairsVector(std::vector<int>& vector, std::vector<std::pair<int, int> >& pairs);
-		void	_createPairsList(std::list<int>& list, std::list<std::pair<int, int> >& pairs);
-		void	_fillVector(std::vector<int> argument);
+		void	_createPairsList(std::list<int>& list, std::list<std::pair<int, int> >& pairs);;
 		void	_fillList(std::vector<int> argument);
 
 		std::vector<int> _generateJacobsthal(size_t n);
@@ -56,7 +57,6 @@ class PmergeMe
 
 	public:
 		PmergeMe(void);
-		//PmergeMe(int argc, char** argv);
 		PmergeMe(const PmergeMe& other);
 		PmergeMe& operator=(const PmergeMe& other);
 		~PmergeMe();
@@ -66,3 +66,5 @@ class PmergeMe
 };
 
 #endif
+
+//void	_printContent(const std::vector<int>& vector) const;

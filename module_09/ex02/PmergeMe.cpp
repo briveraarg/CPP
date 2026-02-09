@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:51:52 by brivera           #+#    #+#             */
-/*   Updated: 2026/02/09 14:15:41 by brivera          ###   ########.fr       */
+/*   Updated: 2026/02/09 16:05:54 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,6 @@
 PmergeMe::PmergeMe(void)
 {
 }
-
-/* PmergeMe::PmergeMe(int argc, char** argv)
-{
-	_parse(argc, argv);
- */
-
 PmergeMe::PmergeMe(const PmergeMe& other)
 {
 	this->_list = other._list;
@@ -283,45 +277,6 @@ void PmergeMe::_fillList(std::vector<int> argument)
 	}
 }
 
-/* void PmergeMe::_printContent(const std::vector<int>& vector) const
-{
-	for (size_t i = 0; i < vector.size(); i++)
-	{
-		std::cout << vector[i] << " ";
-	}
-	std::cout << std::endl;
-} */
-
-/*
-template <typename Container>
-Container _generateJacobsthal(int n)
-{
-    Container jacobsthal;
-    jacobsthal.push_back(0);
-    jacobsthal.push_back(1);
-    
-    int last = 1;
-    int secondLast = 0;
-    
-    while (true)
-    {
-        int next = last + 2 * secondLast;
-        jacobsthal.push_back(next);
-        if (next >= n) break;
-        secondLast = last;
-        last = next;
-    }
-    return (jacobsthal);
-}
-*/
-//imprimir pares
-/*
-	std::list<std::pair<int, int> >::iterator it;
-	for (it = pairs.begin(); it != pairs.end(); ++it) {
-		std::cout << "[" << it->first << ", " << it->second << "] ";
-	}
-*/
-
 void PmergeMe::_insertPendingVector(std::vector<int>& mainChain, std::vector<int>& pending)
 {
 	std::vector<int> jacobsthal = _generateJacobsthal(pending.size());
@@ -422,3 +377,40 @@ void PmergeMe::_createPairsList(std::list<int>& list, std::list<std::pair<int, i
 			pairs.push_back(std::make_pair(second, first));
 	}
 }
+
+/* void PmergeMe::_printContent(const std::vector<int>& vector) const
+{
+	for (size_t i = 0; i < vector.size(); i++)
+	{
+		std::cout << vector[i] << " ";
+	}
+	std::cout << std::endl;
+} */
+
+/*
+template <typename Container>
+Container _generateJacobsthal(int n)
+{
+	Container jacobsthal;
+	jacobsthal.push_back(0);
+	jacobsthal.push_back(1);
+	
+	int last = 1;
+	int secondLast = 0;
+	
+	while (true)
+	{
+		int next = last + 2 * secondLast;
+		jacobsthal.push_back(next);
+		if (next >= n) break;
+		secondLast = last;
+		last = next;
+	}
+	return (jacobsthal);
+}
+/* imprimir pares
+std::list<std::pair<int, int> >::iterator it;
+for (it = pairs.begin(); it != pairs.end(); ++it)
+{
+	std::cout << "[" << it->first << ", " << it->second << "] ";
+} */
