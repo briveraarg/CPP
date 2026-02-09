@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 12:23:32 by brivera           #+#    #+#             */
-/*   Updated: 2026/02/06 17:17:01 by brivera          ###   ########.fr       */
+/*   Updated: 2026/02/09 17:11:26 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	BitcoinExchange::loadDataBase(const std::string& file)
 	float			num;
 
 	if (!FileDataBase.is_open())
-		throw std::runtime_error("Error: could not open database file.");
+		throw std::runtime_error(BRIGHT_RED "Error: " RESET " not open database file.");
 	std::getline(FileDataBase, line);
 	while (std::getline(FileDataBase, line))
 	{
@@ -59,16 +59,16 @@ void	BitcoinExchange::loadDataBase(const std::string& file)
 		errno = 0;
 		std::stringstream ss(line);
 		if (!std::getline(ss, date, ','))
-			throw std::runtime_error("Error: invalid format in database.");
+			throw std::runtime_error(BRIGHT_RED "Error: " RESET "invalid format in database.");
 		if (!_isValidDate(date))
-			throw std::runtime_error("Error: invalid date in database ==> " + date);
+			throw std::runtime_error(BRIGHT_RED "Error: " RESET "invalid date in database ==> " + date);
 		if (!std::getline(ss, value))
-			throw std::runtime_error("Error: invalid format in database.");
+			throw std::runtime_error(BRIGHT_RED "Error: " RESET "invalid format in database.");
 		try{
 			num = _stringToFloat(value);
 		}
 		catch (std::exception &e){
-			throw std::runtime_error("Error: bad float value in database => " + line);
+			throw std::runtime_error(BRIGHT_RED "Error: " RESET "bad float value in database => " + line);
 		}
 		_dataBase.insert(std::make_pair(date, num));
 	}
@@ -81,7 +81,7 @@ void	BitcoinExchange::processInput(const std::string& file) const
 	std::string		line;
 
 	if(!fileInput.is_open())
-		throw std::runtime_error("Error: could not open file.");
+		throw std::runtime_error(BRIGHT_RED "Error: " RESET " not open file.");
 	std::getline(fileInput, line);
 	while (std::getline(fileInput, line))
 	{
@@ -177,14 +177,14 @@ void	BitcoinExchange::_processLine(const std::string& line) const
 	delim = line.find(" | ");
 	if (delim == std::string::npos)
 	{
-		std::cerr << "Error: bad input => " << line << std::endl;
+		std::cerr << BRIGHT_RED "Error: " RESET "bad input => " << line << std::endl;
 		return;
 	}
 	date = line.substr(0, delim);
 	valStr = line.substr(delim + 3);
 	if (!_isValidDate(date))
 	{
-		std::cerr << "Error: bad input => " << date << std::endl;
+		std::cerr << BRIGHT_RED "Error: " RESET "bad input => " << date << std::endl;
 		return;
 	}
 	try
@@ -193,17 +193,17 @@ void	BitcoinExchange::_processLine(const std::string& line) const
 	}
 	catch (std::exception &e)
 	{
-		std::cerr << "Error: bad input => " << line << std::endl;
+		std::cerr << BRIGHT_RED "Error: " RESET "bad input => " << line << std::endl;
 		return;
 	}
 	if (val < 0)
 	{
-		std::cerr << "Error: not a positive number." << std::endl;
+		std::cerr << BRIGHT_RED "Error: " RESET "not a positive number." << std::endl;
 		return;
 	}
 	if (val > 1000)
 	{
-		std::cerr << "Error: too large a number." << std::endl;
+		std::cerr << BRIGHT_RED "Error: " RESET "too large a number." << std::endl;
 		return;
 	}
 	std::cout << date << " => " << val << " = " << val * getExchangeRate(date) << std::endl;

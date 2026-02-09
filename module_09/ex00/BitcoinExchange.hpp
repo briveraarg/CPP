@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 12:23:29 by brivera           #+#    #+#             */
-/*   Updated: 2026/02/06 15:08:47 by brivera          ###   ########.fr       */
+/*   Updated: 2026/02/09 17:11:18 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 #include <cstdlib>
 #include <cstring>
 #include <ctime>
+
+#define RESET			"\033[0m"
+#define BRIGHT_RED		"\033[91m"
 
 class BitcoinExchange
 {
