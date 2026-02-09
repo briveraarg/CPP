@@ -6,7 +6,7 @@
 /*   By: brivera <brivera@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 16:51:52 by brivera           #+#    #+#             */
-/*   Updated: 2026/02/06 19:06:22 by brivera          ###   ########.fr       */
+/*   Updated: 2026/02/09 11:16:56 by brivera          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,9 +198,10 @@ void PmergeMe::_sortList(std::list<int>& list)
 	std::list<std::pair<int, int> >::iterator it;
 	for (it = pairs.begin(); it != pairs.end(); ++it) {
 		std::cout << "[" << it->first << ", " << it->second << "] ";
-	}
+	}//borrar
 	std::cout << std::endl;
 	_sortPairsList(pairs);
+	(void) straggler; //borrar
 
 }
 
@@ -235,6 +236,15 @@ void PmergeMe::_sortPairsList(std::list<std::pair<int, int> >& pairs)
 {
 	if (pairs.size() <= 1)
 		return ;
+	
+	size_t mid = pairs.size() / 2;
+	std::list<std::pair<int,int> >::iterator it = pairs.begin();
+	std::advance(it, mid);
+	std::list<std::pair<int,int> > left(pairs.begin(), it);
+	std::list<std::pair<int,int> > right(it, pairs.end());
+
+	_sortPairsList(left);
+	_sortPairsList(right);
 }
 std::vector<int> PmergeMe::_generateJacobsthal(int n)
 {
