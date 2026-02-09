@@ -5,16 +5,4 @@ PhoneBook
 .DS_Store
 *.swp
 .vscode
-ex00
-ex01
-ex02
-ex03
-
-ex0
-ex1
-ex2
-ex3
-
-btc
-RPN
-PmergeMe
+*.out
